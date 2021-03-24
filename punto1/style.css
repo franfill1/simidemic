@@ -1,0 +1,14 @@
+#simulationCanvas
+{
+    width: 400;
+    height: 400;
+    background-color: rgb(221, 221, 221);
+    border: 1 solid rgb(0, 0, 0);
+}
+#graph
+{
+    width: 200;
+    height: 200;
+    background-color: rgb(221, 221, 221);
+    border: 1 solid rgb(0, 0, 0);
+}
