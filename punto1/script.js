@@ -7,16 +7,32 @@ var params =
     {
         person :
         {
+            suscectible : "lightGreen", //colore di una persona suscettibile sul canvas
+            infected : "red", //colore di una persona infetta sul canvas
             suscectible : "lightGreen",
             infected : "red",
         },
 
         graph :
         {
-            suscectible : "lightGreen",
-            infected : "red",
+            suscectible : "lightGreen", //colore dell'area che rappresenta la quantità di persone suscettibili sul grafico
+            infected : "red", //colore dell'area che rappresenta la quantità di persone infette sul grafico
         },
     },
+    values : 
+    {
+        dimensions :
+        {
+            person :
+            {
+                radius : 1, //raggio dei cerchi che rappresentano le persone sul canvas
+            }
+        },
+        infection :
+        {
+            defaultIndex : 0.1, //valore di default dell'indice di infezione dell'epidemia
+        }
+    }
 
 }
 
@@ -42,6 +58,7 @@ function person()
 
     const suscectibleColor = params.colors.person.suscectible;
     const infectedColor = params.colors.person.infected;
+    const radius = params.values.dimensions.person.radius;
 
     this.updateSprite = function(canvas, R, C)
     {
@@ -49,6 +66,7 @@ function person()
         this.updatesprite(canvas, R, C) => void
 
         Disegna un cerchio nel canvas, basandosi sulla posizione x e y nella griglia di R righe e C colonne
+        Il colore del cerchio dipende dallo stato (this.status) della persona (suscettibile/infetta)
         Il colore del cerchio dipende dallo stato (status) della persona (suscettibile/infetta)
 
         Input: 
@@ -71,7 +89,7 @@ function person()
         }
 
         ctx.beginPath();
-        ctx.arc(posX, posY, 1, 0, 2 * Math.PI);
+        ctx.arc(posX, posY, radius, 0, 2 * Math.PI);
         ctx.fill();
         ctx.stroke;
     }
@@ -128,7 +146,7 @@ function simulation (canvasId, Ri, Ci)
         this.canvas = document.getElementById(canvasId);
         this.nInfected = 0;
 
-        this.index = 0.2;
+        this.index = params.values.infection.defaultIndex;
         this.draw();
     }
 
@@ -186,7 +204,7 @@ function simulation (canvasId, Ri, Ci)
         /*
         this.infection() => void
         Simula contatti e infezioni fra la popolazione nella griglia (this.grid), in base all'indice di infezione (this.index)
-        Se la persona contrassegnata da una X è infetta, le persone contrassegnate da 0 hanno (this.index) probabilità di infettarsi
+        Se la persona contrassegnata da una X è infetta, le persone contrassegnate da 0 hanno probabilità pari all'indice (this.index) di infettarsi
        
         O O O O O O O
         O 0 0 0 O O O
@@ -250,6 +268,8 @@ function graph(canvasId, dataMaxi)
     canvasId => id nel documento HTML del canvas sul quale va disegnato il grafico
     dataMaxi => numerosità della popolazione inizialmente
    */
+    const infectedColor = params.colors.graph.infected;
+
     this.init = function()
     {
         /*
@@ -272,7 +292,7 @@ function graph(canvasId, dataMaxi)
         */
         var ctx = this.canvas.getContext("2d");
         
-        ctx.fillStyle = params.colors.graph.infected;
+        ctx.fillStyle = infectedColor;
         ctx.moveTo(0, this.canvas.height);
         ctx.beginPath();
 
