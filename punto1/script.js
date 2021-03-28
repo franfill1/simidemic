@@ -16,6 +16,9 @@ const params =
         {
             suscectible : "lightGreen", //colore dell'area che rappresenta la quantità di persone suscettibili sul grafico
             infected : "red", //colore dell'area che rappresenta la quantità di persone infette sul grafico
+            textColor : "black", //colore del testo che indica i valori sugli assi del grafico
+            lineColor : "black", //colore dei trattini sugli assi del grafico
+            textFont : "sans-serif", //stile del testo che indica i valori sugli assi del grafico
         },
     },
     values : 
@@ -24,10 +27,17 @@ const params =
         {
             person :
             {
-                radius : 4, //raggio dei cerchi che rappresentano le persone sul canvas
-                pulseBeginFade : 20, //raggio raggiunto il quale le circonferenze che rappresentano le pulsazoni cominciano a scomparire
-                pulseFinal : 40, //raggio dopo il quale le pulsazioni non sono più visibili
-                pulseIncrement : 0.25, //incremento del raggio di una pulsazione ad ogni frame
+                radius : 1, //raggio dei cerchi che rappresentano le persone sul canvas
+                pulseBeginFade : 5, //raggio raggiunto il quale le circonferenze che rappresentano le pulsazoni cominciano a scomparire
+                pulseFinal : 10, //raggio dopo il quale le pulsazioni non sono più visibili
+                pulseIncrement : 1, //incremento del raggio di una pulsazione ad ogni frame
+            },
+            graph :
+            {
+                stepXValue : 10, //intervallo minimo di giorni rappresentato sull'asse x del grafico
+                stepYValue : 25, //intervallo minimo in percentuale rappresentato sull'asse y del grafico
+                lineLength : 3, //dimensione dei trattini sugli assi del grafico
+                textSize : 12, //altezza del testo sugli assi del grafico
             }
         },
         infection :
@@ -310,28 +320,66 @@ function graph(canvasId, dataMaxi)
         Disegna il grafico, sull'asse delle x viene rappresentato il tempo, sull'asse delle y la quantità di infetti
         */
         var ctx = this.canvas.getContext("2d");
+
+        ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
         ctx.fillStyle = infectedColor;
         ctx.moveTo(0, this.canvas.height);
         ctx.beginPath();
 
+        var stepX = this.canvas.width / (this.data.length - 1);
+        var stepY = this.canvas.height / this.dataMax;
+
         for (var i = 0; i < this.data.length; i++)
         {
-            ctx.lineTo(this.canvas.width / (this.data.length - 1) * i, this.canvas.height * (1 - (this.data[i]/this.dataMax)));
+            ctx.lineTo(i*stepX, this.canvas.height - this.data[i] * stepY);
         }
         ctx.lineTo(this.canvas.width, this.canvas.height);
         ctx.lineTo(0, this.canvas.height);
         ctx.fill();
+
+        const stepXValue = params.values.dimensions.graph.stepXValue;
+        const stepYValue = params.values.dimensions.graph.stepYValue;
+        const lineLength = params.values.dimensions.graph.lineLength;
+        const textSize = params.values.dimensions.graph.textSize;
+
+        ctx.fillStyle = params.colors.graph.textColor;
+        ctx.strokeStyle = params.colors.graph.lineColor;
+        ctx.font = textSize + "px " + params.colors.graph.textFont;
+
+        for (var i = stepXValue; i < this.data.length; i += stepXValue)
+        {
+            ctx.fillText(i, i * stepX - (ctx.measureText(i).width/2), this.canvas.height - lineLength);
+
+            ctx.beginPath();
+            ctx.moveTo(stepX*i, this.canvas.height);
+            ctx.lineTo(stepX*i, this.canvas.height - lineLength);
+            ctx.stroke();
+        }
+
+        var stepY = this.canvas.height / 100 * stepYValue;
+        var percent = stepYValue;
+
+        for (var i = this.canvas.height - stepY; i > 0; i -= stepY)
+        {
+            ctx.fillText(percent + "%", lineLength, i + textSize/2);
+            ctx.beginPath();
+            ctx.moveTo(0, i);
+            ctx.lineTo(lineLength, i);
+            ctx.stroke();
+            percent += stepYValue;
+        }
     }
     this.init();
 }
 
 function main()
 {
-    sim = new simulation("simulationCanvas", 10, 10);
-    gra = new graph("graph", 100);
-    sim.infect(sim.grid[2][2]);
+    sim = new simulation("simulationCanvas", 50, 50);
+    gra = new graph("graph", 2500);
+    sim.infect(sim.grid[25][25]);
     sim.draw();
+    gra.draw();
     frame = 0;
     setInterval(update);
 }
@@ -339,7 +387,7 @@ function main()
 function update()
 {
     sim.draw();
-    if (sim.nInfected < 100 && frame % 50 == 0)
+    if (sim.nInfected < 2500 && frame % 1 == 0)
     {  
         sim.infection();
         gra.data.push(sim.nInfected);
