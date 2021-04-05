@@ -28,8 +28,8 @@ const params =
             person :
             {
                 radius : 1, //raggio dei cerchi che rappresentano le persone sul canvas
-                pulseBeginFade : 5, //raggio raggiunto il quale le circonferenze che rappresentano le pulsazoni cominciano a scomparire
-                pulseFinal : 10, //raggio dopo il quale le pulsazioni non sono più visibili
+                pulseBeginFade : 10, //raggio raggiunto il quale le circonferenze che rappresentano le pulsazoni cominciano a scomparire
+                pulseFinal : 15, //raggio dopo il quale le pulsazioni non sono più visibili
                 pulseIncrement : 1, //incremento del raggio di una pulsazione ad ogni frame
             },
             graph :
@@ -37,12 +37,12 @@ const params =
                 stepXValue : 10, //intervallo minimo di giorni rappresentato sull'asse x del grafico
                 stepYValue : 25, //intervallo minimo in percentuale rappresentato sull'asse y del grafico
                 lineLength : 3, //dimensione dei trattini sugli assi del grafico
-                textSize : 12, //altezza del testo sugli assi del grafico
-            }
+                textSize : 15, //altezza del testo sugli assi del grafico
+        },
         },
         infection :
         {
-            defaultIndex : 0.1, //valore di default dell'indice di infezione dell'epidemia
+            defaultIndex : 0.05, //valore di default dell'indice di infezione dell'epidemia
         }
     }
 
