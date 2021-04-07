@@ -3,47 +3,45 @@ const params =
     /*
     parametri globali, accessibili da ogni funzione e oggetto
     */
-    colors :
+    
+    person :
     {
-        person :
+        radius : 1,
+        colors :
         {
             suscectible : "lightGreen", //colore di una persona suscettibile sul canvas
             infected : "red", //colore di una persona infetta sul canvas
             pulse : "red", //colore della pulsazione emessa da una persona appena infettata sul canvas, rappresentate da una circonferenza
         },
-
-        graph :
+        pulse :
+        {
+            beginFade : 10, //raggio raggiunto il quale le circonferenze che rappresentano le pulsazoni cominciano a scomparire
+            final : 15, //raggio dopo il quale le pulsazioni non sono più visibili
+            increment : 1, //incremento del raggio di una pulsazione ad ogni frame
+        }
+    },
+    graph :
+    {
+        dimensions :
+        {
+            stepXValue : 10, //intervallo minimo di giorni rappresentato sull'asse x del grafico
+            stepYValue : 25, //intervallo minimo in percentuale rappresentato sull'asse y del grafico
+            lineLength : 3, //dimensione dei trattini sugli assi del grafico
+            textSize : 15, //altezza del testo sugli assi del grafico
+        },
+        colors :
         {
             nSuscectible : "lightGreen", //colore dell'area che rappresenta la quantità di persone suscettibili sul grafico
             nInfected : "red", //colore dell'area che rappresenta la quantità di persone infette sul grafico
             textColor : "black", //colore del testo che indica i valori sugli assi del grafico
             lineColor : "black", //colore dei trattini sugli assi del grafico
-            textFont : "sans-serif", //stile del testo che indica i valori sugli assi del grafico
         },
+        textFont : "sans-serif", //stile del testo che indica i valori sugli assi del grafico
     },
-    values : 
+
+    infection :
     {
-        dimensions :
-        {
-            person :
-            {
-                radius : 1, //raggio dei cerchi che rappresentano le persone sul canvas
-                pulseBeginFade : 10, //raggio raggiunto il quale le circonferenze che rappresentano le pulsazoni cominciano a scomparire
-                pulseFinal : 15, //raggio dopo il quale le pulsazioni non sono più visibili
-                pulseIncrement : 1, //incremento del raggio di una pulsazione ad ogni frame
-            },
-            graph :
-            {
-                stepXValue : 10, //intervallo minimo di giorni rappresentato sull'asse x del grafico
-                stepYValue : 25, //intervallo minimo in percentuale rappresentato sull'asse y del grafico
-                lineLength : 3, //dimensione dei trattini sugli assi del grafico
-                textSize : 15, //altezza del testo sugli assi del grafico
-        },
-        },
-        infection :
-        {
-            defaultIndex : 0.05, //valore di default dell'indice di infezione dell'epidemia
-        }
+        defaultIndex : 0.05, //valore di default dell'indice di infezione dell'epidemia
     }
 
 }
@@ -68,14 +66,14 @@ function person()
     this.status = 0; //0 = sano, 1 = infetto
     this.timeSinceInfection = 0;
 
-    const suscectibleColor = params.colors.person.suscectible;
-    const infectedColor = params.colors.person.infected;
-    const pulseColor = params.colors.person.pulse;
-    const radius = params.values.dimensions.person.radius;
+    const suscectibleColor = params.person.colors.suscectible;
+    const infectedColor = params.person.colors.infected;
+    const pulseColor = params.person.colors.pulse;
+    const radius = params.person.radius;
 
-    const pulseBeginFade = params.values.dimensions.person.pulseBeginFade;
-    const pulseFinal = params.values.dimensions.person.pulseFinal;
-    const pulseIncrement = params.values.dimensions.person.pulseIncrement;
+    const pulseBeginFade = params.person.pulse.beginFade;
+    const pulseFinal = params.person.pulse.final;
+    const pulseIncrement = params.person.pulse.increment;
 
     this.updateSprite = function(canvas, R, C)
     {
@@ -176,7 +174,7 @@ function simulation (canvasId, Ri, Ci)
         this.canvas = document.getElementById(canvasId);
         this.nInfected = 0;
 
-        this.index = params.values.infection.defaultIndex;
+        this.index = params.infection.defaultIndex;
         this.draw();
     }
 
@@ -311,7 +309,7 @@ function graph(canvasId, dataMaxi, dataSourcei)
         Il valore di (dataSourcei), dato in input, viene copiato nell'apposito attributo (this.dataSource)
         */
         this.canvas = document.getElementById(canvasId);
-        this.canvas.style.backgroundColor = params.colors.graph.nSuscectible;
+        this.canvas.style.backgroundColor = params.graph.colors.nSuscectible;
         this.data = {nInfected : [], nRecovered : []};
         this.dataSize = 0;
         this.dataMax = dataMaxi;
@@ -348,6 +346,7 @@ function graph(canvasId, dataMaxi, dataSourcei)
         this.draw() => void
         Disegna il grafico, sull'asse delle x viene rappresentato il tempo, sull'asse delle y le quantità indicate dai dati raccolti
         */
+
         var ctx = this.canvas.getContext("2d");
 
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -365,31 +364,31 @@ function graph(canvasId, dataMaxi, dataSourcei)
         {
             if (this.data.hasOwnProperty(propt))
             {
-                ctx.fillStyle = params.colors.graph[propt];
-        ctx.moveTo(0, this.canvas.height);
-        ctx.beginPath();
+                ctx.fillStyle = params.graph.colors[propt];
+                ctx.moveTo(0, this.canvas.height);
+                ctx.beginPath();
 
                 for (var i = 0; i < this.dataSize; i++)
-        {
+                {
                     ctx.lineTo(i*stepX, this.canvas.height - offSets[i] * stepY);
                     offSets[i] += this.data[propt][i];
-        }
+                }
                 for (var i = this.dataSize-1; i >= 0; i--)
                 {
                     ctx.lineTo(i*stepX, this.canvas.height - offSets[i] * stepY);
                 }
-        ctx.fill();
+                ctx.fill();
             }
         }
 
-        const stepXValue = params.values.dimensions.graph.stepXValue;
-        const stepYValue = params.values.dimensions.graph.stepYValue;
-        const lineLength = params.values.dimensions.graph.lineLength;
-        const textSize = params.values.dimensions.graph.textSize;
+        const stepXValue = params.graph.dimensions.stepXValue;
+        const stepYValue = params.graph.dimensions.stepYValue;
+        const lineLength = params.graph.dimensions.lineLength;
+        const textSize = params.graph.dimensions.textSize;
 
-        ctx.fillStyle = params.colors.graph.textColor;
-        ctx.strokeStyle = params.colors.graph.lineColor;
-        ctx.font = textSize + "px " + params.colors.graph.textFont;
+        ctx.fillStyle = params.graph.colors.textColor;
+        ctx.strokeStyle = params.graph.colors.lineColor;
+        ctx.font = textSize + "px " + params.graph.colors.textFont;
 
         for (var i = stepXValue; i < this.dataSize; i += stepXValue)
         {
@@ -413,6 +412,7 @@ function graph(canvasId, dataMaxi, dataSourcei)
             ctx.stroke();
             percent += stepYValue;
         }
+        
     }
     this.init();
 }
