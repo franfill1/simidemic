@@ -1,7 +1,7 @@
 const params = 
 {
     /*
-    parametri globali, accessibili da ogni funzione e oggetto
+    parametri globali, accessibili da ogni funzione e oggetto modifica a caso
     */
     colors :
     {
