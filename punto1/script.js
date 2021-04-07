@@ -283,7 +283,7 @@ function simulation (canvasId, Ri, Ci)
     this.init();
 }
 
-function graph(canvasId, dataMaxi)
+function graph(canvasId, dataMaxi, dataSourcei)
 {
     /* 
     graph(canvasId, dataMax) => void
@@ -291,13 +291,15 @@ function graph(canvasId, dataMaxi)
 
     this.canvas => canvas sul quale viene disegnato il grafico
     this.dataMax => numerosità della popolazione
-    this.data => array contenente i dati relativi all'epidemia
+    this.data => oggetto contenente i dati relativi all'epidemia
+    this.dataSize => quantità di dati raccolti
+    this.dataSource => oggetto con attributi necessari al raccoglimento dei dati
 
     Input:
     canvasId => id nel documento HTML del canvas sul quale va disegnato il grafico
     dataMaxi => numerosità della popolazione inizialmente
+    dataSourcei => oggetto dal quale verranno ricavati i dati, verrà copiato in (this.dataSource)
    */
-    const infectedColor = params.colors.graph.infected;
 
     this.init = function()
     {
@@ -306,37 +308,79 @@ function graph(canvasId, dataMaxi)
         Inizializza tutti gli attributi dell'oggetto
         Il canvas (this.canvas) viene ricavato a partire dall'id fornito in input, l'array dei dati (this.data) viene svuotato
         Il valore di (dataMaxi), dato in input, viene copiato nell'apposito attributo (this.dataMax)
+        Il valore di (dataSourcei), dato in input, viene copiato nell'apposito attributo (this.dataSource)
         */
         this.canvas = document.getElementById(canvasId);
-        this.canvas.style.backgroundColor = params.colors.graph.suscectible;
-        this.data = [];
+        this.canvas.style.backgroundColor = params.colors.graph.nSuscectible;
+        this.data = {nInfected : [], nRecovered : []};
+        this.dataSize = 0;
         this.dataMax = dataMaxi;
+        this.dataSource = dataSourcei;
+    }
+
+    this.updateData = function()
+    {
+        /*
+        this.updateData() => void
+        Aggiorna l'array data in base all'attributo nInfected dell'oggetto (dataSource)
+        */
+        for (var propt in this.data)
+        {
+            if (this.data.hasOwnProperty(propt))
+            {
+                if (this.dataSource.hasOwnProperty(propt))
+                {
+                    this.data[propt].push(this.dataSource[propt]);
+                }
+                else
+                {
+                    this.data[propt].push(0);
+                }
+            }
+        }
+        this.dataSize++;
+        this.draw();
     }
 
     this.draw = function()
     {
         /*
         this.draw() => void
-        Disegna il grafico, sull'asse delle x viene rappresentato il tempo, sull'asse delle y la quantità di infetti
+        Disegna il grafico, sull'asse delle x viene rappresentato il tempo, sull'asse delle y le quantità indicate dai dati raccolti
         */
         var ctx = this.canvas.getContext("2d");
 
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
-        ctx.fillStyle = infectedColor;
+        var stepX = this.canvas.width/(this.dataSize - 1);
+        var stepY = this.canvas.height/this.dataMax;
+
+        var offSets = [];
+        for (var i = 0; i < this.dataSize; i++)
+        {
+            offSets[i] = 0;
+        }
+        
+        for (var propt in this.data)
+        {
+            if (this.data.hasOwnProperty(propt))
+            {
+                ctx.fillStyle = params.colors.graph[propt];
         ctx.moveTo(0, this.canvas.height);
         ctx.beginPath();
 
-        var stepX = this.canvas.width / (this.data.length - 1);
-        var stepY = this.canvas.height / this.dataMax;
-
-        for (var i = 0; i < this.data.length; i++)
+                for (var i = 0; i < this.dataSize; i++)
         {
-            ctx.lineTo(i*stepX, this.canvas.height - this.data[i] * stepY);
+                    ctx.lineTo(i*stepX, this.canvas.height - offSets[i] * stepY);
+                    offSets[i] += this.data[propt][i];
         }
-        ctx.lineTo(this.canvas.width, this.canvas.height);
-        ctx.lineTo(0, this.canvas.height);
+                for (var i = this.dataSize-1; i >= 0; i--)
+                {
+                    ctx.lineTo(i*stepX, this.canvas.height - offSets[i] * stepY);
+                }
         ctx.fill();
+            }
+        }
 
         const stepXValue = params.values.dimensions.graph.stepXValue;
         const stepYValue = params.values.dimensions.graph.stepYValue;
@@ -347,7 +391,7 @@ function graph(canvasId, dataMaxi)
         ctx.strokeStyle = params.colors.graph.lineColor;
         ctx.font = textSize + "px " + params.colors.graph.textFont;
 
-        for (var i = stepXValue; i < this.data.length; i += stepXValue)
+        for (var i = stepXValue; i < this.dataSize; i += stepXValue)
         {
             ctx.fillText(i, i * stepX - (ctx.measureText(i).width/2), this.canvas.height - lineLength);
 
@@ -376,7 +420,7 @@ function graph(canvasId, dataMaxi)
 function main()
 {
     sim = new simulation("simulationCanvas", 50, 50);
-    gra = new graph("graph", 2500);
+    gra = new graph("graph", 2500, sim);
     sim.infect(sim.grid[25][25]);
     sim.draw();
     gra.draw();
@@ -390,8 +434,7 @@ function update()
     if (sim.nInfected < 2500 && frame % 1 == 0)
     {  
         sim.infection();
-        gra.data.push(sim.nInfected);
-        gra.draw();
+        gra.updateData();
     }
     frame++;
 }
