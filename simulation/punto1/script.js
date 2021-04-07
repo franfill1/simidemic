@@ -1,9 +1,13 @@
+//vengono visualizzati i valori a fianco degli slider
+document.getElementById("SliderInfectionProb").innerHTML = SliderInfectionProb.value;
+document.getElementById("SliderInfectionRange").innerHTML = SliderInfectionRange.value;
+
 const params = 
 {
     /*
     parametri globali, accessibili da ogni funzione e oggetto
     */
-    
+
     person :
     {
         radius : 1,
@@ -15,8 +19,8 @@ const params =
         },
         pulse :
         {
-            beginFade : 10, //raggio raggiunto il quale le circonferenze che rappresentano le pulsazoni cominciano a scomparire
-            final : 15, //raggio dopo il quale le pulsazioni non sono più visibili
+            beginFade : SliderInfectionRange.value, //raggio raggiunto il quale le circonferenze che rappresentano le pulsazoni cominciano a scomparire
+            final : SliderInfectionRange.value * 3 / 2, //raggio dopo il quale le pulsazioni non sono più visibili
             increment : 1, //incremento del raggio di una pulsazione ad ogni frame
         }
     },
@@ -41,7 +45,7 @@ const params =
 
     infection :
     {
-        defaultIndex : 0.05, //valore di default dell'indice di infezione dell'epidemia
+        defaultIndex : InfectionProb.value / 100, //valore dell'indice di infezione dell'epidemia
     }
 
 }
