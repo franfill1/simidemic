@@ -2,6 +2,7 @@ const params =
 {
     /*
     parametri globali, accessibili da ogni funzione e oggetto
+    */
     colors :
     {
         person :
