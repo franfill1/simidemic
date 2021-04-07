@@ -37,7 +37,7 @@ function graph(canvasId, dataMaxi, dataSourcei)
     {
         /*
         this.updateData() => void
-        Aggiorna l'array data in base all'attributo nInfected dell'oggetto (dataSource)
+        Aggiorna l'array data in base agli attributi dell'oggetto (dataSource)
         */
         for (var propt in this.data)
         {
