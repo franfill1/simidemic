@@ -1,8 +1,7 @@
 const params = 
 {
     /*
-    parametri globali, accessibili da ogni funzione e oggetto modifica a caso aaaaa
-    */
+    parametri globali, accessibili da ogni funzione e oggetto
     colors :
     {
         person :
