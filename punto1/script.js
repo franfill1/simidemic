@@ -14,8 +14,8 @@ const params =
 
         graph :
         {
-            suscectible : "lightGreen", //colore dell'area che rappresenta la quantità di persone suscettibili sul grafico
-            infected : "red", //colore dell'area che rappresenta la quantità di persone infette sul grafico
+            nSuscectible : "lightGreen", //colore dell'area che rappresenta la quantità di persone suscettibili sul grafico
+            nInfected : "red", //colore dell'area che rappresenta la quantità di persone infette sul grafico
             textColor : "black", //colore del testo che indica i valori sugli assi del grafico
             lineColor : "black", //colore dei trattini sugli assi del grafico
             textFont : "sans-serif", //stile del testo che indica i valori sugli assi del grafico
