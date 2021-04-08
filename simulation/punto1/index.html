@@ -2,20 +2,21 @@
 <link rel="stylesheet" href="../style.css">
 <html>
     <body onload="main()">
-        <div>
-            <p>Change the probability of infection with the value you prefer:</p> 
+        <div class="SliderInfectionProb_class">
+            <span>Change the <span class="keyword">probability of infection</span> with the value you prefer:</span> 
+            <br>
             <input type="range" min="0" max="100" value="20" class="slider" id="SliderInfectionProb">
             <span id="SliderInfectionProbValue"></span>
         </div>
-        <div>
-            <p>Change the range of infection of an infected (in pixels):</p> 
+        <div class="SliderInfectionRange_class">
+            <span>Change the <span class="keyword">range of infection</span> of an infected (in pixels):</span> 
+            <br>
             <input type="range" min="1" max="5" value="1" class="slider" id="SliderInfectionRange">
             <span id="SliderInfectionRangeValue"></span>
         </div>
 
-        <canvas id = "simulationCanvas" width = 400 height = 400></canvas>
-        <br></br>
-        <canvas id = "graph" width = 400 height = 200 style="background:green;"></canvas>
+        <canvas class="simulation" id = "simulationCanvas" width = 400 height = 400></canvas>
+        <canvas class="statisticGraph" id = "graph" width = 400 height = 200></canvas>
         <script src = "script.js"></script>
         <script src = "../graph.js"></script>
         <script src = "../staticSimulation.js"></script>
