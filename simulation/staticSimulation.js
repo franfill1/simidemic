@@ -24,10 +24,6 @@ function person()
     const pulseColor = params.person.colors.pulse;
     const radius = params.person.radius;
 
-    const pulseBeginFade = params.person.pulse.beginFade;
-    const pulseFinal = params.person.pulse.final;
-    const pulseIncrement = params.person.pulse.increment;
-
     this.updateSprite = function(canvas, R, C)
     {
         /*
@@ -60,8 +56,13 @@ function person()
         ctx.arc(posX, posY, radius, 0, 2 * Math.PI);
         ctx.fill();
 
+        pulseBeginFade = params.person.pulse.beginFade;
+        pulseFinal = params.person.pulse.final;
+        pulseIncrement = params.person.pulse.increment;
+        
         if (this.status && this.timeSinceInfection < pulseFinal)
         {
+            
             if (this.timeSinceInfection > pulseBeginFade)
             {
                 ctx.globalAlpha = 1 - (this.timeSinceInfection - pulseBeginFade) / (pulseFinal - pulseBeginFade);
@@ -87,6 +88,7 @@ function simulation (canvasId, Ri, Ci)
     this.grid => matrice che contiene le persone (this.grid[r][c] => oggetto di tipo person, persona che si trova nella riga r e colonna c)
     this.canvas => canvas sul quale vanno disegnate le persone
     this.index => indice di infezione dell'epidemia simulata
+    this.radius => raggio di infezione dell'epidemia simulata
     this.infectedN => quantità di persone infette
     this.R => righe presenti nella griglia
     this.C => colonne presenti nella griglia
@@ -128,6 +130,7 @@ function simulation (canvasId, Ri, Ci)
         this.nInfected = 0;
 
         this.index = params.infection.defaultIndex;
+        this.radius = params.infection.defaultRadius;
         this.draw();
     }
 
@@ -202,8 +205,8 @@ function simulation (canvasId, Ri, Ci)
                 
                 if (this.grid[i][j].status)
                 {
-                    var imin = Math.max(i-1, 0), imax = Math.min(i+1, this.R - 1);
-                    var jmin = Math.max(j-1, 0), jmax = Math.min(j+1, this.C - 1);
+                    var imin = Math.max(i-this.radius, 0), imax = Math.min(Number(i)+Number(this.radius), this.R - 1);
+                    var jmin = Math.max(j-this.radius, 0), jmax = Math.min(Number(j)+Number(this.radius), this.C - 1);
                     for (var ni = imin; ni <= imax; ni++)
                     {
                         for (var nj = jmin; nj <= jmax; nj++)

@@ -1,7 +1,3 @@
-//vengono visualizzati i valori a fianco degli slider
-document.getElementById("SliderInfectionProb").innerHTML = SliderInfectionProb.value;
-document.getElementById("SliderInfectionRange").innerHTML = SliderInfectionRange.value;
-
 const params = 
 {
     /*
@@ -19,8 +15,8 @@ const params =
         },
         pulse :
         {
-            beginFade : SliderInfectionRange.value, //raggio raggiunto il quale le circonferenze che rappresentano le pulsazoni cominciano a scomparire
-            final : SliderInfectionRange.value * 3 / 2, //raggio dopo il quale le pulsazioni non sono più visibili
+            beginFade : 10, //raggio raggiunto il quale le circonferenze che rappresentano le pulsazoni cominciano a scomparire
+            final : 20, //raggio dopo il quale le pulsazioni non sono più visibili
             increment : 1, //incremento del raggio di una pulsazione ad ogni frame
         }
     },
@@ -45,7 +41,8 @@ const params =
 
     infection :
     {
-        defaultIndex : InfectionProb.value / 100, //valore dell'indice di infezione dell'epidemia
+        defaultIndex : 0.01, //valore dell'indice di infezione dell'epidemia
+        defaultRadius : 1, //valore iniziale del raggio dell'epidemia
     }
 
 }
@@ -58,6 +55,26 @@ function main()
     sim.draw();
     gra.draw();
     frame = 0;
+
+    document.getElementById("SliderInfectionProb").value = params.infection.defaultIndex * 100;
+    document.getElementById("SliderInfectionProbValue").innerHTML = params.infection.defaultIndex;
+    document.getElementById("SliderInfectionRange").value = params.infection.defaultRadius;
+    document.getElementById("SliderInfectionRangeValue").innerHTML = params.infection.defaultRadius;
+
+    document.getElementById("SliderInfectionProb").oninput = function()
+    {
+        sim.index = this.value / 100;
+        document.getElementById("SliderInfectionProbValue").innerHTML = Number(this.value) / 100;
+    }
+    document.getElementById("SliderInfectionRange").oninput = function()
+    {
+        sim.radius = this.value;
+        document.getElementById("SliderInfectionRangeValue").innerHTML = Number(this.value);
+        params.person.pulse.beginFade = this.value * 2;
+        params.person.pulse.final = this.value * 3;
+    }
+
+
     setInterval(update);
 }
 
