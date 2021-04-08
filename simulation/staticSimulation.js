@@ -59,7 +59,7 @@ function person()
         pulseBeginFade = params.person.pulse.beginFade;
         pulseFinal = params.person.pulse.final;
         pulseIncrement = params.person.pulse.increment;
-        
+
         if (this.status && this.timeSinceInfection < pulseFinal)
         {
             
@@ -206,9 +206,10 @@ function simulation (canvasId, Ri, Ci)
                 if (this.grid[i][j].status)
                 {
                     var imin = Math.max(i-this.radius, 0), imax = Math.min(Number(i)+Number(this.radius), this.R - 1);
-                    var jmin = Math.max(j-this.radius, 0), jmax = Math.min(Number(j)+Number(this.radius), this.C - 1);
                     for (var ni = imin; ni <= imax; ni++)
                     {
+                        var temp = Math.floor(Math.sqrt(this.radius * this.radius - (ni - i) * (ni - i)));
+                        var jmin = Math.max(j - temp, 0), jmax = Math.min(j + temp, this.C - 1)
                         for (var nj = jmin; nj <= jmax; nj++)
                         {
                             if (!this.grid[ni][nj].status)
@@ -221,7 +222,6 @@ function simulation (canvasId, Ri, Ci)
                         }
                     }
                 }
-
             }
         }
         
