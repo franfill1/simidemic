@@ -1,28 +1,77 @@
 
-function person()
+function person(dataC, epidI)
 {
     /*
-    person() => void
+    person(dataC, epidI) => void
 
     oggetto che rappresenta una persona nella simulazione
-    possiede una posizione (x,y) nella griglia di persone presente nella simulazione e uno stato, che identifica se è suscettibile o infetta
+    possiede una posizione (x,y) nella griglia di persone presente nella simulazione e uno stato, che identifica se è suscettibile, infetta, rimossa o morta
 
     this.x => posizione x della persona nella griglia della simulazione
     this.y => posizione y della persona nella griglia della simulazione
     this.status => identifica lo stato della persona basato sul modello SI (suscectible, infected), questo attributo viene cambiato da funzioni esterne
     this.pulseRadius => raggio della pulsazione che viene emessa al momento dell'infezione
+    this.timeSinceInfection => tempo passato dall'infezione
+    this.dataCollector => oggetto in cui verrano salvati i dati raccolti durante la simulazione
+    this.epidemicInfo => oggetto che contiene i dati relativi all'epidemia, come durata e probabilità di morte
     */
 
     this.x = 0; //posizione x nella griglia
     this.y = 0; //posizione y nella griglia
 
-    this.status = 0; //0 = sano, 1 = infetto
+    this.status = 0; //0 = sano, 1 = infetto, 2 = rimosso, 3 = morto
     this.pulseRadius = 0;
+    this.timeSinceInfection = 0;
+    this.dataCollector = dataC;
+    this.epidemicInfo = epidI;
 
     const suscectibleColor = params.person.colors.suscectible;
     const infectedColor = params.person.colors.infected;
+    const removedColor = params.person.colors.removed;
+    const deadColor = params.person.colors.dead;
     const pulseColor = params.person.colors.pulse;
     const radius = params.person.radius;
+
+    this.infect = function()
+    {
+        /*
+        this.infect() => void
+        rende la persona infetta, incrementando le statistiche sugli infetti
+        */
+       if (this.status == 0)
+       {
+           this.status = 1;
+           this.dataCollector.nInfected++;
+       }
+    }
+
+    this.liveDay = function()
+    {
+        /*
+        this.liveDay() => void
+        Fa passare un giorno per la persona, 
+        Ha effetto solo se la persona è infetta, e incrementa il contatore del tempo passato dall'infezione (this.timeSinceInfectio)
+        Se quest'ultimo valore diventa maggiore della durata massima (this.epidemicInfo.infectionSpan) la persona guarisce o muore
+        */
+        if (this.status == 1)
+        {
+            this.timeSinceInfection++;
+            if (this.timeSinceInfection == this.epidemicInfo.infectionSpan)
+            {
+                this.dataCollector.nInfected--;
+                if (Math.random() < this.epidemicInfo.deathIndex)
+                {
+                    this.dataCollector.nDead++;
+                    this.status = 3;
+                }
+                else
+                {
+                    this.dataCollector.nRecovered++;
+                    this.status = 2;
+                }
+            }
+        }
+    }
 
     this.updateSprite = function(canvas, R, C)
     {
@@ -43,14 +92,8 @@ function person()
 
         var posX = canvas.width / (C + 1) * (this.x + 1);
         var posY = canvas.height / (R + 1) * (this.y + 1);
-        if (this.status == 0)
-        {
-            ctx.fillStyle = suscectibleColor;
-        }
-        else
-        {
-            ctx.fillStyle = infectedColor;
-        }
+
+        ctx.fillStyle = [suscectibleColor, infectedColor, removedColor, deadColor][this.status];
 
         ctx.beginPath();
         ctx.arc(posX, posY, radius, 0, 2 * Math.PI);
@@ -93,9 +136,10 @@ function simulation (canvasId, Ri, Ci)
     this.canvas => canvas sul quale vanno disegnate le persone
     this.index => indice di infezione dell'epidemia simulata
     this.radius => raggio di infezione dell'epidemia simulata
-    this.infectedN => quantità di persone infette
     this.R => righe presenti nella griglia
     this.C => colonne presenti nella griglia
+    this.collectedData => oggetto che contiene i dati raccolti durante la simulazione
+    this.epidemicInfo => oggetto che contiene i dati dell'epidemia, che possono variare col tempo
 
     Input:
     canvasId => id del canvas da associare, nel documento HTML
@@ -117,13 +161,28 @@ function simulation (canvasId, Ri, Ci)
         this.R = Ri;
         this.C = Ci;
 
+        this.collectedData = 
+        {
+            nInfected : 0,
+            nRecovered : 0,
+            nDead : 0
+        };
+
+        this.epidemicInfo = //i seguenti valori vengono inizializzati a partire da parametri globali, ma possono essere variati
+        {
+            index : params.infection.defaultIndex, //indice di infezione dell'epidemia, 
+            radius : params.infection.defaultRadius, //raggio di infezione dell'epidemia
+            infectionSpan : params.infection.defaultSpan, //durata dell'infezione
+            deathIndex : params.infection.defaultDeathIndex, //probabilità di morte alla fine dell'arco dell'infezione
+        };
+
         this.grid = [];
         for (var i = 0; i < this.R; i++)
         {
             var row = [];
             for (var j = 0; j < this.C; j++)
             {
-                row.push(new person());
+                row.push(new person(this.collectedData, this.epidemicInfo));
                 row[j].x = j;
                 row[j].y = i;
             }
@@ -132,10 +191,6 @@ function simulation (canvasId, Ri, Ci)
 
         this.canvas = document.getElementById(canvasId);
         this.nInfected = 0;
-
-        this.index = params.infection.defaultIndex;
-        this.radius = params.infection.defaultRadius;
-        this.draw();
     }
 
     this.draw = function()
@@ -171,20 +226,21 @@ function simulation (canvasId, Ri, Ci)
         }
     }
 
-    this.infect = function(p)
+    this.simulateDay = function()
     {
         /*
-        this.infect(p) => void
-        Infetta la persona (p), solo se non è già infetta
-        Aggiorna di conseguenza il conteggio degli infetti (this.nInfected)
+        this.simulateDay() => void
+        Simula un giorno della simulazione
+        Chiama la funzione this.infect() e la funzione person.liveDay() per ogni persona della simulazione
         */
-       
-       if (p.status == 0)
+       this.infection();
+       for (var i = 0; i < this.R; i++)
        {
-           p.status = 1;
-           this.nInfected++;
+           for (var j = 0; j < this.C; j++)
+           {
+               this.grid[i][j].liveDay();
+           }
        }
-       
     }
 
     this.infection = function()
@@ -193,11 +249,6 @@ function simulation (canvasId, Ri, Ci)
         this.infection() => void
         Simula contatti e infezioni fra la popolazione nella griglia (this.grid), in base all'indice di infezione (this.index)
         Se la persona contrassegnata da una X è infetta, le persone contrassegnate da 0 hanno probabilità pari all'indice (this.index) di infettarsi
-       
-        O O O O O O O
-        O 0 0 0 O O O
-        O 0 X 0 O O O
-        O 0 0 0 O O O
         */
 
         var toInfect = [];
@@ -207,18 +258,19 @@ function simulation (canvasId, Ri, Ci)
             for (var j = 0; j < this.C; j++)
             {
                 
-                if (this.grid[i][j].status)
+                if (this.grid[i][j].status == 1)
                 {
-                    var imin = Math.max(i-this.radius, 0), imax = Math.min(Number(i)+Number(this.radius), this.R - 1);
+                    var radius = this.epidemicInfo.radius;
+                    var imin = Math.max(i-radius, 0), imax = Math.min(Number(i)+Number(radius), this.R - 1);
                     for (var ni = imin; ni <= imax; ni++)
                     {
-                        var temp = Math.floor(Math.sqrt(this.radius * this.radius - (ni - i) * (ni - i)));
+                        var temp = Math.floor(Math.sqrt(radius * radius - (ni - i) * (ni - i)));
                         var jmin = Math.max(j - temp, 0), jmax = Math.min(j + temp, this.C - 1)
                         for (var nj = jmin; nj <= jmax; nj++)
                         {
                             if (!this.grid[ni][nj].status)
                             {
-                                if (Math.random() < this.index)
+                                if (Math.random() < this.epidemicInfo.index)
                                 {
                                     toInfect.push(this.grid[ni][nj]);
                                 }
@@ -232,10 +284,8 @@ function simulation (canvasId, Ri, Ci)
 
         for (var i = 0; i < toInfect.length; i++)
         {
-            this.infect(toInfect[i]);
+            toInfect[i].infect();
         }
-
-        this.draw();
     }
 
     this.init();

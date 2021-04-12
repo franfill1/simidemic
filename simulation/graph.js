@@ -27,7 +27,7 @@ function graph(canvasId, dataMaxi, dataSourcei)
         */
         this.canvas = document.getElementById(canvasId);
         this.canvas.style.backgroundColor = params.graph.colors.nSuscectible;
-        this.data = {nInfected : [], nRecovered : []};
+        this.data = {nInfected : [], nRecovered : [], nDead : []};
         this.dataSize = 0;
         this.dataMax = dataMaxi;
         this.dataSource = dataSourcei;

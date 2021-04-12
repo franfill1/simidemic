@@ -11,6 +11,8 @@ const params =
         {
             suscectible : "lightGreen", //colore di una persona suscettibile sul canvas
             infected : "red", //colore di una persona infetta sul canvas
+            removed : "grey",
+            dead : "black",
             pulse : "red", //colore della pulsazione emessa da una persona appena infettata sul canvas, rappresentate da una circonferenza
         },
         pulse :
@@ -33,6 +35,8 @@ const params =
         {
             nSuscectible : "lightGreen", //colore dell'area che rappresenta la quantità di persone suscettibili sul grafico
             nInfected : "red", //colore dell'area che rappresenta la quantità di persone infette sul grafico
+            nRecovered : "gray",
+            nDead : "black",
             textColor : "black", //colore del testo che indica i valori sugli assi del grafico
             lineColor : "black", //colore dei trattini sugli assi del grafico
         },
@@ -43,6 +47,8 @@ const params =
     {
         defaultIndex : 0.01, //valore dell'indice di infezione dell'epidemia
         defaultRadius : 1, //valore iniziale del raggio dell'epidemia
+        defaultSpan : 100,
+        defaultDeathIndex : 0.2,
         nRows : 50,
     }
 
@@ -51,8 +57,8 @@ const params =
 function main()
 {
     sim = new simulation("simulationCanvas", params.infection.nRows, params.infection.nRows);
-    gra = new graph("graph", params.infection.nRows * params.infection.nRows, sim);
-    sim.infect(sim.grid[Math.floor(params.infection.nRows/2)][Math.floor(params.infection.nRows/2)]);
+    gra = new graph("graph", params.infection.nRows * params.infection.nRows, sim.collectedData);
+    sim.grid[Math.floor(params.infection.nRows/2)][Math.floor(params.infection.nRows/2)].infect();
     setUpSliders();
     frame = 0;
     setInterval(update, 10);
@@ -69,12 +75,12 @@ function setUpSliders()
 
     document.getElementById("SliderInfectionProb").oninput = function()
     {
-        sim.index = this.value / 100;
+        sim.epidemicInfo.index = this.value / 100;
         document.getElementById("SliderInfectionProbValue").innerHTML = Number(this.value) / 100;
     }
     document.getElementById("SliderInfectionRange").oninput = function()
     {
-        sim.radius = this.value;
+        sim.epidemicInfo.radius = this.value;
         document.getElementById("SliderInfectionRangeValue").innerHTML = Number(this.value);
         params.person.pulse.beginFade = this.value * 250 / (params.infection.nRows + 1);
         params.person.pulse.final = this.value * 500 / (params.infection.nRows + 1);
@@ -86,7 +92,7 @@ function update()
     sim.draw();
     if (sim.nInfected < params.infection.nRows * params.infection.nRows && frame % 1 == 0)
     {  
-        sim.infection();
+        sim.simulateDay();
         gra.updateData();
     }
     frame++;
