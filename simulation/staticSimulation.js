@@ -10,14 +10,14 @@ function person()
     this.x => posizione x della persona nella griglia della simulazione
     this.y => posizione y della persona nella griglia della simulazione
     this.status => identifica lo stato della persona basato sul modello SI (suscectible, infected), questo attributo viene cambiato da funzioni esterne
-    this.timeSinceInfection => indica quanto tempo (in frame) è passato dal cambiamento di stato (status) da 0 a 1, se è avvenuto, altrimenti è pari a 0
+    this.pulseRadius => raggio della pulsazione che viene emessa al momento dell'infezione
     */
 
     this.x = 0; //posizione x nella griglia
     this.y = 0; //posizione y nella griglia
 
     this.status = 0; //0 = sano, 1 = infetto
-    this.timeSinceInfection = 0;
+    this.pulseRadius = 0;
 
     const suscectibleColor = params.person.colors.suscectible;
     const infectedColor = params.person.colors.infected;
@@ -31,7 +31,7 @@ function person()
 
         Disegna un cerchio nel canvas, basandosi sulla posizione x e y nella griglia di R righe e C colonne
         Il colore del cerchio dipende dallo stato (this.status) della persona (suscettibile/infetta)
-        Disegna anche una circonferenza il cui raggio dipende dal tempo passato dall'infezione (this.timeSinceInfection) e incrementa quest'ultimo valore (siccome la funzione viene chiamata ogni frame)
+        Disegna anche una circonferenza il cui raggio dipende dal tempo passato dal raggio (this.pulseRadius) e incrementa quest'ultimo valore (siccome la funzione viene chiamata ogni frame)
 
         Input: 
         canvas => il canvas sul quale verrà disegnato il cerchio
@@ -60,19 +60,23 @@ function person()
         pulseFinal = params.person.pulse.final;
         pulseIncrement = params.person.pulse.increment;
 
-        if (this.status && this.timeSinceInfection < pulseFinal)
+        if (this.status && this.pulseRadius < pulseFinal)
         {
-            
-            if (this.timeSinceInfection > pulseBeginFade)
+            if (this.pulseRadius > pulseBeginFade)
             {
-                ctx.globalAlpha = 1 - (this.timeSinceInfection - pulseBeginFade) / (pulseFinal - pulseBeginFade);
+                ctx.globalAlpha = 1 - (this.pulseRadius - pulseBeginFade) / (pulseFinal - pulseBeginFade);
             }
             ctx.strokeStyle = pulseColor;
             ctx.beginPath();
-            ctx.arc(posX, posY, this.timeSinceInfection, 0, 2*Math.PI);
+            ctx.arc(posX, posY, this.pulseRadius, 0, 2*Math.PI);
             ctx.stroke();
             ctx.globalAlpha = 1;
-            this.timeSinceInfection += pulseIncrement;
+            this.pulseRadius += pulseIncrement;
+
+            if (this.pulseRadius >= pulseFinal)
+            {
+                this.pulseRadius = Math.Infinity;
+            }
         }
     }
 }
