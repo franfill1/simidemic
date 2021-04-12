@@ -43,23 +43,29 @@ const params =
     {
         defaultIndex : 0.01, //valore dell'indice di infezione dell'epidemia
         defaultRadius : 1, //valore iniziale del raggio dell'epidemia
+        nRows : 50,
     }
 
 }
 
 function main()
 {
-    sim = new simulation("simulationCanvas", 50, 50);
-    gra = new graph("graph", 2500, sim);
-    sim.infect(sim.grid[25][25]);
-    sim.draw();
-    gra.draw();
+    sim = new simulation("simulationCanvas", params.infection.nRows, params.infection.nRows);
+    gra = new graph("graph", params.infection.nRows * params.infection.nRows, sim);
+    sim.infect(sim.grid[Math.floor(params.infection.nRows/2)][Math.floor(params.infection.nRows/2)]);
+    setUpSliders();
     frame = 0;
+    setInterval(update, 10);
+}
 
+function setUpSliders()
+{
     document.getElementById("SliderInfectionProb").value = params.infection.defaultIndex * 100;
     document.getElementById("SliderInfectionProbValue").innerHTML = params.infection.defaultIndex;
     document.getElementById("SliderInfectionRange").value = params.infection.defaultRadius;
     document.getElementById("SliderInfectionRangeValue").innerHTML = params.infection.defaultRadius;
+    params.person.pulse.beginFade = params.infection.defaultRadius * 250 / (params.infection.nRows + 1);
+    params.person.pulse.final = params.infection.defaultRadius * 500 / (params.infection.nRows + 1);
 
     document.getElementById("SliderInfectionProb").oninput = function()
     {
@@ -70,18 +76,15 @@ function main()
     {
         sim.radius = this.value;
         document.getElementById("SliderInfectionRangeValue").innerHTML = Number(this.value);
-        params.person.pulse.beginFade = this.value * 2;
-        params.person.pulse.final = this.value * 3;
+        params.person.pulse.beginFade = this.value * 250 / (params.infection.nRows + 1);
+        params.person.pulse.final = this.value * 500 / (params.infection.nRows + 1);
     }
-
-
-    setInterval(update);
 }
 
 function update()
 {
     sim.draw();
-    if (sim.nInfected < 2500 && frame % 1 == 0)
+    if (sim.nInfected < params.infection.nRows * params.infection.nRows && frame % 1 == 0)
     {  
         sim.infection();
         gra.updateData();
