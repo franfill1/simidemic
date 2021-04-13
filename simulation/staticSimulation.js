@@ -56,7 +56,7 @@ function person(dataC, epidI)
         if (this.status == 1)
         {
             this.timeSinceInfection++;
-            if (this.timeSinceInfection == this.epidemicInfo.infectionSpan)
+            if (this.timeSinceInfection >= this.epidemicInfo.infectionSpan)
             {
                 this.dataCollector.nInfected--;
                 if (Math.random() < this.epidemicInfo.deathIndex)
@@ -216,12 +216,16 @@ function simulation (canvasId, Ri, Ci)
         this.reset() => void
         Rende tutte le persone nella griglia (this.grid), suscettibili, rendendo il numero totale di infetti (this.infectedN) pari a 0
         */
-        this.nInfected = 0;
+        this.collectedData.nInfected = 0;
+        this.collectedData.nRecovered = 0;
+        this.collectedData.nDead = 0;
         for (var i = 0; i < this.R; i++)
         {
             for (var j = 0; j < this.C; j++)
             {
                 this.grid[i][j].status = 0;
+                this.grid[i][j].pulseRadius = 0;
+                this.grid[i][j].timeSinceInfection = 0;
             }
         }
     }

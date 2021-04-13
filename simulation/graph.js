@@ -33,6 +33,23 @@ function graph(canvasId, dataMaxi, dataSourcei)
         this.dataSource = dataSourcei;
     }
 
+    this.reset = function()
+    {
+        /*
+        this.reset() => void
+        Rimuove tutti i dati raccolti fino ad ora
+        */
+       this.dataSize = 0;
+       for (var propt in this.data)
+        {
+           if (this.data.hasOwnProperty(propt))
+           {
+               this.data[propt] = [];
+           }
+        }
+        this.draw();
+    }
+
     this.updateData = function()
     {
         /*

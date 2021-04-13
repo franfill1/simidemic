@@ -24,6 +24,11 @@ div
     transform: translate(0px, 85px);
 }
 
+.SliderInfectionSpan_class
+{
+    transform: translate(0px, 140px);
+}
+
 span
 {
     color: black;
@@ -52,6 +57,6 @@ span.keyword
     background: rgb(51, 87, 207);
     border: 1px solid rgb(0, 0, 0);
     position: absolute;
-    top: 175px;
+    top: 200px;
     left: 450px;
 }

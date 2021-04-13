@@ -19,7 +19,7 @@ const params =
         {
             beginFade : 10, //raggio raggiunto il quale le circonferenze che rappresentano le pulsazoni cominciano a scomparire
             final : 20, //raggio dopo il quale le pulsazioni non sono più visibili
-            increment : 1, //incremento del raggio di una pulsazione ad ogni frame
+            increment : 0.8, //incremento del raggio di una pulsazione ad ogni frame
         }
     },
     graph :
@@ -45,13 +45,12 @@ const params =
 
     infection :
     {
-        defaultIndex : 0.01, //valore dell'indice di infezione dell'epidemia
+        defaultIndex : 0.1, //valore dell'indice di infezione dell'epidemia
         defaultRadius : 1, //valore iniziale del raggio dell'epidemia
-        defaultSpan : 100,
+        defaultSpan : 7,
         defaultDeathIndex : 0.2,
         nRows : 50,
     }
-
 }
 
 function main()
@@ -59,8 +58,11 @@ function main()
     sim = new simulation("simulationCanvas", params.infection.nRows, params.infection.nRows);
     gra = new graph("graph", params.infection.nRows * params.infection.nRows, sim.collectedData);
     sim.grid[Math.floor(params.infection.nRows/2)][Math.floor(params.infection.nRows/2)].infect();
+    sim.draw();
     setUpSliders();
     frame = 0;
+    paused = false;
+    setInterval(update, 10);
     setInterval(update, 10);
 }
 
@@ -70,6 +72,8 @@ function setUpSliders()
     document.getElementById("SliderInfectionProbValue").innerHTML = params.infection.defaultIndex;
     document.getElementById("SliderInfectionRange").value = params.infection.defaultRadius;
     document.getElementById("SliderInfectionRangeValue").innerHTML = params.infection.defaultRadius;
+    document.getElementById("SliderInfectionSpan").value = params.infection.defaultSpan;
+    document.getElementById("SliderInfectionSpanValue").innerHTML = params.infection.defaultSpan;
     params.person.pulse.beginFade = params.infection.defaultRadius * 250 / (params.infection.nRows + 1);
     params.person.pulse.final = params.infection.defaultRadius * 500 / (params.infection.nRows + 1);
 
@@ -84,13 +88,42 @@ function setUpSliders()
         document.getElementById("SliderInfectionRangeValue").innerHTML = Number(this.value);
         params.person.pulse.beginFade = this.value * 250 / (params.infection.nRows + 1);
         params.person.pulse.final = this.value * 500 / (params.infection.nRows + 1);
+        params.person.pulse.increment = 20 / (this.value * 500 / (params.infection.nRows + 1));
+    }
+    document.getElementById("SliderInfectionSpan").oninput = function()
+    {
+        sim.epidemicInfo.infectionSpan = this.value;
+        document.getElementById("SliderInfectionSpanValue").innerHTML = Number(this.value);
+    }
+    document.getElementById("ResetButton").onclick = function()
+    {
+        sim.reset();
+        gra.reset();
+        sim.grid[Math.floor(params.infection.nRows/2)][Math.floor(params.infection.nRows/2)].infect();
+        paused = true;
+    }
+    document.getElementById("PlayButton").onclick = function()
+    {
+        paused = false;
+    }
+    document.getElementById("PauseButton").onclick = function()
+    {
+        paused = true;
+    }
+    document.getElementById("StepButton").onclick = function()
+    {
+        if (paused)
+        {
+            sim.simulateDay();
+            gra.updateData();
+        }
     }
 }
 
 function update()
 {
     sim.draw();
-    if (sim.nInfected < params.infection.nRows * params.infection.nRows && frame % 1 == 0)
+    if (!paused)
     {  
         sim.simulateDay();
         gra.updateData();
