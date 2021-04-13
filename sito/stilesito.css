@@ -5,6 +5,7 @@ margin:0;
 padding: 0;
 box-sizing: border-box;
 overflow-x: hidden;
+cursor: default;
 }
 body{overflow: hidden;}
 
@@ -104,6 +105,9 @@ line-height: 1.5;
  .text-section-1 .container >*{
    flex-basis: 100%;
   }
+.text-section-1 img{
+width: 40px;
+}
 /**/
 .dividor{
 max-width: 100%;
@@ -112,12 +116,13 @@ background-color: var(--dark-orange);
 }
 /*articoli area*/
 .articolo{
-  padding: 1em;
+padding: 1em;
 display: flex;
 }
 .articolo:hover{
 background-color: var(--light-orange);
 }
+.articolo, .articolo p, .articolo img{cursor: grab;}
 /*citazionearea*/
 .citazione {
 background-color: var(--brown);
