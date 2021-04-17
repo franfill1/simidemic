@@ -122,7 +122,7 @@ display: flex;
 .articolo:hover{
 background-color: var(--light-orange);
 }
-.articolo, .articolo p, .articolo img{cursor: grab;}
+.articolo, .articolo p, .articolo img{cursor: pointer;}
 /*citazionearea*/
 .citazione {
 background-color: var(--brown);
