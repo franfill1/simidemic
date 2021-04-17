@@ -256,16 +256,20 @@ function simulation (canvasId, Ri, Ci)
         */
 
         var toInfect = [];
-
+        var radius = this.epidemicInfo.radius;
+        var totEnc = 0;
+        for (var i = -radius; i <=radius; i++)
+        {
+            temp = Math.floor(Math.sqrt(radius * radius - i * i));
+            totEnc += temp*2 + 1;
+        }
         for (var i = 0; i < this.R; i++)
         {
             for (var j = 0; j < this.C; j++)
             {
-                
                 if (this.grid[i][j].status == 1)
                 {
-                    var radius = this.epidemicInfo.radius;
-                    var imin = Math.max(i-radius, 0), imax = Math.min(Number(i)+Number(radius), this.R - 1);
+                    var imin = Math.max(i-radius, 0), imax = Math.min(i+radius, this.R - 1);
                     for (var ni = imin; ni <= imax; ni++)
                     {
                         var temp = Math.floor(Math.sqrt(radius * radius - (ni - i) * (ni - i)));
@@ -274,7 +278,7 @@ function simulation (canvasId, Ri, Ci)
                         {
                             if (!this.grid[ni][nj].status)
                             {
-                                if (Math.random() < this.epidemicInfo.index)
+                                if (Math.random() < (this.epidemicInfo.index / totEnc))
                                 {
                                     toInfect.push(this.grid[ni][nj]);
                                 }

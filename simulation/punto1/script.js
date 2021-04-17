@@ -19,7 +19,7 @@ const params =
         {
             beginFade : 10, //raggio raggiunto il quale le circonferenze che rappresentano le pulsazoni cominciano a scomparire
             final : 20, //raggio dopo il quale le pulsazioni non sono più visibili
-            increment : 0.8, //incremento del raggio di una pulsazione ad ogni frame
+            increment : 1, //incremento del raggio di una pulsazione ad ogni frame
         }
     },
     graph :
@@ -45,9 +45,9 @@ const params =
 
     infection :
     {
-        defaultIndex : 0.1, //valore dell'indice di infezione dell'epidemia
+        defaultIndex : 0.35, //valore dell'indice di infezione dell'epidemia
         defaultRadius : 1, //valore iniziale del raggio dell'epidemia
-        defaultSpan : 7,
+        defaultSpan : 15,
         defaultDeathIndex : 0.2,
         nRows : 50,
     }
