@@ -7,8 +7,8 @@ function person(dataC, epidI)
     oggetto che rappresenta una persona nella simulazione
     possiede una posizione (x,y) nella griglia di persone presente nella simulazione e uno stato, che identifica se è suscettibile, infetta, rimossa o morta
 
-    this.x => posizione x della persona nella griglia della simulazione
-    this.y => posizione y della persona nella griglia della simulazione
+    this.x => posizione x della persona nel canvas della simulazione
+    this.y => posizione y della persona nel canvas della simulazione
     this.status => identifica lo stato della persona basato sul modello SI (suscectible, infected), questo attributo viene cambiato da funzioni esterne
     this.pulseRadius => raggio della pulsazione che viene emessa al momento dell'infezione
     this.timeSinceInfection => tempo passato dall'infezione
@@ -16,8 +16,8 @@ function person(dataC, epidI)
     this.epidemicInfo => oggetto che contiene i dati relativi all'epidemia, come durata e probabilità di morte
     */
 
-    this.x = 0; //posizione x nella griglia
-    this.y = 0; //posizione y nella griglia
+    this.x = 0; //posizione x nel canvas
+    this.y = 0; //posizione y nel canvas
 
     this.status = 0; //0 = sano, 1 = infetto, 2 = rimosso, 3 = morto
     this.pulseRadius = 0;
@@ -73,30 +73,25 @@ function person(dataC, epidI)
         }
     }
 
-    this.updateSprite = function(canvas, R, C)
+    this.updateSprite = function(canvas)
     {
         /*
-        this.updatesprite(canvas, R, C) => void
+        this.updatesprite(canvas) => void
 
-        Disegna un cerchio nel canvas, basandosi sulla posizione x e y nella griglia di R righe e C colonne
+        Disegna un cerchio nel canvas, basandosi sulla posizione x e y
         Il colore del cerchio dipende dallo stato (this.status) della persona (suscettibile/infetta)
         Disegna anche una circonferenza il cui raggio dipende dal tempo passato dal raggio (this.pulseRadius) e incrementa quest'ultimo valore (siccome la funzione viene chiamata ogni frame)
 
         Input: 
         canvas => il canvas sul quale verrà disegnato il cerchio
-        R => le righe della griglia di persone associata al canvas
-        C => le colonne della griglia di persone associata al canvas
         */
 
         var ctx = canvas.getContext("2d");
 
-        var posX = canvas.width / (C + 1) * (this.x + 1);
-        var posY = canvas.height / (R + 1) * (this.y + 1);
-
         ctx.fillStyle = [suscectibleColor, infectedColor, removedColor, deadColor][this.status];
 
         ctx.beginPath();
-        ctx.arc(posX, posY, radius, 0, 2 * Math.PI);
+        ctx.arc(this.x, this.y, radius, 0, 2 * Math.PI);
         ctx.fill();
 
         pulseBeginFade = params.person.pulse.beginFade;
@@ -111,7 +106,7 @@ function person(dataC, epidI)
             }
             ctx.strokeStyle = pulseColor;
             ctx.beginPath();
-            ctx.arc(posX, posY, this.pulseRadius, 0, 2*Math.PI);
+            ctx.arc(this.x, this.y, this.pulseRadius, 0, 2*Math.PI);
             ctx.stroke();
             ctx.globalAlpha = 1;
             this.pulseRadius += pulseIncrement;
@@ -176,6 +171,8 @@ function simulation (canvasId, Ri, Ci)
             deathIndex : params.infection.defaultDeathIndex, //probabilità di morte alla fine dell'arco dell'infezione
         };
 
+        this.canvas = document.getElementById(canvasId);
+  
         this.grid = [];
         for (var i = 0; i < this.R; i++)
         {
@@ -183,15 +180,12 @@ function simulation (canvasId, Ri, Ci)
             for (var j = 0; j < this.C; j++)
             {
                 row.push(new person(this.collectedData, this.epidemicInfo));
-                row[j].x = j;
-                row[j].y = i;
+                row[j].x = (j + 1) * (this.canvas.width / (this.R + 1));
+                row[j].y = (i + 1) * (this.canvas.height / (this.C + 1));
             }
             this.grid.push(row);
         }
-
-        this.canvas = document.getElementById(canvasId);
-        this.nInfected = 0;
-    }
+  }
 
     this.draw = function()
     {
@@ -235,7 +229,7 @@ function simulation (canvasId, Ri, Ci)
         /*
         this.simulateDay() => void
         Simula un giorno della simulazione
-        Chiama la funzione this.infect() e la funzione person.liveDay() per ogni persona della simulazione
+        Chiama la funzione this.infection() e la funzione person.liveDay() per ogni persona della simulazione
         */
        this.infection();
        for (var i = 0; i < this.R; i++)
