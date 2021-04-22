@@ -9,7 +9,7 @@ function person(dataC, epidI)
 
     this.x => posizione x della persona nel canvas della simulazione
     this.y => posizione y della persona nel canvas della simulazione
-    this.status => identifica lo stato della persona basato sul modello SI (suscectible, infected), questo attributo viene cambiato da funzioni esterne
+    this.status => identifica lo stato della persona basato sul modello SIR (suscectible, infected, removed), questo attributo viene cambiato da funzioni esterne
     this.pulseRadius => raggio della pulsazione che viene emessa al momento dell'infezione
     this.timeSinceInfection => tempo passato dall'infezione
     this.dataCollector => oggetto in cui verrano salvati i dati raccolti durante la simulazione
@@ -19,7 +19,7 @@ function person(dataC, epidI)
     this.x = 0; //posizione x nel canvas
     this.y = 0; //posizione y nel canvas
 
-    this.status = 0; //0 = sano, 1 = infetto, 2 = rimosso, 3 = morto
+    this.status = 0; //0 = sano, 1 = incubante, 2 = infetto, 3 = rimosso, 4 = morto
     this.pulseRadius = 0;
     this.timeSinceInfection = 0;
     this.dataCollector = dataC;
@@ -31,6 +31,13 @@ function person(dataC, epidI)
     const deadColor = params.person.colors.dead;
     const pulseColor = params.person.colors.pulse;
     const radius = params.person.radius;
+
+    this.reset = function()
+    {
+        this.status = 0;
+        this.pulseRadius = 0;
+        this.timeSinceInfection = 0;
+    }
 
     this.infect = function()
     {
@@ -55,6 +62,10 @@ function person(dataC, epidI)
         */
         if (this.status == 1)
         {
+            this.status = 2;
+        }
+        else if (this.status == 2)
+        {
             this.timeSinceInfection++;
             if (this.timeSinceInfection >= this.epidemicInfo.infectionSpan)
             {
@@ -62,12 +73,12 @@ function person(dataC, epidI)
                 if (Math.random() < this.epidemicInfo.deathIndex)
                 {
                     this.dataCollector.nDead++;
-                    this.status = 3;
+                    this.status = 4;
                 }
                 else
                 {
                     this.dataCollector.nRecovered++;
-                    this.status = 2;
+                    this.status = 3;
                 }
             }
         }
@@ -88,7 +99,7 @@ function person(dataC, epidI)
 
         var ctx = canvas.getContext("2d");
 
-        ctx.fillStyle = [suscectibleColor, infectedColor, removedColor, deadColor][this.status];
+        ctx.fillStyle = [suscectibleColor, infectedColor, infectedColor, removedColor, deadColor][this.status];
 
         ctx.beginPath();
         ctx.arc(this.x, this.y, radius, 0, 2 * Math.PI);
@@ -98,7 +109,7 @@ function person(dataC, epidI)
         pulseFinal = params.person.pulse.final;
         pulseIncrement = params.person.pulse.increment;
 
-        if (this.status && this.pulseRadius < pulseFinal)
+        if (this.status == 2 && this.pulseRadius < pulseFinal)
         {
             if (this.pulseRadius > pulseBeginFade)
             {
@@ -160,7 +171,13 @@ function simulation (canvasId, Ri, Ci)
         {
             nInfected : 0,
             nRecovered : 0,
-            nDead : 0
+            nDead : 0,
+            reset : function()
+            {
+                this.nInfected = 0;
+                this.nRecovered = 0;
+                this.nDead = 0;
+            }
         };
 
         this.epidemicInfo = //i seguenti valori vengono inizializzati a partire da parametri globali, ma possono essere variati
@@ -208,18 +225,14 @@ function simulation (canvasId, Ri, Ci)
     {
         /*
         this.reset() => void
-        Rende tutte le persone nella griglia (this.grid), suscettibili, rendendo il numero totale di infetti (this.infectedN) pari a 0
+        Rende tutte le persone nella griglia (this.grid), suscettibili, riportando i dati raccolti a 0
         */
-        this.collectedData.nInfected = 0;
-        this.collectedData.nRecovered = 0;
-        this.collectedData.nDead = 0;
+        this.collectedData.reset();
         for (var i = 0; i < this.R; i++)
         {
             for (var j = 0; j < this.C; j++)
             {
-                this.grid[i][j].status = 0;
-                this.grid[i][j].pulseRadius = 0;
-                this.grid[i][j].timeSinceInfection = 0;
+                this.grid[i][j].reset();
             }
         }
     }
@@ -261,7 +274,7 @@ function simulation (canvasId, Ri, Ci)
         {
             for (var j = 0; j < this.C; j++)
             {
-                if (this.grid[i][j].status == 1)
+                if (this.grid[i][j].status == 2)
                 {
                     var imin = Math.max(i-radius, 0), imax = Math.min(i+radius, this.R - 1);
                     for (var ni = imin; ni <= imax; ni++)
@@ -283,7 +296,6 @@ function simulation (canvasId, Ri, Ci)
             }
         }
         
-
         for (var i = 0; i < toInfect.length; i++)
         {
             toInfect[i].infect();
