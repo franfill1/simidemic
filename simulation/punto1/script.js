@@ -63,7 +63,6 @@ function main()
     frame = 0;
     paused = false;
     setInterval(update, 10);
-    setInterval(update, 10);
 }
 
 function setUpSliders()
@@ -88,7 +87,7 @@ function setUpSliders()
         document.getElementById("SliderInfectionRangeValue").innerHTML = Number(this.value);
         params.person.pulse.beginFade = this.value * 250 / (params.infection.nRows + 1);
         params.person.pulse.final = this.value * 500 / (params.infection.nRows + 1);
-        params.person.pulse.increment = 20 / (this.value * 500 / (params.infection.nRows + 1));
+        params.person.pulse.increment = (this.value * 500 / (params.infection.nRows + 1)) / 20;
     }
     document.getElementById("SliderInfectionSpan").oninput = function()
     {
