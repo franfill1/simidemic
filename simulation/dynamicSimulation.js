@@ -91,8 +91,10 @@ function person(dataC, epidI)
     this.updatePosition = function()
     {
         var v = Math.sqrt(this.vX * this.vX + this.vY * this.vY);
-        this.x += this.vX / v;
-        this.y += this.vY / v;
+        this.vX = this.vX * params.person.speed / v;
+        this.vY = this.vY * params.person.speed / v;
+        this.x += this.vX;
+        this.y += this.vY;
     }
 
     this.updateSprite = function(canvas)
@@ -197,6 +199,7 @@ function simulation (canvasId, Ri, Ci)
             radius : params.infection.defaultRadius, //raggio di infezione dell'epidemia
             infectionSpan : params.infection.defaultSpan, //durata dell'infezione
             deathIndex : params.infection.defaultDeathIndex, //probabilità di morte alla fine dell'arco dell'infezione
+            socialDistancing : params.infection.defaultSocialDistancing, //distanziamento sociale
         };
 
         this.canvas = document.getElementById(canvasId);
@@ -226,21 +229,43 @@ function simulation (canvasId, Ri, Ci)
         for (var i = 0; i < this.peopleList.length; i++)
         {
             var p = this.peopleList[i];
-            if (p.y < 20)
+            p.vY += 10 / (p.y * p.y);
+            p.vX += 10 / (p.x * p.x);
+            p.vY -= 10 / ((this.canvas.height - p.y) * (this.canvas.height - p.y));
+            p.vX -= 10 / ((this.canvas.width - p.x) * (this.canvas.width - p.x));
+
+            for (var j = 0; j < this.peopleList.length; j++)
             {
-                p.vY += 10 / (p.y * p.y);
-            }
-            if (p.x < 20)
-            {
-                p.vX += 10 / (p.x * p.x);
-            }
-            if (p.y > this.canvas.height - 20)
-            {
-                p.vY -= 10 / ((this.canvas.height - p.y) * (this.canvas.height - p.y));
-            }
-            if (p.x > this.canvas.width - 20)
-            {
-                p.vX -= 10 / ((this.canvas.width - p.x) * (this.canvas.width - p.x));
+                if (j != i)
+                {
+                    var p2 = this.peopleList[j];
+                    var dx = Math.abs(p.x - p2.x);
+                    var dy = Math.abs(p.y - p2.y);
+                    
+                    if (dy > 0 && dy < 1)
+                    {
+                        if (p.y > p2.y)
+                        {
+                            p.vY += (1 / (dy * dy));
+                        }
+                        else 
+                        {
+                            p.vY -= (1 / (dy * dy));
+                        }
+                    }
+
+                    if (dx > 0 && dx < 1)
+                    {
+                        if (p.x > p2.x) 
+                        {
+                            p.vX += (1 / (dx * dx));
+                        }
+                        else 
+                        {
+                            p.vX -= (1/ (dx * dx));
+                        }
+                    }
+                }
             }
         }
     }
@@ -252,12 +277,23 @@ function simulation (canvasId, Ri, Ci)
         Disegna la griglia di persone (this.grid) sul canvas (this.canvas), prima rimuovendo ciò che era già presente 
         */
         this.canvas.getContext("2d").clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.fixCollisions();
 
         for (var i = 0; i < this.peopleList.length; i++)
         {
-            this.peopleList[i].updatePosition();
             this.peopleList[i].updateSprite(this.canvas, this.R, this.C);
+        }
+    }
+
+    this.simulateMovement = function()
+    {
+        /*
+        this.simulateMovement() => void
+        chiama la funzione fixCollisions e poi muove tutte le persone chiamedo la funzione updatePosition per ciascuna di esse
+        */
+        this.fixCollisions();
+        for (var i = 0; i < this.peopleList.length; i++)
+        {
+            this.peopleList[i].updatePosition();
         }
     }
 
@@ -270,6 +306,8 @@ function simulation (canvasId, Ri, Ci)
         this.collectedData.reset();
         for (var i = 0; i < this.peopleList.length; i++)
         {
+            this.peopleList[i].x = (i % this.C + 1) * (this.canvas.width / (this.R + 1))
+            this.peopleList[i].y = (Math.floor(i / this.C) + 1) * (this.canvas.height / (this.C + 1));
             this.peopleList[i].reset();
         }
     }

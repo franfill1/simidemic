@@ -6,7 +6,8 @@ const params =
 
     person :
     {
-        radius : 1,
+        radius : 2,
+        speed : 0.5,
         colors :
         {
             suscectible : "lightGreen", //colore di una persona suscettibile sul canvas
@@ -49,7 +50,8 @@ const params =
         defaultRadius : 15, //valore iniziale del raggio dell'epidemia
         defaultSpan : 15,
         defaultDeathIndex : 0.2,
-        nRows : 10,
+        defaultSocialDistancing : 0.01,
+        nRows : 11,
     }
 }
 
@@ -57,7 +59,7 @@ function main()
 {
     sim = new simulation("simulationCanvas", params.infection.nRows, params.infection.nRows);
     gra = new graph("graph", params.infection.nRows * params.infection.nRows, sim.collectedData);
-    sim.peopleList[(params.infection.nRows * params.infection.nRows) / 2].infect();
+    sim.peopleList[(params.infection.nRows * params.infection.nRows - 1) / 2].infect();
     sim.draw();
     setUpSliders();
     frame = 1;
@@ -98,7 +100,7 @@ function setUpSliders()
     {
         sim.reset();
         gra.reset();
-        sim.peopleList[20].infect();
+        sim.peopleList[(params.infection.nRows * params.infection.nRows - 1) / 2].infect();
         paused = true;
     }
     document.getElementById("PlayButton").onclick = function()
@@ -123,6 +125,10 @@ function setUpSliders()
 function update()
 {
     sim.draw();
+    if (!paused)
+    {
+        sim.simulateMovement();
+    }
     if (!paused && frame % 10 == 0)
     {  
         sim.simulateDay();
