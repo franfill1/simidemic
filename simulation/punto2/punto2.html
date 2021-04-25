@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="../punto2/punto2.css">
+<html>
+    <body onload="main()">
+        <div class="SliderInfectionProb_class">
+            <span>Change the <span class="keyword">probability of infection</span> with the value you prefer:</span> 
+            <br>
+            <input type="range" min="0" max="100" value="20" class="slider" id="SliderInfectionProb">
+            <span id="SliderInfectionProbValue"></span>
+        </div>
+        <div class="ButtonsDiv_class">
+            <button id="ResetButton">reset</button>
+            <button id="PauseButton">pause</button>
+            <button id="PlayButton">play</button>
+            <button id="StepButton">step</button>
+        </div>
+
+        <canvas class="simulation" id = "simulationCanvas" width = 400 height = 400></canvas>
+        <canvas class="statisticGraph" id = "graph" width = 400 height = 200></canvas>
+
+        <script src = "../punto2/punto2.js"></script>
+        <script src = "../punto2/punto2Graph.js"></script>
+        <script src = "../punto2/punto2StaticSimulation.js"></script>
+        <p id = "debug"></p>
+    </body>
+</html>
