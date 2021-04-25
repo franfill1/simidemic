@@ -22,6 +22,9 @@ function person(dataC, epidI)
     this.y = 0; 
     this.vX = 0;
     this.vY = 0;
+    this.tX = 0;
+    this.tY = 0;
+    this.travelling = false;
 
     this.status = 0; //0 = sano, 1 = incubante, 2 = infetto, 3 = rimosso, 4 = morto
     this.pulseRadius = 0;
@@ -41,6 +44,7 @@ function person(dataC, epidI)
         this.status = 0;
         this.pulseRadius = 0;
         this.timeSinceInfection = 0;
+        this.travelling = false;
     }
 
     this.infect = function()
@@ -90,11 +94,26 @@ function person(dataC, epidI)
 
     this.updatePosition = function()
     {
+        if (this.travelling)
+        {
+            this.vX = this.tX - this.x;
+            this.vY = this.tY - this.y;
+        }
         var v = Math.sqrt(this.vX * this.vX + this.vY * this.vY);
         this.vX = this.vX * params.person.speed / v;
         this.vY = this.vY * params.person.speed / v;
         this.x += this.vX;
         this.y += this.vY;
+
+        var dx = this.x - this.tX;
+        var dy = this.y - this.tY;
+
+        var d = Math.sqrt(dx * dx + dy * dy);
+
+        if (d < 10)
+        {
+            this.travelling = false;
+        }
     }
 
     this.updateSprite = function(canvas)
@@ -210,8 +229,10 @@ function simulation (canvasId, Ri, Ci)
             for (var j = 0; j < this.C; j++)
             {
                 var p = new person(this.collectedData, this.epidemicInfo);
-                p.x = (j + 1) * (this.canvas.width / (this.R + 1));
-                p.y = (i + 1) * (this.canvas.height / (this.C + 1));
+                p.x = (j + 1) * (this.canvas.width / (this.R + 1)) / 4 + this.canvas.width / 4;
+                p.y = (i + 1) * (this.canvas.height / (this.C + 1)) / 4 + this.canvas.height / 4;
+                p.tX = this.canvas.width / 2;
+                p.tY = this.canvas.height / 2;
                 var direction = Math.random() * Math.PI * 2;
                 p.vX = Math.cos(direction);
                 p.vY = Math.sin(direction);
@@ -241,29 +262,38 @@ function simulation (canvasId, Ri, Ci)
                     var p2 = this.peopleList[j];
                     var dx = Math.abs(p.x - p2.x);
                     var dy = Math.abs(p.y - p2.y);
+
+                    var d = Math.sqrt(dx * dx + dy * dy);
                     
-                    if (dy > 0 && dy < 1)
+                    if (dy > 0 && d < 50)
                     {
                         if (p.y > p2.y)
                         {
-                            p.vY += (1 / (dy * dy));
+                            p.vY += (0.1 / (dy * dy));
                         }
                         else 
                         {
-                            p.vY -= (1 / (dy * dy));
+                            p.vY -= (0.1 / (dy * dy));
                         }
                     }
 
-                    if (dx > 0 && dx < 1)
+                    if (dx > 0 && d < 50)
                     {
                         if (p.x > p2.x) 
                         {
-                            p.vX += (1 / (dx * dx));
+                            p.vX += (0.1 / (dx * dx));
                         }
                         else 
                         {
-                            p.vX -= (1/ (dx * dx));
+                            p.vX -= (0.1 / (dx * dx));
                         }
+                    }
+
+                    if (d == 0)
+                    {
+                        var direction = Math.random() * 2 * Math.PI;
+                        p.vX += Math.cos(direction);
+                        p.vY += Math.sin(direction);
                     }
                 }
             }
@@ -322,7 +352,11 @@ function simulation (canvasId, Ri, Ci)
         this.infection();
         for (var i = 0; i < this.peopleList.length; i++)
         {
-                this.peopleList[i].liveDay();
+            if (Math.random() < 0.01)
+            {
+                //this.peopleList[i].travelling = true;
+            }
+            this.peopleList[i].liveDay();
         }
     }
 

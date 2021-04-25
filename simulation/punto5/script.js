@@ -51,7 +51,7 @@ const params =
         defaultSpan : 15,
         defaultDeathIndex : 0.2,
         defaultSocialDistancing : 0.01,
-        nRows : 11,
+        nRows : 25,
     }
 }
 
@@ -100,6 +100,7 @@ function setUpSliders()
     {
         sim.reset();
         gra.reset();
+        frame = 0;
         sim.peopleList[(params.infection.nRows * params.infection.nRows - 1) / 2].infect();
         paused = true;
     }
@@ -134,5 +135,5 @@ function update()
         sim.simulateDay();
         gra.updateData();
     }
-    frame++;
+    if (!paused) frame++;
 }
