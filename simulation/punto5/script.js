@@ -51,7 +51,7 @@ const params =
         defaultSpan : 15,
         defaultDeathIndex : 0.2,
         defaultSocialDistancing : 0.01,
-        nRows : 25,
+        nRows : 3,
     }
 }
 

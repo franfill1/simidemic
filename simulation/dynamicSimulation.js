@@ -100,8 +100,8 @@ function person(dataC, epidI)
             this.vY = this.tY - this.y;
         }
         var v = Math.sqrt(this.vX * this.vX + this.vY * this.vY);
-        this.vX = this.vX * params.person.speed / v;
-        this.vY = this.vY * params.person.speed / v;
+        //this.vX = this.vX * params.person.speed / v;
+        //this.vY = this.vY * params.person.speed / v;
         this.x += this.vX;
         this.y += this.vY;
 
@@ -229,13 +229,13 @@ function simulation (canvasId, Ri, Ci)
             for (var j = 0; j < this.C; j++)
             {
                 var p = new person(this.collectedData, this.epidemicInfo);
-                p.x = (j + 1) * (this.canvas.width / (this.R + 1)) / 4 + this.canvas.width / 4;
-                p.y = (i + 1) * (this.canvas.height / (this.C + 1)) / 4 + this.canvas.height / 4;
+                p.x = (j + 1) * (this.canvas.width / (this.R + 1));
+                p.y = (i + 1) * (this.canvas.height / (this.C + 1));
                 p.tX = this.canvas.width / 2;
                 p.tY = this.canvas.height / 2;
                 var direction = Math.random() * Math.PI * 2;
-                p.vX = Math.cos(direction);
-                p.vY = Math.sin(direction);
+                p.vX = Math.cos(direction) / 2;
+                p.vY = Math.sin(direction) / 2;
                 this.peopleList.push(p);
             }
         }
@@ -250,10 +250,14 @@ function simulation (canvasId, Ri, Ci)
         for (var i = 0; i < this.peopleList.length; i++)
         {
             var p = this.peopleList[i];
-            p.vY += 10 / (p.y * p.y);
-            p.vX += 10 / (p.x * p.x);
-            p.vY -= 10 / ((this.canvas.height - p.y) * (this.canvas.height - p.y));
-            p.vX -= 10 / ((this.canvas.width - p.x) * (this.canvas.width - p.x));
+            if (p.y <= 0) {p.y = 1}
+            p.vY += 1 / (p.y * p.y)
+            if (p.x <= 0) {p.x = 1}
+            p.vX += 1 / (p.x * p.x)
+            if (p.y >= this.canvas.height){ p.y = this.canvas.height-1}
+            p.vY -= 1 / ((this.canvas.height - p.y) * (this.canvas.height - p.y))
+            if (p.x >= this.canvas.width){p.x = this.canvas.width-1}
+            p.vX -= 1 / ((this.canvas.width - p.x) * (this.canvas.width - p.x))
 
             for (var j = 0; j < this.peopleList.length; j++)
             {
@@ -265,27 +269,27 @@ function simulation (canvasId, Ri, Ci)
 
                     var d = Math.sqrt(dx * dx + dy * dy);
                     
-                    if (dy > 0 && d < 50)
+                    if (dy > 0)
                     {
                         if (p.y > p2.y)
                         {
-                            p.vY += (0.1 / (dy * dy));
+                            p.vY += Math.min(2, (0.01 / dy));
                         }
                         else 
                         {
-                            p.vY -= (0.1 / (dy * dy));
+                            p.vY -= Math.min(2, (0.01 / dy));
                         }
                     }
 
-                    if (dx > 0 && d < 50)
+                    if (dx > 0)
                     {
                         if (p.x > p2.x) 
                         {
-                            p.vX += (0.1 / (dx * dx));
+                            p.vX += Math.min(2, (0.01 / (dx * dx)));
                         }
                         else 
                         {
-                            p.vX -= (0.1 / (dx * dx));
+                            p.vX -= Math.min(2, (0.01 / (dx * dx)));
                         }
                     }
 
