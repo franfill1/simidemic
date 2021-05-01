@@ -82,6 +82,10 @@ function person(dataC, epidI)
                 }
             }
         }
+        if (this.dataCollector.nInfected == params.infection.nRows * params.infection.nRows)
+            paused = true;
+        if (this.dataCollector.nInfected == 0 && (this.dataCollector.nRecovered != 0 || this.dataCollector.nDead != 0))
+            paused = true;
     }
 
     this.updateSprite = function(canvas)
