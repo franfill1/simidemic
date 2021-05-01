@@ -29,6 +29,39 @@ div
     transform: translate(0px, 140px);
 }
 
+#ResetButton
+{
+    border-style: solid;
+    border-color: blue;
+    color:rgb(255, 255, 255);
+    background-color:black;
+}
+
+#PauseButton
+{
+    border-style: solid;
+    border-color: blue;
+    color:rgb(3, 3, 94);
+    background-color: rgb(247, 110, 68);
+}
+
+#PlayButton
+{
+    border-style: solid;
+    border-color: blue;
+    color:rgb(3, 3, 94);
+    background-color: rgb(162, 255, 56);
+}
+
+#StepButton
+{
+    border-style: solid;
+    border-color: blue;
+    color:rgb(3, 3, 94);
+    background-color: rgb(245, 147, 35);
+}
+
+
 span
 {
     color: black;
