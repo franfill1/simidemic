@@ -6,7 +6,7 @@ const params =
 
     person :
     {
-        radius : 2,
+        radius : 7,
         speed : 0.5,
         colors :
         {
@@ -51,7 +51,7 @@ const params =
         defaultSpan : 15,
         defaultDeathIndex : 0.2,
         defaultSocialDistancing : 0.01,
-        nRows : 3,
+        nRows : 11,
     }
 }
 

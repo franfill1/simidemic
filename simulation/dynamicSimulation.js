@@ -45,6 +45,9 @@ function person(dataC, epidI)
         this.pulseRadius = 0;
         this.timeSinceInfection = 0;
         this.travelling = false;
+        var direction = Math.random() * 2 * Math.PI;
+        this.vX = Math.cos(direction);
+        this.vY = Math.sin(direction)
     }
 
     this.infect = function()
@@ -94,12 +97,12 @@ function person(dataC, epidI)
 
     this.updatePosition = function()
     {
-        if (this.travelling)
+        /*if (this.travelling)
         {
             this.vX = this.tX - this.x;
             this.vY = this.tY - this.y;
-        }
-        var v = Math.sqrt(this.vX * this.vX + this.vY * this.vY);
+        }*/
+        //var v = Math.sqrt(this.vX * this.vX + this.vY * this.vY);
         //this.vX = this.vX * params.person.speed / v;
         //this.vY = this.vY * params.person.speed / v;
         this.x += this.vX;
@@ -234,8 +237,8 @@ function simulation (canvasId, Ri, Ci)
                 p.tX = this.canvas.width / 2;
                 p.tY = this.canvas.height / 2;
                 var direction = Math.random() * Math.PI * 2;
-                p.vX = Math.cos(direction) / 2;
-                p.vY = Math.sin(direction) / 2;
+                p.vX = Math.cos(direction);
+                p.vY = Math.sin(direction);
                 this.peopleList.push(p);
             }
         }
@@ -247,58 +250,40 @@ function simulation (canvasId, Ri, Ci)
         this.fixCollisions() => void
         per ogni persona, fa in modo che rispetti il distanziamento sociale e che non si avvicini ai bordi dell'area
         */
-        for (var i = 0; i < this.peopleList.length; i++)
+        for (var i = this.peopleList.length-1; i >= 0 ; i--)
         {
             var p = this.peopleList[i];
-            if (p.y <= 0) {p.y = 1}
-            p.vY += 1 / (p.y * p.y)
-            if (p.x <= 0) {p.x = 1}
-            p.vX += 1 / (p.x * p.x)
-            if (p.y >= this.canvas.height){ p.y = this.canvas.height-1}
-            p.vY -= 1 / ((this.canvas.height - p.y) * (this.canvas.height - p.y))
-            if (p.x >= this.canvas.width){p.x = this.canvas.width-1}
-            p.vX -= 1 / ((this.canvas.width - p.x) * (this.canvas.width - p.x))
-
-            for (var j = 0; j < this.peopleList.length; j++)
+            var r = params.person.radius;
+            if(p.y - r <= 0)
             {
-                if (j != i)
+                p.vY = Math.abs(p.vY);
+            }
+            if (p.y + r >= this.canvas.height)
+            {
+                p.vY = -Math.abs(p.vY);
+            }
+            if (p.x - r <= 0)
+            {
+                p.vX = Math.abs(p.vX);
+            }
+            if (p.x + r >= this.canvas.width)
+            {
+                p.vX = -Math.abs(p.vX);
+            }
+            for (var j = i-1; j >= 0; j--)
+            {
+                var oth = this.peopleList[j];
+                var dx = (oth.x + oth.vX) - (p.x + p.vX);
+                var dy = (oth.y + oth.vY) - (p.y + p.vY);
+                var d = Math.sqrt(dx * dx + dy * dy);
+                if (d <= 14)
                 {
-                    var p2 = this.peopleList[j];
-                    var dx = Math.abs(p.x - p2.x);
-                    var dy = Math.abs(p.y - p2.y);
-
-                    var d = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (dy > 0)
-                    {
-                        if (p.y > p2.y)
-                        {
-                            p.vY += Math.min(2, (0.01 / dy));
-                        }
-                        else 
-                        {
-                            p.vY -= Math.min(2, (0.01 / dy));
-                        }
-                    }
-
-                    if (dx > 0)
-                    {
-                        if (p.x > p2.x) 
-                        {
-                            p.vX += Math.min(2, (0.01 / (dx * dx)));
-                        }
-                        else 
-                        {
-                            p.vX -= Math.min(2, (0.01 / (dx * dx)));
-                        }
-                    }
-
-                    if (d == 0)
-                    {
-                        var direction = Math.random() * 2 * Math.PI;
-                        p.vX += Math.cos(direction);
-                        p.vY += Math.sin(direction);
-                    }
+                    var temp = p.vX;
+                    p.vX = oth.vX;
+                    oth.vX = temp;
+                    temp = p.vY;
+                    p.vY = oth.vY;
+                    oth.vY = temp;
                 }
             }
         }
@@ -324,11 +309,11 @@ function simulation (canvasId, Ri, Ci)
         this.simulateMovement() => void
         chiama la funzione fixCollisions e poi muove tutte le persone chiamedo la funzione updatePosition per ciascuna di esse
         */
-        this.fixCollisions();
         for (var i = 0; i < this.peopleList.length; i++)
         {
             this.peopleList[i].updatePosition();
         }
+        this.fixCollisions();
     }
 
     this.reset = function()
