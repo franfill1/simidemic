@@ -26,6 +26,9 @@ div
 
 #ResetButton
 {
+    padding: 4px 8px 4px 8px;
+    font-size: 16px;
+    border-radius: 15%;
     border-style: solid;
     border-color: blue;
     color:rgb(255, 255, 255);
@@ -34,26 +37,35 @@ div
 
 #PauseButton
 {
+    padding: 4px 8px 4px 8px;
+    font-size: 16px;
+    border-radius: 15%;
     border-style: solid;
     border-color: blue;
-    color:rgb(3, 3, 94);
-    background-color: rgb(247, 110, 68);
+    color:rgb(255, 255, 255);
+    background-color: rgb(163, 0, 0);
 }
 
 #PlayButton
 {
+    padding: 4px 8px 4px 8px;
+    font-size: 16px;
+    border-radius: 15%;
     border-style: solid;
     border-color: blue;
-    color:rgb(3, 3, 94);
-    background-color: rgb(162, 255, 56);
+    color:rgb(255, 255, 255);
+    background-color: rgb(67, 122, 3);
 }
 
 #StepButton
 {
+    padding: 4px 8px 4px 8px;
+    font-size: 16px;
+    border-radius: 15%;
     border-style: solid;
     border-color: blue;
-    color:rgb(3, 3, 94);
-    background-color: rgb(245, 147, 35);
+    color:rgb(255, 255, 255);
+    background-color: rgb(190, 102, 0);
 }
 
 span
