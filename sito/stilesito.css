@@ -1,196 +1,202 @@
-
 * {
-font-family: Georgia, 'Times New Roman', Times, serif;
-margin:0;
-padding: 0;
-box-sizing: border-box;
-overflow-x: hidden;
-cursor: default;
-}
-body{overflow: hidden;}
-/*navbar styling*/
-.navbar ul{
-    display: flex;
-    background-color: black;
-    list-style-type: none;
-    justify-content: space-between;
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin:0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  cursor: default;
   }
-.navleft{
-  display: flex;}
-.navleft a{display: inline-block;}
-.lingue a{display: flex;}
-.navbar a{
-padding: 1em;
-text-decoration: none;
-color: cyan;
-text-align: center;
-position: relative;
-}
-.navbar a:hover {
-color: cyan;
-}
-.navbar .dropdown
-{position: absolute;
-display: none;
-width: 100%;
-text-align: center;
-z-index: 1;
-}
-.lingue:hover .dropdown{
- display: block;
-}
-/*IMMAGINE HEADER*/
-.main-header{
-position: relative;
-}
-.main-header img{
-  z-index: -1;
+  body{overflow: hidden;}
+  
+  :root {
+  --dark-orange: #fa8128ff;
+  --light-orange: #ffb91bff;
+  --brown: #371400ff;
+  }
+  /*navbar styling*/
+  .navbar ul{
+      display: flex;
+      background-color: black;
+      list-style-type: none;
+      justify-content: space-between;
+    }
+  .navleft{
+    display: flex;}
+  .navleft a{display: inline-block;}
+  .lingue a{display: flex;}
+  .navbar a{
+  padding: 1em;
+  text-decoration: none;
+  color: var(--dark-orange);
+  text-align: center;
   position: relative;
   }
-  .headtitle{
-    position: relative;
-    top: 0;
-    width: 100%;
-    left:0;
-    text-align: left;
-    background-image: url("header2.png");
-  }
-  .headtitle h1{
-  overflow: hidden;
-  color:white;
-  font-size: 3.5rem;
-  line-height: 1;
-  max-width: 100%;
-  margin-left:1em;
-  margin-right: 1em;
-  }
-.headtitle p{
-  font-size: 1rem;
-  max-width: 100%;
+  .navbar a:hover {
   color: var(--light-orange);
-line-height: 1.7;
-text-align: center;
-margin: auto;
-}
- /*CONTENUTO*/
-p {
-padding: 1em;
-line-height: 1.5;
-}
- [class^="text-area"]{
-  padding: 3rem 0;
+  } 
+  .navbar .dropdown
+  {position: absolute;
+  display: none;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
   }
-  .container
-  {
-  margin-inline:auto;
-  width: min(90%, 50rem);
+  .lingue:hover .dropdown{
+   display: block;
   }
-  img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+  /*IMMAGINE HEADER*/
+  .main-header{
+  position: relative;
+  }
+  .main-header img{
+    z-index: -1;
+    position: relative;
+    }
+    .headtitle{
+      position: relative;
+      top: 0;
+      width: 100%;
+      left:0;
+      text-align: center;
+      background-color: var(--brown);
+    }
+    .headtitle h1{
+    overflow: hidden;
+    color:var(--dark-orange);
+    font-size: 3.5rem;
+    line-height: 1;
+    max-width: 100%;
+    margin-left:1em;
+    margin-right: 1em;
+    }
+  .headtitle p{
+    font-size: 1rem;
+    max-width: 100%;
+    color: var(--light-orange);
+  line-height: 1.7;
+  text-align: center;
   margin: auto;
   }
- /*area1*/
- .text-section-1 .container{
-  display: flex;
-  justify-content: space-between;
- }
- .text-section-1 .container >*{
-   flex-basis: 100%;
+   /*CONTENUTO*/
+  p {
+  padding: 1em;
+  line-height: 1.5;
   }
-.text-section-1 img{
-width: 40px;
-}
-/**/
-.dividor{
-max-width: 100%;
-height: 2.5rem;
-background-color: var(--dark-orange);
-}
-/*articoli area*/
-.articolo{
-padding: 1em;
-display: flex;
-}
-.articolo:hover{
-background-color: var(--light-orange);
-}
-.articolo, .articolo p, .articolo img{cursor: pointer;}
-/*citazionearea*/
-.citazione {
-background-color: var(--brown);
-text-align: center;
-}
-.citazione q{
-display: inline-block;
-color: var(--dark-orange);
-padding: 1em;
-font-size: 2.5rem;
-font-weight: bolder;
-}
-.citazione p{
-color: var(--light-orange);
-font-size:1.4rem;
-}
-/*simulationarea*/
-.imgarea{overflow: hidden;}
-.imgarea h2, .areaarticoli h2{
-  color: var(--brown);
-  font-size: 2.5rem;
-  font-weight: bold;
-  text-align: center;
-  margin: 0.5em;
-  }
-  .imgarea button {
-    display: block;
-    margin: 1em auto;
-    padding: 1em 2em;
-    background-color: var(--brown);
-    color: var(--light-orange);
-    font-size: 1.3rem;
-    font-weight: 300;
+   [class^="text-area"]{
+    padding: 3rem 0;
     }
-  .imgarea button:hover{
-  background-color:var(--light-orange);
-  color: var(--brown);
+    .container
+    {
+    margin-inline:auto;
+    width: min(90%, 50rem);
+    }
+    img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
+    }
+   /*area1*/
+   .text-section-1 .container{
+    display: flex;
+    justify-content: space-between;
+   }
+   .text-section-1 .container >*{
+     flex-basis: 100%;
+    }
+  .text-section-1 img{
+  width: 40px;
   }
-/*footer*/
-.footer{
-background-color: var(--dark-orange);
-}
-.footer p{
-padding: 3rem;
-text-align: center;
-}
-
-/*RESPONSIVE*/
-/*size 2*/
-@media screen and (min-width:600px){
-
-/*size 3*/
-@media screen and (min-width:768px){
-.headtitle{
-  background-color: transparent;
-  position: absolute;
-  top:15%;
-  width:45%;
+  /**/
+  .dividor{
+  max-width: 100%;
+  height: 2.5rem;
+  background-color: var(--dark-orange);
   }
-.headtitle h1{font-size: 5.5vw;}
-.headtitle p{
+  /*articoli area*/
+  .articolo{
+  padding: 1em;
+  display: flex;
+  }
+  .articolo:hover{
+  background-color: var(--light-orange);
+  }
+  .articolo, .articolo p, .articolo img{cursor: pointer;}
+  /*citazionearea*/
+  .citazione {
+  background-color: var(--brown);
+  text-align: center;
+  }
+  .citazione q{
+  display: inline-block;
+  color: var(--dark-orange);
+  padding: 1em;
+  font-size: 2.5rem;
+  font-weight: bolder;
+  }
+  .citazione p{
   color: var(--light-orange);
-  padding-top:1.5em;
-  max-width: 70%;
-}
-
-
-/*size4 size
-
-@media screen and (min-width:992px;){
-
-  .text-body{background-color:rgb(134, 212, 119);}
-}
-  size 5
-  @media screen and (min-width:1200px;){
-    .text-body{background-color:rgb(135, 62, 204);}
-  }*/
+  font-size:1.4rem;
+  }
+  /*simulationarea*/
+  .imgarea{overflow: hidden;}
+  .imgarea h2, .areaarticoli h2{
+    color: var(--brown);
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin: 0.5em;
+    }
+    .imgarea button {
+      display: block;
+      margin: 1em auto;
+      padding: 1em 2em;
+      background-color: var(--brown);
+      color: var(--light-orange);
+      font-size: 1.3rem;
+      font-weight: 300;
+      }
+    .imgarea button:hover{
+    background-color:var(--light-orange);
+    color: var(--brown);
+    }
+  /*footer*/
+  .footer{
+  background-color: var(--dark-orange);
+  }
+  .footer p{
+  padding: 3rem;
+  text-align: center;
+  }
+  
+  /*RESPONSIVE*/
+  /*size 2*/
+  @media screen and (min-width:600px){
+    .text-body{background-color:rgb(170, 163, 231);}
+  }
+  /*size 3*/
+  @media screen and (min-width:768px){
+  .headtitle{
+    background-color: transparent;
+    position: absolute;
+    top:15%;
+    width:45%;
+    }
+  .headtitle h1{font-size: 5.5vw;}
+  .headtitle p{
+    color: var(--light-orange);
+    padding-top:1.5em;
+    max-width: 70%;
+  }
+  .text-body{background-color:pink;}
+  }
+  
+  /*size4 size
+  @media screen and (min-width:992px;){
+    .text-body{background-color:rgb(134, 212, 119);}
+  }
+    size 5
+    @media screen and (min-width:1200px;){
+      .text-body{background-color:rgb(135, 62, 204);}
+    }*/
+  
