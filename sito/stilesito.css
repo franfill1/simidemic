@@ -6,8 +6,6 @@
   overflow-x: hidden;
   cursor: default;
   }
-  body{overflow: hidden;}
-  
   :root {
   --dark-orange: #fa8128ff;
   --light-orange: #ffb91bff;
@@ -52,74 +50,79 @@
     z-index: -1;
     position: relative;
     }
-    .headtitle{
-      position: relative;
-      top: 0;
-      width: 100%;
-      left:0;
-      text-align: center;
-      background-color: var(--brown);
+  .headtitle{
+    position: relative;
+    top: 0;
+    width: 100%;
+    left:0;
+    text-align: center;
+    background-color: #0b0505;
     }
-    .headtitle h1{
-    overflow: hidden;
-    color:var(--dark-orange);
-    font-size: 3.5rem;
-    line-height: 1;
-    max-width: 100%;
-    margin-left:1em;
-    margin-right: 1em;
+.headtitle h1{
+  overflow: hidden;
+  color:var(--dark-orange);
+  font-size: 3rem;
+  line-height: 1;
+  max-width: 100%;
+  margin:0 1em;
     }
-  .headtitle p{
-    font-size: 1rem;
-    max-width: 100%;
-    color: var(--light-orange);
+.headtitle p{
+  font-size: 1rem;
+  max-width: 100%;
+  color: var(--light-orange);
   line-height: 1.7;
   text-align: center;
   margin: auto;
   }
    /*CONTENUTO*/
-  p {
+  /* [class^="text-area"]{
+    padding: 3rem 0;
+  }*/
+  
+/*
+  }*/
+.container
+{
+margin-inline:auto;
+width: min(90%, 50rem);}
+  p{
   padding: 1em;
   line-height: 1.5;
   }
-   [class^="text-area"]{
-    padding: 3rem 0;
-    }
-    .container
-    {
-    margin-inline:auto;
-    width: min(90%, 50rem);
-    }
-    img {
+  img {
     max-width: 100%;
-    height: auto;
     display: block;
     margin: auto;
-    }
+  }
    /*area1*/
-   .text-section-1 .container{
-    display: flex;
-    justify-content: space-between;
-   }
-   .text-section-1 .container >*{
-     flex-basis: 100%;
-    }
-  .text-section-1 img{
-  width: 40px;
+  .text-section-1{
+  display: flex;
+  flex-direction: column;
+  }
+  .text-section-1>div{display: flex;
+  flex-flow: row;}
+  .text-section-1>div>p{flex-basis: 90%;}
+  
+.text-section-1 img{
+  width: 60px;
+  height: 60px;
   }
   /**/
-  .dividor{
-  max-width: 100%;
+  .colorblock{
+  width: 100%;
   height: 2.5rem;
   background-color: var(--dark-orange);
   }
   /*articoli area*/
+  .articolo h3{
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
   .articolo{
   padding: 1em;
-  display: flex;
   }
   .articolo:hover{
-  background-color: var(--light-orange);
+  background-color: rgb(211, 211, 211);
   }
   .articolo, .articolo p, .articolo img{cursor: pointer;}
   /*citazionearea*/
@@ -127,22 +130,22 @@
   background-color: var(--brown);
   text-align: center;
   }
-  .citazione q{
-  display: inline-block;
-  color: var(--dark-orange);
-  padding: 1em;
-  font-size: 2.5rem;
-  font-weight: bolder;
-  }
   .citazione p{
   color: var(--light-orange);
-  font-size:1.4rem;
+  font-size:1.2rem;
   }
+  .citazione q{
+    display: inline-block;
+    color: var(--dark-orange);
+    padding: 1em;
+    font-size: 1.6rem;
+    font-weight: bold;
+    }
   /*simulationarea*/
   .imgarea{overflow: hidden;}
   .imgarea h2, .areaarticoli h2{
     color: var(--brown);
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: bold;
     text-align: center;
     margin: 0.5em;
@@ -155,6 +158,7 @@
       color: var(--light-orange);
       font-size: 1.3rem;
       font-weight: 300;
+      border: none;
       }
     .imgarea button:hover{
     background-color:var(--light-orange);
@@ -168,11 +172,14 @@
   padding: 3rem;
   text-align: center;
   }
-  
   /*RESPONSIVE*/
   /*size 2*/
   @media screen and (min-width:600px){
-    .text-body{background-color:rgb(170, 163, 231);}
+  .text-body{background-color:rgb(170, 163, 231);}
+  .text-section-1{flex-direction: row;}
+  .text-section-1>div{flex-direction: column;}
+  .text-section-1{margin: 1em 0;}
+  .citazione q{font-size: 2rem;}
   }
   /*size 3*/
   @media screen and (min-width:768px){
@@ -181,16 +188,20 @@
     position: absolute;
     top:15%;
     width:45%;
+    background-color: transparent;
     }
-  .headtitle h1{font-size: 5.5vw;}
+    .imgarea h2 {font-size: 2.5rem;}
+  .headtitle h1{
+    color: var(--dark-orange);
+    font-size: 5.5vw;}
   .headtitle p{
     color: var(--light-orange);
     padding-top:1.5em;
     max-width: 70%;
+    color: var(--light-orange);
   }
+  .main-header img{margin: 0;}
   .text-body{background-color:pink;}
-  }
-  
   /*size4 size
   @media screen and (min-width:992px;){
     .text-body{background-color:rgb(134, 212, 119);}
@@ -199,4 +210,3 @@
     @media screen and (min-width:1200px;){
       .text-body{background-color:rgb(135, 62, 204);}
     }*/
-  
