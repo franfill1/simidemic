@@ -7,9 +7,9 @@ const params =
     person :
     {
         radius : 1,
-        speed : 0.5,
-        acceleration : 0.02,
-        angle : Math.PI,
+        speed : 0.4,
+        acceleration : 0.01,
+        angle : Math.PI/12,
         colors :
         {
             suscectible : "lightGreen", //colore di una persona suscettibile sul canvas
@@ -24,6 +24,14 @@ const params =
             final : 20, //raggio dopo il quale le pulsazioni non sono più visibili
             increment : 1, //incremento del raggio di una pulsazione ad ogni frame
         }
+    },
+    region :
+    {
+        colors:
+        {
+            edges : "white",
+        },
+        border: 5,
     },
     graph :
     {
@@ -49,23 +57,24 @@ const params =
     infection :
     {
         defaultIndex : 0.35, //valore dell'indice di infezione dell'epidemia
-        defaultRadius : 12, //valore iniziale del raggio dell'epidemia
+        defaultRadius : 7, //valore iniziale del raggio dell'epidemia
         defaultSpan : 15,
         defaultDeathIndex : 0.2,
-        defaultSocialDistancing : 3,
+        defaultSocialDistancing : 10,
         defaultRespectfullness : 0.9,
-        nRows : 21,
+        nRows : 3,
+        nPeople : 900,
     }
 }
 
 function main()
 {
-    sim = new simulation("simulationCanvas", params.infection.nRows, params.infection.nRows);
-    gra = new graph("graph", params.infection.nRows * params.infection.nRows, sim.collectedData);
-    sim.infectArea(200, 200, 30);
+    sim = new simulation("simulationCanvas", params.infection.nRows, params.infection.nPeople);
+    gra = new graph("graph", params.infection.nPeople, sim.collectedData);
+    sim.startEpidemic(2, 10);
     sim.draw();
     setUpSliders();
-    frame = 1;
+    frame = 0;
     paused = false;
     setInterval(update, 20);
 }
@@ -104,7 +113,7 @@ function setUpSliders()
         sim.reset();
         gra.reset();
         frame = 0;
-        sim.infectArea(200, 200, 30);
+        sim.startEpidemic(2, 10);
         paused = true;
     }
     document.getElementById("PlayButton").onclick = function()
