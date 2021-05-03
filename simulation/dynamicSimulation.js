@@ -41,13 +41,6 @@ class person {
         this.timeSinceInfection = 0;
         this.dataCollector = dataC;
         this.epidemicInfo = epidI;
-
-        const suscectibleColor = params.person.colors.suscectible;
-        const infectedColor = params.person.colors.infected;
-        const removedColor = params.person.colors.removed;
-        const deadColor = params.person.colors.dead;
-        const pulseColor = params.person.colors.pulse;
-        const radius = params.person.radius;
     }
 
     reset() {
@@ -172,6 +165,14 @@ class person {
         Input:
         canvas => il canvas sul quale verrà disegnato il cerchio
         */
+
+        const suscectibleColor = params.person.colors.suscectible;
+        const infectedColor = params.person.colors.infected;
+        const removedColor = params.person.colors.removed;
+        const deadColor = params.person.colors.dead;
+        const pulseColor = params.person.colors.pulse;
+        const radius = params.person.radius;
+        
         var ctx = canvas.getContext("2d");
 
         ctx.fillStyle = [suscectibleColor, infectedColor, infectedColor, removedColor, deadColor][this.status];
