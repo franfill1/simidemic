@@ -277,11 +277,12 @@ function simulation (canvasId, Ri, Ci)
 
         this.epidemicInfo = //i seguenti valori vengono inizializzati a partire da parametri globali, ma possono essere variati
         {
-            index : params.infection.defaultIndex, //indice di infezione dell'epidemia, 
+            index : params.infection.defaultIndex, //indice di infezione dell'epidemia
             radius : params.infection.defaultRadius, //raggio di infezione dell'epidemia
             infectionSpan : params.infection.defaultSpan, //durata dell'infezione
             deathIndex : params.infection.defaultDeathIndex, //probabilità di morte alla fine dell'arco dell'infezione
             socialDistancing : params.infection.defaultSocialDistancing, //distanziamento sociale
+            respectfullness : params.infection.defaultRespectfullness, //percentuale di persone rispettose delle norme di distanziamento
         };
 
         this.canvas = document.getElementById(canvasId);
@@ -294,14 +295,31 @@ function simulation (canvasId, Ri, Ci)
                 var p = new person(this.collectedData, this.epidemicInfo);
                 p.x = (j + 1) * (this.canvas.width / (this.R + 1));
                 p.y = (i + 1) * (this.canvas.height / (this.C + 1));
+
                 p.tX = this.canvas.width / 2;
                 p.tY = this.canvas.height / 2;
                 var direction = Math.random() * Math.PI * 2;
 
-                p.accX = Math.cos(direction);
-                p.accY = Math.sin(direction);
+                p.vX = p.accX = Math.cos(direction);
+                p.vY = p.accY = Math.sin(direction);
                 this.peopleList.push(p);
             }
+        }
+        shuffle(this.peopleList);
+    }
+
+    this.reset = function()
+    {
+        /*
+        this.reset() => void
+        Rende tutte le persone nella griglia (this.grid), suscettibili, riportando i dati raccolti a 0
+        */
+        this.collectedData.reset();
+        for (var i = 0; i < this.peopleList.length; i++)
+        {
+            this.peopleList[i].x = (i % this.C + 1) * (this.canvas.width / (this.R + 1))
+            this.peopleList[i].y = (Math.floor(i / this.C) + 1) * (this.canvas.height / (this.C + 1));
+            this.peopleList[i].reset();
         }
         shuffle(this.peopleList);
     }
@@ -337,7 +355,7 @@ function simulation (canvasId, Ri, Ci)
                 p.vY -= 1/(this.canvas.height - p.y);
                 p.accY -= 1/(this.canvas.width - p.x);
             }
-            if (i < this.peopleList.length * 0.9) //todo: rendere questo parametro modificabile
+            if (i < this.peopleList.length * this.epidemicInfo.respectfullness) //todo: rendere questo parametro modificabile
             {
                 for (var j = 0; j < this.peopleList.length; j++)
                 {
@@ -405,22 +423,6 @@ function simulation (canvasId, Ri, Ci)
         this.fixCollisions();
     }
 
-    this.reset = function()
-    {
-        /*
-        this.reset() => void
-        Rende tutte le persone nella griglia (this.grid), suscettibili, riportando i dati raccolti a 0
-        */
-        this.collectedData.reset();
-        for (var i = 0; i < this.peopleList.length; i++)
-        {
-            this.peopleList[i].x = (i % this.C + 1) * (this.canvas.width / (this.R + 1))
-            this.peopleList[i].y = (Math.floor(i / this.C) + 1) * (this.canvas.height / (this.C + 1));
-            this.peopleList[i].reset();
-        }
-        shuffle(this.peopleList);
-    }
-
     this.simulateDay = function()
     {
         /*
@@ -470,6 +472,25 @@ function simulation (canvasId, Ri, Ci)
                 }
             }
         }
+    }
+
+    this.infectArea = function(x, y, r)
+    {
+        /*
+        this.infectArea(x, y, r) => void
+        Infetta un area circolare di centro {x, y} e raggio r
+        */
+       for (var i = 0; i < this.peopleList.length; i++)
+       {
+           var p = this.peopleList[i];
+           var dx = p.x - x;
+           var dy = p.y - y;
+           var d = Math.sqrt(dx*dx + dy*dy);
+           if (d < r)
+           {
+               p.infect();
+           }
+       }
     }
 
     this.init();
