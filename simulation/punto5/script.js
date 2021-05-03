@@ -6,8 +6,10 @@ const params =
 
     person :
     {
-        radius : 7,
+        radius : 1,
         speed : 0.5,
+        acceleration : 0.02,
+        angle : Math.PI / 6,
         colors :
         {
             suscectible : "lightGreen", //colore di una persona suscettibile sul canvas
@@ -47,11 +49,11 @@ const params =
     infection :
     {
         defaultIndex : 0.35, //valore dell'indice di infezione dell'epidemia
-        defaultRadius : 15, //valore iniziale del raggio dell'epidemia
+        defaultRadius : 12, //valore iniziale del raggio dell'epidemia
         defaultSpan : 15,
         defaultDeathIndex : 0.2,
-        defaultSocialDistancing : 0.01,
-        nRows : 11,
+        defaultSocialDistancing : 3,
+        nRows : 21,
     }
 }
 
@@ -73,8 +75,8 @@ function setUpSliders()
     document.getElementById("SliderInfectionProbValue").innerHTML = params.infection.defaultIndex;
     document.getElementById("SliderInfectionRange").value = params.infection.defaultRadius;
     document.getElementById("SliderInfectionRangeValue").innerHTML = params.infection.defaultRadius;
-    document.getElementById("SliderInfectionSpan").value = params.infection.defaultSpan;
-    document.getElementById("SliderInfectionSpanValue").innerHTML = params.infection.defaultSpan;
+    document.getElementById("SliderInfectionSpan").value = params.infection.defaultSocialDistancing;
+    document.getElementById("SliderInfectionSpanValue").innerHTML = params.infection.defaultSocialDistancing;
     params.person.pulse.beginFade = params.infection.defaultRadius / 2;
     params.person.pulse.final = params.infection.defaultRadius;
 
@@ -93,7 +95,7 @@ function setUpSliders()
     }
     document.getElementById("SliderInfectionSpan").oninput = function()
     {
-        sim.epidemicInfo.infectionSpan = this.value;
+        sim.epidemicInfo.socialDistancing = this.value;
         document.getElementById("SliderInfectionSpanValue").innerHTML = Number(this.value);
     }
     document.getElementById("ResetButton").onclick = function()

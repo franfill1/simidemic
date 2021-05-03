@@ -1,4 +1,15 @@
 
+function shuffle(arr)
+{
+    for (var i = 0; i < arr.length; i++)
+    {
+        var j = Math.floor(Math.random() * (arr.length - i))+i;
+        var temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+}
+
 function person(dataC, epidI)
 {
     /*
@@ -22,6 +33,8 @@ function person(dataC, epidI)
     this.y = 0; 
     this.vX = 0;
     this.vY = 0;
+    this.accX = 0;
+    this.accY = 0;
     this.tX = 0;
     this.tY = 0;
     this.travelling = false;
@@ -99,12 +112,17 @@ function person(dataC, epidI)
     {
         /*if (this.travelling)
         {
-            this.vX = this.tX - this.x;
-            this.vY = this.tY - this.y;
+            this.vX = -this.tX + this.x;
+            this.vY = -this.tY + this.y;
         }*/
-        //var v = Math.sqrt(this.vX * this.vX + this.vY * this.vY);
-        //this.vX = this.vX * params.person.speed / v;
-        //this.vY = this.vY * params.person.speed / v;
+
+        this.rescaleAcceleration();
+        this.randomTurn();
+
+        this.vX += this.accX;
+        this.vY += this.accY;
+        this.rescaleSpeed();
+
         this.x += this.vX;
         this.y += this.vY;
 
@@ -118,6 +136,48 @@ function person(dataC, epidI)
             this.travelling = false;
         }
     }
+
+    this.rescaleAcceleration = function()
+    {
+        /*
+        this.rescaleAcceleration() => void
+
+        Porta la accelerazione ad esattamente params.person.acceleration, mantenendo le proporzioni
+        */
+        var a = Math.sqrt(this.accX * this.accX + this.accY * this.accY);
+        this.accX *= params.person.acceleration / a;
+        this.accY *= params.person.acceleration / a;
+    }
+
+    this.randomTurn = function()
+    {
+        /*
+        this.randomTurn() => void
+        Ruota il vettore accelerazione di un angolo compreso fra (params.person.angle) e (-params.person.angle)
+        */
+
+        var angle = Math.random() * 2 * params.person.angle - params.person.angle;
+        var temp1 = this.accX * Math.cos(angle) - this.accY * Math.sin(angle);
+        var temp2 = this.accX * Math.sin(angle) + this.accY * Math.cos(angle);
+        this.accX = temp1;
+        this.accY = temp2;
+    }
+
+    this.rescaleSpeed = function()
+    {
+        /*
+        this.rescalespeed() => void
+
+        Porta la velocità ad un massimo di params.person.speed, mantenendo le proporzioni
+        */
+       var v = Math.sqrt(this.vX * this.vX + this.vY * this.vY);
+       if (v > params.person.speed)
+       {
+           this.vX = this.vX * params.person.speed / v;
+           this.vY = this.vY * params.person.speed / v;
+       }
+    }
+
 
     this.updateSprite = function(canvas)
     {
@@ -237,11 +297,13 @@ function simulation (canvasId, Ri, Ci)
                 p.tX = this.canvas.width / 2;
                 p.tY = this.canvas.height / 2;
                 var direction = Math.random() * Math.PI * 2;
-                p.vX = Math.cos(direction);
-                p.vY = Math.sin(direction);
+
+                p.accX = Math.cos(direction);
+                p.accY = Math.sin(direction);
                 this.peopleList.push(p);
             }
         }
+        shuffle(this.peopleList);
     }
 
     this.fixCollisions = function()
@@ -250,40 +312,65 @@ function simulation (canvasId, Ri, Ci)
         this.fixCollisions() => void
         per ogni persona, fa in modo che rispetti il distanziamento sociale e che non si avvicini ai bordi dell'area
         */
-        for (var i = this.peopleList.length-1; i >= 0 ; i--)
+        for (var i = 0; i < this.peopleList.length; i++)
         {
+            const factor = this.epidemicInfo.socialDistancing;
+            const borderFactor = 10;
             var p = this.peopleList[i];
-            var r = params.person.radius;
-            if(p.y - r <= 0)
+            if (p.x < borderFactor)
             {
-                p.vY = Math.abs(p.vY);
+                p.vX += 1/(p.x);
+                p.accX += 1/(p.x);
             }
-            if (p.y + r >= this.canvas.height)
+            if (p.y < borderFactor)
             {
-                p.vY = -Math.abs(p.vY);
+                p.vY += 1/(p.y);
+                p.accY += 1/(p.y);
             }
-            if (p.x - r <= 0)
+            if (p.x > this.canvas.width - borderFactor)
             {
-                p.vX = Math.abs(p.vX);
+                p.vX -= 1/(this.canvas.width - p.x);
+                p.accX -= 1/(this.canvas.width - p.x);
             }
-            if (p.x + r >= this.canvas.width)
+            if (p.y > this.canvas.height - borderFactor)
             {
-                p.vX = -Math.abs(p.vX);
+                p.vY -= 1/(this.canvas.height - p.y);
+                p.accY -= 1/(this.canvas.width - p.x);
             }
-            for (var j = i-1; j >= 0; j--)
+            if (i < this.peopleList.length * 0.9) //todo: rendere questo parametro modificabile
             {
-                var oth = this.peopleList[j];
-                var dx = (oth.x + oth.vX) - (p.x + p.vX);
-                var dy = (oth.y + oth.vY) - (p.y + p.vY);
-                var d = Math.sqrt(dx * dx + dy * dy);
-                if (d <= 14)
+                for (var j = 0; j < this.peopleList.length; j++)
                 {
-                    var temp = p.vX;
-                    p.vX = oth.vX;
-                    oth.vX = temp;
-                    temp = p.vY;
-                    p.vY = oth.vY;
-                    oth.vY = temp;
+                    if (i != j && this.peopleList[j].status != 4)
+                    {
+                        var oth = this.peopleList[j];
+                        var dx = (oth.x) - (p.x);
+                        var dy = (oth.y) - (p.y);
+                        var d = Math.sqrt(dx * dx + dy * dy);
+                        if (d <= factor)
+                        {
+                            //spingo p e oth in direzioni opposte
+                            var alpha = Math.atan(dy/dx);
+                            var fx = Math.abs(Math.cos(alpha)) * 1/d;
+                            var fy = Math.abs(Math.sin(alpha)) * 1/d;
+                            if (oth.x > p.x)
+                            {
+                                p.vX -= fx;
+                            }
+                            else
+                            {
+                                p.vX += fx;
+                            }
+                            if (oth.y > p.y)
+                            {
+                                p.vY -= fy;
+                            }
+                            else
+                            {
+                                p.vY += fy;
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -312,6 +399,8 @@ function simulation (canvasId, Ri, Ci)
         for (var i = 0; i < this.peopleList.length; i++)
         {
             this.peopleList[i].updatePosition();
+            this.peopleList[i].x = Math.max(1, Math.min(this.peopleList[i].x, this.canvas.width-1));
+            this.peopleList[i].y = Math.max(1, Math.min(this.peopleList[i].y, this.canvas.height-1));
         }
         this.fixCollisions();
     }
@@ -329,6 +418,7 @@ function simulation (canvasId, Ri, Ci)
             this.peopleList[i].y = (Math.floor(i / this.C) + 1) * (this.canvas.height / (this.C + 1));
             this.peopleList[i].reset();
         }
+        shuffle(this.peopleList);
     }
 
     this.simulateDay = function()
