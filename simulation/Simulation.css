@@ -6,17 +6,18 @@ body
 }
 
 /*gli slider vengono spostati a destra, sovrapposti, pronti per essere traslati verso il basso*/
-div
+.sliders
+{
+    position: absolute;
+    top: 60px;
+    left: 450px;
+}
+
+.ButtonsDiv_class
 {
     position: absolute;
     top: 10px;
     left: 450px;
-}
-
-/*transform permette di translare un oggetto dalla sua posizione assoluta*/
-.SliderInfectionProb_class
-{
-    transform: translate(0px, 80px);
 }
 
 #ResetButton
@@ -91,6 +92,6 @@ span.keyword
     background: rgb(51, 87, 207);
     border: 1px solid rgb(0, 0, 0);
     position: absolute;
-    top: 180px;
+    top: 200px;
     left: 450px;
 }

@@ -46,7 +46,7 @@ const params =
     infection :
     {
         defaultIndex : 0.35, //valore dell'indice di infezione dell'epidemia
-        defaultRadius : 1, //valore iniziale del raggio dell'epidemia
+        defaultRadius : 3, //valore iniziale del raggio dell'epidemia
         defaultSpan : 15,
         defaultDeathIndex : 0,
         nRows : 50,

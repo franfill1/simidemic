@@ -46,9 +46,9 @@ const params =
     infection :
     {
         defaultIndex : 0.35, //valore dell'indice di infezione dell'epidemia
-        defaultRadius : 1, //valore iniziale del raggio dell'epidemia
+        defaultRadius : 3, //valore iniziale del raggio dell'epidemia
         defaultSpan : 15,
-        defaultDeathIndex : 0.1,
+        defaultDeathIndex : 0.2,
         nRows : 50,
     }
 }
@@ -71,6 +71,8 @@ function setUpSliders()
     document.getElementById("SliderInfectionProbValue").innerHTML = params.infection.defaultIndex;
     document.getElementById("SliderInfectionRange").value = params.infection.defaultRadius;
     document.getElementById("SliderInfectionRangeValue").innerHTML = params.infection.defaultRadius;
+    document.getElementById("SliderInfectionSpan").value = params.infection.defaultSpan;
+    document.getElementById("SliderInfectionSpanValue").innerHTML = params.infection.defaultSpan;
     params.person.pulse.beginFade = params.infection.defaultRadius * 250 / (params.infection.nRows + 1);
     params.person.pulse.final = params.infection.defaultRadius * 500 / (params.infection.nRows + 1);
 
@@ -86,6 +88,11 @@ function setUpSliders()
         params.person.pulse.beginFade = this.value * 250 / (params.infection.nRows + 1);
         params.person.pulse.final = this.value * 500 / (params.infection.nRows + 1);
         params.person.pulse.increment = (this.value * 500 / (params.infection.nRows + 1)) / 20;
+    }
+    document.getElementById("SliderInfectionSpan").oninput = function()
+    {
+        sim.epidemicInfo.infectionSpan = this.value;
+        document.getElementById("SliderInfectionSpanValue").innerHTML = Number(this.value);
     }
     document.getElementById("ResetButton").onclick = function()
     {
