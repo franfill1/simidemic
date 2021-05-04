@@ -8,12 +8,14 @@ const params =
     {
         radius : 1,
         speed : 0.4,
+        travellingSpeed : 5,
         acceleration : 0.01,
         angle : Math.PI/12,
         colors :
         {
             suscectible : "lightGreen", //colore di una persona suscettibile sul canvas
             infected : "red", //colore di una persona infetta sul canvas
+            asymptomatic : "yellow",
             removed : "grey",
             dead : "black",
             pulse : "red", //colore della pulsazione emessa da una persona appena infettata sul canvas, rappresentate da una circonferenza
@@ -30,8 +32,9 @@ const params =
         colors:
         {
             edges : "white",
+            quarantineEdges : "red",
         },
-        border: 5,
+        border: 2,
     },
     graph :
     {
@@ -61,16 +64,22 @@ const params =
         defaultSpan : 15,
         defaultDeathIndex : 0.2,
         defaultSocialDistancing : 10,
-        defaultRespectfullness : 0.9,
-        nRows : 3,
-        nPeople : 900,
+        defaultRespectfullness : 0.7,
+        defaultAsympMin : 1,
+        defaultAsympMax : 2,
+        defaultAsympProb : 0.1,
+        maxTravelling : 50,
+        travelProbability : 0.5,
+        nRegions : 9,
+        nPeople : 1000,
     }
 }
 
 function main()
 {
-    sim = new simulation("simulationCanvas", params.infection.nRows, params.infection.nPeople);
+    sim = new simulation("simulationCanvas", params.infection.nRegions, params.infection.nPeople, true);
     gra = new graph("graph", params.infection.nPeople, sim.collectedData);
+    sim.epidemicInfo.socialDistancing = 5;
     sim.startEpidemic(2, 10);
     sim.draw();
     setUpSliders();
@@ -92,12 +101,12 @@ function setUpSliders()
 
     document.getElementById("SliderInfectionProb").oninput = function()
     {
-        sim.epidemicInfo.index = this.value / 100;
+        sim.epidemicInfo.index = Number(this.value) / 100;
         document.getElementById("SliderInfectionProbValue").innerHTML = Number(this.value) / 100;
     }
     document.getElementById("SliderInfectionRange").oninput = function()
     {
-        sim.epidemicInfo.radius = this.value;
+        sim.epidemicInfo.radius = Number(this.value);
         document.getElementById("SliderInfectionRangeValue").innerHTML = Number(this.value);
         params.person.pulse.beginFade = this.value / 2;
         params.person.pulse.final = this.value;
@@ -105,7 +114,7 @@ function setUpSliders()
     }
     document.getElementById("SliderInfectionSpan").oninput = function()
     {
-        sim.epidemicInfo.socialDistancing = this.value;
+        sim.epidemicInfo.socialDistancing = Number(this.value);
         document.getElementById("SliderInfectionSpanValue").innerHTML = Number(this.value);
     }
     document.getElementById("ResetButton").onclick = function()
