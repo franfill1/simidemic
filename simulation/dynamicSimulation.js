@@ -201,41 +201,43 @@ class person {
         Input:
         canvas => il canvas sul quale verrà disegnato il cerchio
         */
+        if (this.status != 5)
+        {
+            const suscectibleColor = params.person.colors.suscectible;
+            const infectedColor = params.person.colors.infected;
+            const asympColor = params.person.colors.asymptomatic;
+            const removedColor = params.person.colors.removed;
+            const deadColor = params.person.colors.dead;
+            const pulseColor = params.person.colors.pulse;
+            const radius = params.person.radius;
+            
+            var ctx = canvas.getContext("2d");
 
-        const suscectibleColor = params.person.colors.suscectible;
-        const infectedColor = params.person.colors.infected;
-        const asympColor = params.person.colors.asymptomatic;
-        const removedColor = params.person.colors.removed;
-        const deadColor = params.person.colors.dead;
-        const pulseColor = params.person.colors.pulse;
-        const radius = params.person.radius;
-        
-        var ctx = canvas.getContext("2d");
-
-        ctx.fillStyle = [suscectibleColor, infectedColor, infectedColor, asympColor, removedColor, deadColor][this.status];
+            ctx.fillStyle = [suscectibleColor, infectedColor, infectedColor, asympColor, removedColor, deadColor][this.status];
 
 
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, radius, 0, 2 * Math.PI);
-        ctx.fill();
-
-        var pulseBeginFade = params.person.pulse.beginFade;
-        var pulseFinal = params.person.pulse.final;
-        var pulseIncrement = params.person.pulse.increment;
-
-        if (this.status == 2 && this.pulseRadius < pulseFinal) {
-            if (this.pulseRadius > pulseBeginFade) {
-                ctx.globalAlpha = 1 - (this.pulseRadius - pulseBeginFade) / (pulseFinal - pulseBeginFade);
-            }
-            ctx.strokeStyle = pulseColor;
             ctx.beginPath();
-            ctx.arc(this.x, this.y, this.pulseRadius, 0, 2 * Math.PI);
-            ctx.stroke();
-            ctx.globalAlpha = 1;
-            this.pulseRadius += pulseIncrement;
+            ctx.arc(this.x, this.y, radius, 0, 2 * Math.PI);
+            ctx.fill();
 
-            if (this.pulseRadius >= pulseFinal) {
-                this.pulseRadius = Math.Infinity;
+            var pulseBeginFade = params.person.pulse.beginFade;
+            var pulseFinal = params.person.pulse.final;
+            var pulseIncrement = params.person.pulse.increment;
+
+            if (this.status == 2 && this.pulseRadius < pulseFinal) {
+                if (this.pulseRadius > pulseBeginFade) {
+                    ctx.globalAlpha = 1 - (this.pulseRadius - pulseBeginFade) / (pulseFinal - pulseBeginFade);
+                }
+                ctx.strokeStyle = pulseColor;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.pulseRadius, 0, 2 * Math.PI);
+                ctx.stroke();
+                ctx.globalAlpha = 1;
+                this.pulseRadius += pulseIncrement;
+
+                if (this.pulseRadius >= pulseFinal) {
+                    this.pulseRadius = Math.Infinity;
+                }
             }
         }
     };
@@ -542,7 +544,7 @@ class simulation
         this.hasQuarantine = hasQ;
         const R = Math.ceil(Math.sqrt(NR));
         var TR = R;
-        const quarantineRatio = 1/3;
+        const quarantineRatio = 0.4;
         if (this.hasQuarantine)
         {
             TR += quarantineRatio;
@@ -727,5 +729,4 @@ class simulation
             }
         }
     }
-
 }
