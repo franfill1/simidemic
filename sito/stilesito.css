@@ -172,6 +172,28 @@ width: min(90%, 50rem);}
   padding: 3rem;
   text-align: center;
   }
+
+  /*header articolo*/
+  .header{
+    overflow: hidden;
+    background-color: black;
+  position: relative;
+  }
+  .header img{
+  max-width: 60%;
+  position: relative;
+  margin-left: 0;
+  }
+  .title{
+  color: #fa8128ff;
+  max-width: 60ch;
+  position: absolute;
+  margin-left: 40%;
+  margin-top: 2em;
+  }
+  .title h1{
+  font-size: 2.5rem;
+  }
   /*RESPONSIVE*/
   /*size 2*/
   @media screen and (min-width:600px){
