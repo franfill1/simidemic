@@ -82,10 +82,6 @@ function person(dataC, epidI)
                 }
             }
         }
-        if (this.dataCollector.nInfected == params.infection.nRows * params.infection.nRows)
-            paused = true;
-        if (this.dataCollector.nInfected == 0 && (this.dataCollector.nRecovered != 0 || this.dataCollector.nDead != 0))
-            paused = true;
     }
 
     this.updateSprite = function(canvas)
@@ -241,21 +237,37 @@ function simulation (canvasId, Ri, Ci)
         }
     }
 
+    this.simuletionEnd = function()
+    {
+        //Se l'epidemia è finita la simulazione viene messa in pausa
+        if (this.dataCollector.nInfected == params.infection.nRows * params.infection.nRows)
+            paused = true;
+        if (this.dataCollector.nInfected == 0 && (this.dataCollector.nRecovered != 0 || this.dataCollector.nDead != 0))
+            paused = true;
+    }
+
     this.simulateDay = function()
     {
         /*
         this.simulateDay() => void
         Simula un giorno della simulazione
-        Chiama la funzione this.infection() e la funzione person.liveDay() per ogni persona della simulazione
+        Viene aggioranata la mortalità nel caso sia richiesto 
+        Chiama la funzione this.infection(), this.simulationEnd() e la funzione person.liveDay() per ogni persona della simulazione
         */
-       this.infection();
-       for (var i = 0; i < this.R; i++)
-       {
-           for (var j = 0; j < this.C; j++)
-           {
-               this.grid[i][j].liveDay();
-           }
-       }
+        if (params.infection.deathIndexChange)
+        {
+            this.epidemicInfo.deathIndex = 0.1 + this.dataCollector.nInfected / (params.infection.nRows * params.infection.nRows * 2);
+        }
+        this.infection();
+        for (var i = 0; i < this.R; i++)
+        {
+            for (var j = 0; j < this.C; j++)
+            {
+                this.grid[i][j].liveDay();
+            }
+        }
+
+       this.simulationEnd();
     }
 
     this.infection = function()
