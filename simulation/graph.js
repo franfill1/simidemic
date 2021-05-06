@@ -27,7 +27,8 @@ function graph(canvasId, dataMaxi, dataSourcei)
         */
         this.canvas = document.getElementById(canvasId);
         this.canvas.style.backgroundColor = params.graph.colors.nSuscectible;
-        this.data = {nInfected : [], nRecovered : [], nDead : []};
+        this.data = {nInfected : []};
+        this.dataRev = {nRecovered : [], nDead : []};
         this.dataSize = 0;
         this.dataMax = dataMaxi;
         this.dataSource = dataSourcei;
@@ -67,6 +68,20 @@ function graph(canvasId, dataMaxi, dataSourcei)
                 else
                 {
                     this.data[propt].push(0);
+                }
+            }
+        }
+        for (var propt in this.dataRev)
+        {
+            if (this.dataRev.hasOwnProperty(propt))
+            {
+                if (this.dataSource.hasOwnProperty(propt))
+                {
+                    this.dataRev[propt].push(this.dataSource[propt]);
+                }
+                else
+                {
+                    this.dataRev[propt].push(0);
                 }
             }
         }
@@ -110,6 +125,31 @@ function graph(canvasId, dataMaxi, dataSourcei)
                 for (var i = this.dataSize-1; i >= 0; i--)
                 {
                     ctx.lineTo(i*stepX, this.canvas.height - offSets[i] * stepY);
+                }
+                ctx.fill();
+            }
+        }
+
+        for (var i = 0; i < this.dataSize; i++)
+        {
+            offSets[i] = 0;
+        }
+        for (var propt in this.dataRev)
+        {
+            if (this.dataRev.hasOwnProperty(propt))
+            {
+                ctx.fillStyle = params.graph.colors[propt];
+                ctx.moveTo(0, 0);
+                ctx.beginPath();
+
+                for (var i = 0; i < this.dataSize; i++)
+                {
+                    ctx.lineTo(i*stepX, offSets[i] * stepY);
+                    offSets[i] += this.dataRev[propt][i];
+                }
+                for (var i = this.dataSize-1; i>= 0; i--)
+                {
+                    ctx.lineTo(i*stepX, offSets[i] * stepY);
                 }
                 ctx.fill();
             }
