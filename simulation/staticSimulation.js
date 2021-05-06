@@ -237,13 +237,15 @@ function simulation (canvasId, Ri, Ci)
         }
     }
 
-    this.simuletionEnd = function()
+    this.deathIndexChanger = function()
     {
-        //Se l'epidemia è finita la simulazione viene messa in pausa
-        if (this.dataCollector.nInfected == params.infection.nRows * params.infection.nRows)
-            paused = true;
-        if (this.dataCollector.nInfected == 0 && (this.dataCollector.nRecovered != 0 || this.dataCollector.nDead != 0))
-            paused = true;
+        //La mortalità viene cambiata simulando un sovraccarico ospedaliero 
+        var act = this.collectedData.nInfected / gra.dataMax;
+        var act2 = act * act;
+        var num = this.epidemicInfo.deathIndex + (act2 * act2);
+        var den = 1.0 + (act2 * act2);
+        this.epidemicInfo.deathIndex = num / den;
+        document.getElementById("actualDeatProbValue").innerHTML = this.epidemicInfo.deathIndex.toPrecision(2);
     }
 
     this.simulateDay = function()
@@ -252,12 +254,11 @@ function simulation (canvasId, Ri, Ci)
         this.simulateDay() => void
         Simula un giorno della simulazione
         Viene aggioranata la mortalità nel caso sia richiesto 
-        Chiama la funzione this.infection(), this.simulationEnd() e la funzione person.liveDay() per ogni persona della simulazione
+        Chiama la funzione this.infection(), this.DeathIndexChanger() e la funzione person.liveDay() per ogni persona della simulazione
         */
         if (params.infection.deathIndexChange)
-        {
-            this.epidemicInfo.deathIndex = 0.1 + this.dataCollector.nInfected / (params.infection.nRows * params.infection.nRows * 2);
-        }
+            this.deathIndexChanger();
+
         this.infection();
         for (var i = 0; i < this.R; i++)
         {
@@ -266,8 +267,6 @@ function simulation (canvasId, Ri, Ci)
                 this.grid[i][j].liveDay();
             }
         }
-
-       this.simulationEnd();
     }
 
     this.infection = function()
