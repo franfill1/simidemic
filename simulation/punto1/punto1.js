@@ -112,4 +112,6 @@ function update()
         gra.updateData();
     }
     frame++;
+    if (sim.collectedData.nInfected ==  gra.dataMax)
+        paused = true;
 }

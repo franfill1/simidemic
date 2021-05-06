@@ -68,8 +68,8 @@ function main()
 
 function setUpSliders()
 {
-    document.getElementById("SliderInfectionProb").value = params.infection.defaultIndex * 100;
-    document.getElementById("SliderInfectionProbValue").innerHTML = params.infection.defaultIndex;
+    document.getElementById("SliderDeathProb").value = params.infection.defaultDeathIndex * 100;
+    document.getElementById("SliderDeathProbValue").innerHTML = params.infection.defaultDeathIndex;
     document.getElementById("SliderInfectionRange").value = params.infection.defaultRadius;
     document.getElementById("SliderInfectionRangeValue").innerHTML = params.infection.defaultRadius;
     document.getElementById("SliderInfectionSpan").value = params.infection.defaultSpan;
@@ -77,10 +77,10 @@ function setUpSliders()
     params.person.pulse.beginFade = params.infection.defaultRadius * 250 / (params.infection.nRows + 1);
     params.person.pulse.final = params.infection.defaultRadius * 500 / (params.infection.nRows + 1);
 
-    document.getElementById("SliderInfectionProb").oninput = function()
+    document.getElementById("SliderDeathProb").oninput = function()
     {
-        sim.epidemicInfo.index = this.value / 100;
-        document.getElementById("SliderInfectionProbValue").innerHTML = Number(this.value) / 100;
+        sim.epidemicInfo.deathIndex = this.value / 100;
+        document.getElementById("SliderDeathProbValue").innerHTML = Number(this.value) / 100;
     }
     document.getElementById("SliderInfectionRange").oninput = function()
     {
@@ -129,4 +129,6 @@ function update()
         gra.updateData();
     }
     frame++;
+    if (sim.collectedData.nInfected == 0 && gra.dataSize != 0)
+        paused = true;
 }
