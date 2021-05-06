@@ -175,8 +175,9 @@ width: min(90%, 50rem);}
 
   /*header articolo*/
   .header{
-    overflow: hidden;
-    background-color: black;
+  display: none;
+  overflow: hidden;
+  background-color: black;
   position: relative;
   }
   .header img{
@@ -192,8 +193,13 @@ width: min(90%, 50rem);}
   margin-top: 2em;
   }
   .title h1{
-  font-size: 2.5rem;
+  font-size: 3vw;
   }
+.text-body h1{
+  margin:0.5em;
+  font-size: 2.2rem;
+  text-align: center;
+}
   /*RESPONSIVE*/
   /*size 2*/
   @media screen and (min-width:600px){
@@ -224,11 +230,13 @@ width: min(90%, 50rem);}
   }
   .main-header img{margin: 0;}
   .text-body{background-color:pink;}
-  /*size4 size
+  .header{display: block;}
+  .text-body h1{display: none;}
+  /*size4 size*/
   @media screen and (min-width:992px;){
     .text-body{background-color:rgb(134, 212, 119);}
   }
-    size 5
+  /*size 5*/
     @media screen and (min-width:1200px;){
       .text-body{background-color:rgb(135, 62, 204);}
-    }*/
+    }
