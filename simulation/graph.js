@@ -48,6 +48,13 @@ function graph(canvasId, dataMaxi, dataSourcei)
                this.data[propt] = [];
            }
         }
+        for (var propt in this.dataRev)
+        {
+            if (this.dataRev.hasOwnProperty(propt))
+            {
+                this.dataRev[propt] = [];
+            }
+        }
         this.draw();
     }
 
@@ -101,7 +108,7 @@ function graph(canvasId, dataMaxi, dataSourcei)
         ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
         
         var stepX = this.canvas.width/(this.dataSize - 1);
-        var stepY = this.canvas.height/this.dataMax;
+        var stepY = this.canvas.height/(this.dataMax);
 
         var offSets = [];
         for (var i = 0; i < this.dataSize; i++)
@@ -130,6 +137,8 @@ function graph(canvasId, dataMaxi, dataSourcei)
             }
         }
 
+
+        var offSets = [];
         for (var i = 0; i < this.dataSize; i++)
         {
             offSets[i] = 0;
@@ -139,7 +148,7 @@ function graph(canvasId, dataMaxi, dataSourcei)
             if (this.dataRev.hasOwnProperty(propt))
             {
                 ctx.fillStyle = params.graph.colors[propt];
-                ctx.moveTo(0, 0);
+                ctx.moveTo(0, this.canvas.height);
                 ctx.beginPath();
 
                 for (var i = 0; i < this.dataSize; i++)
@@ -147,7 +156,7 @@ function graph(canvasId, dataMaxi, dataSourcei)
                     ctx.lineTo(i*stepX, offSets[i] * stepY);
                     offSets[i] += this.dataRev[propt][i];
                 }
-                for (var i = this.dataSize-1; i>= 0; i--)
+                for (var i = this.dataSize-1; i >= 0; i--)
                 {
                     ctx.lineTo(i*stepX, offSets[i] * stepY);
                 }
@@ -155,37 +164,58 @@ function graph(canvasId, dataMaxi, dataSourcei)
             }
         }
 
-        const stepXValue = params.graph.dimensions.stepXValue;
-        const stepYValue = params.graph.dimensions.stepYValue;
-        const lineLength = params.graph.dimensions.lineLength;
-        const textSize = params.graph.dimensions.textSize;
-
-        ctx.fillStyle = params.graph.colors.textColor;
-        ctx.strokeStyle = params.graph.colors.lineColor;
-        ctx.font = textSize + "px " + params.graph.colors.textFont;
-
-        for (var i = stepXValue; i < this.dataSize; i += stepXValue)
+        if (this.dataSize > 0)
         {
-            ctx.fillText(i, i * stepX - (ctx.measureText(i).width/2), this.canvas.height - lineLength);
+            var bas = 100;
+            var up = Math.ceil(this.dataSize / bas);
 
-            ctx.beginPath();
-            ctx.moveTo(stepX*i, this.canvas.height);
-            ctx.lineTo(stepX*i, this.canvas.height - lineLength);
-            ctx.stroke();
-        }
+            var lastUp = up - 1;
+
+            var stepXValue = up * bas / 10;
+            const stepYValue = params.graph.dimensions.stepYValue;
+            const lineLength = params.graph.dimensions.lineLength;
+            const textSize = params.graph.dimensions.textSize;
+
+            ctx.fillStyle = params.graph.colors.textColor;
+            ctx.strokeStyle = params.graph.colors.lineColor;
+            ctx.font = textSize + "px " + params.graph.colors.textFont;
+            var val = Math.min(1, (this.dataSize*4 / bas)-4*up+4);
+            if (val != 1) ctx.globalAlpha = val;
+
+            for (var i = stepXValue; i < this.dataSize; i += stepXValue)
+            {
+                ctx.fillText(i, i * stepX - (ctx.measureText(i).width/2), this.canvas.height - lineLength);
+
+                ctx.beginPath();
+                ctx.moveTo(stepX*i, this.canvas.height);
+                ctx.lineTo(stepX*i, this.canvas.height - lineLength);
+                ctx.stroke();
+            }
+            if (val != 1) ctx.globalAlpha = 1;
+
+            stepXValue = lastUp * bas / 10;
+            if (val != 0) ctx.globalAlpha = 1 - val;
+            for (var i = stepXValue; stepXValue != 0 && i < this.dataSize; i += stepXValue)
+            {
+                ctx.fillText(i, i * stepX - (ctx.measureText(i).width/2), this.canvas.height - lineLength);
+
+                ctx.beginPath();
+                ctx.moveTo(stepX*i, this.canvas.height);
+                ctx.lineTo(stepX*i, this.canvas.height - lineLength);
+                ctx.stroke();
+            }
+            if (val != 0) ctx.globalAlpha = 1;
 
         var stepY = this.canvas.height / 100 * stepYValue;
-        var percent = stepYValue;
 
         for (var i = this.canvas.height - stepY; i > 0; i -= stepY)
         {
-            ctx.fillText(percent + "%", lineLength, i + textSize/2);
             ctx.beginPath();
             ctx.moveTo(0, i);
             ctx.lineTo(lineLength, i);
             ctx.stroke();
-            percent += stepYValue;
         }
+    }
         
     }
     this.init();
