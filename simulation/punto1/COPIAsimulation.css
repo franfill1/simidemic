@@ -1,0 +1,84 @@
+/*il body viene usato come un 'blocco fisso' sul quale vengono mossi gli altri oggetti, basterà dargli una position: absolute*/
+body
+{
+    background-color: rgb(180, 206, 255);
+    position: relative;
+}
+
+.columns
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 1em;
+}
+
+.columns > *
+{
+    width: 35em;
+    height: 35em;
+}
+
+.col2 > *
+{
+    padding: 1em;
+}
+
+.ButtonsDiv_class > * 
+{
+    padding: 4px 8px 4px 8px;
+    font-size: 1rem;
+    border-radius: 15%;
+    border-style: solid;
+    border-color: blue;
+    color:rgb(255, 255, 255);
+}
+
+#ResetButton
+{
+    background-color: black;
+}
+
+#PauseButton
+{
+    
+    background-color: rgb(163, 0, 0);
+}
+
+#PlayButton
+{
+    background-color: rgb(67, 122, 3);
+}
+
+#StepButton
+{
+    background-color: rgb(190, 102, 0);
+}
+
+span
+{
+    color: black;
+    text-align: left;
+}
+
+/*aggiungendo la classe keyword a una span, essa diventa maiuscola*/
+span.keyword
+{
+    text-transform: uppercase;
+}
+
+.simulation
+{
+    width: 80%;
+    height: 80%;
+    background-color: rgb(0, 0, 0);
+    border: 1 solid rgb(0, 0, 0);
+}
+
+.statisticGraph
+{
+    width: 75%;
+    height: 40%;
+    background: rgb(51, 87, 207);
+    border: 1px solid rgb(0, 0, 0);
+}
