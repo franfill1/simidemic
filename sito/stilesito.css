@@ -209,6 +209,7 @@ margin: 2em;
 }
 .pagination {display: inline-block;}
 .pagination a {
+  color: black;
   font-size: 1.3rem;
   float: left;
   padding: 0.5em 1em;
@@ -222,7 +223,20 @@ margin: 2em;
   background-color:var(--light-orange);
   color: white;
 }
-.pagination a:hover:not(.active) {background-color: #ddd;}
+.pagination a:hover:not(.current) {background-color: #ddd;}
+/*TABELLE*/
+table{
+border-collapse: collapse;
+text-align: center;
+margin: 1rem;
+}
+td, th{
+border: 1px solid black;
+padding: 0.5em;
+}
+th{color:var(--brown);
+  background-color: var(--light-orange);
+}
   /*RESPONSIVE*/
   /*size 2*/
   @media screen and (min-width:600px){
