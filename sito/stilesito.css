@@ -81,6 +81,7 @@
   
 /*
   }*/
+  .simulpic{border: 3px solid black;}
   .articolocontainer, .container{
     margin-inline:auto;
     width: min(90%, 50rem);
@@ -141,14 +142,16 @@
     font-size: 1.6rem;
     font-weight: bold;
     }
+  
   /*simulationarea*/
-  .imgarea{overflow: hidden;}
+  .imgarea{background-color: var(--brown);}
   .imgarea h2, .areaarticoli h2{
     font-size: 2rem;
     font-weight: bold;
     text-align: center;
     margin: 0.5em;
     }
+  .imgarea h2{ color:var(--light-orange);}
     .imgarea button {
       display: block;
       margin: 1em auto;
@@ -199,6 +202,27 @@
   font-size: 2.2rem;
   text-align: center;
 }
+/*INPAGINAZIONE*/
+.areainpag{
+  text-align: center;
+margin: 2em;
+}
+.pagination {display: inline-block;}
+.pagination a {
+  font-size: 1.3rem;
+  float: left;
+  padding: 0.5em 1em;
+  border: 1px solid #ddd;
+  margin: 0.3em;
+  text-decoration: none;
+  transition: background-color .3s;
+}
+
+.pagination a.current {
+  background-color:var(--light-orange);
+  color: white;
+}
+.pagination a:hover:not(.active) {background-color: #ddd;}
   /*RESPONSIVE*/
   /*size 2*/
   @media screen and (min-width:600px){
@@ -242,7 +266,7 @@
   }
   /*size 5*/
     @media screen and (min-width:1200px){
-      .text-body{background-color:rgb(202, 159, 241);}
+      .text-body{background-color:rgb(255, 255, 255);}
       .container{
         width: min(90%, 50rem);}
     }
