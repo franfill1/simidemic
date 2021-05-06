@@ -50,6 +50,7 @@ const params =
         defaultSpan : Infinity,
         defaultDeathIndex : 0,
         nRows : 50,
+        deathIndexChange : false,
     }
 }
 

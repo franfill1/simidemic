@@ -7,10 +7,15 @@ const params =
     person :
     {
         radius : 1,
+        speed : 0.4,
+        travellingSpeed : 5,
+        acceleration : 0.01,
+        angle : Math.PI/12,
         colors :
         {
             suscectible : "lightGreen", //colore di una persona suscettibile sul canvas
             infected : "red", //colore di una persona infetta sul canvas
+            asymptomatic : "yellow",
             removed : "grey",
             dead : "black",
             pulse : "red", //colore della pulsazione emessa da una persona appena infettata sul canvas, rappresentate da una circonferenza
@@ -21,6 +26,15 @@ const params =
             final : 20, //raggio dopo il quale le pulsazioni non sono più visibili
             increment : 1, //incremento del raggio di una pulsazione ad ogni frame
         }
+    },
+    region :
+    {
+        colors:
+        {
+            edges : "white",
+            quarantineEdges : "red",
+        },
+        border: 2,
     },
     graph :
     {
@@ -46,43 +60,69 @@ const params =
     infection :
     {
         defaultIndex : 0.35, //valore dell'indice di infezione dell'epidemia
-        defaultRadius : 1, //valore iniziale del raggio dell'epidemia
+        defaultRadius : 7, //valore iniziale del raggio dell'epidemia
         defaultSpan : 15,
-        defaultDeathIndex : 0,
-        nRows : 50,
-        deathIndexChange : false,
+        defaultDeathIndex : 0.2,
+        defaultSocialDistancing : 0,
+        defaultRespectfullness : 0.7,
+        defaultAsympMin : 1,
+        defaultAsympMax : 2,
+        defaultAsympProb : 0.1,
+        maxTravelling : 50,
+        travelProbability : 0.5,
+        nRegions : 9,
+        nPeople : 1000,
     }
 }
 
 function main()
 {
-    sim = new simulation("simulationCanvas", params.infection.nRows, params.infection.nRows);
-    gra = new graph("graph", params.infection.nRows * params.infection.nRows, sim.collectedData);
-    sim.grid[Math.floor(params.infection.nRows/2)][Math.floor(params.infection.nRows/2)].infect();
+    sim = new simulation("simulationCanvas", params.infection.nRegions, params.infection.nPeople, true);
+    gra = new graph("graph", params.infection.nPeople, sim.collectedData);
+    sim.epidemicInfo.socialDistancing = 5;
+    sim.startEpidemic(2, 10);
     sim.draw();
     setUpSliders();
     frame = 0;
     paused = false;
-    setInterval(update, 10);
+    setInterval(update, 20);
 }
 
 function setUpSliders()
 {
     document.getElementById("SliderInfectionProb").value = params.infection.defaultIndex * 100;
     document.getElementById("SliderInfectionProbValue").innerHTML = params.infection.defaultIndex;
-    params.person.pulse.beginFade = params.infection.defaultRadius * 250 / (params.infection.nRows + 1);
-    params.person.pulse.final = params.infection.defaultRadius * 500 / (params.infection.nRows + 1);
+    document.getElementById("SliderInfectionRange").value = params.infection.defaultRadius;
+    document.getElementById("SliderInfectionRangeValue").innerHTML = params.infection.defaultRadius;
+    document.getElementById("SliderInfectionSpan").value = params.infection.defaultSocialDistancing;
+    document.getElementById("SliderInfectionSpanValue").innerHTML = params.infection.defaultSocialDistancing;
+    params.person.pulse.beginFade = params.infection.defaultRadius / 2;
+    params.person.pulse.final = params.infection.defaultRadius;
 
     document.getElementById("SliderInfectionProb").oninput = function()
     {
-        sim.epidemicInfo.index = this.value / 100;
+        sim.epidemicInfo.index = Number(this.value) / 100;
         document.getElementById("SliderInfectionProbValue").innerHTML = Number(this.value) / 100;
+    }
+    document.getElementById("SliderInfectionRange").oninput = function()
+    {
+        sim.epidemicInfo.radius = Number(this.value);
+        document.getElementById("SliderInfectionRangeValue").innerHTML = Number(this.value);
+        params.person.pulse.beginFade = this.value / 2;
+        params.person.pulse.final = this.value;
+        params.person.pulse.increment = this.value / 20;
+    }
+    document.getElementById("SliderInfectionSpan").oninput = function()
+    {
+        sim.epidemicInfo.socialDistancing = Number(this.value);
+        document.getElementById("SliderInfectionSpanValue").innerHTML = Number(this.value);
     }
     document.getElementById("ResetButton").onclick = function()
     {
         sim.reset();
         gra.reset();
-        sim.grid[Math.floor(params.infection.nRows/2)][Math.floor(params.infection.nRows/2)].infect();
+        frame = 0;
+        sim.startEpidemic(2, 10);
         paused = true;
     }
     document.getElementById("PlayButton").onclick = function()
@@ -103,13 +143,18 @@ function setUpSliders()
     }
 }
 
+
 function update()
 {
     sim.draw();
     if (!paused)
+    {
+        sim.simulateMovement();
+    }
+    if (!paused && frame % 20 == 0)
     {  
         sim.simulateDay();
         gra.updateData();
     }
-    frame++;
+    if (!paused) frame++;
 }

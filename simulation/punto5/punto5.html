@@ -2,26 +2,24 @@
 <link rel="stylesheet" href="../Simulation.css">
 <html>
     <body onload="main()">
-        <canvas class="simulation" id = "simulationCanvas" width = 400 height = 400></canvas>
-        <canvas class="statisticGraph" id = "graph" width = 400 height = 200></canvas>
         <div class="sliders">
-            <div class="SliderInfectionProb_class">
-                <span>Change the <span class="keyword">probability of infection</span> with the value you prefer:</span> 
-                <br>
-                <input type="range" min="0" max="100" value="20" class="slider" id="SliderInfectionProb">
-                <span id="SliderInfectionProbValue"></span>
-            </div>
             <div class="SliderInfectionRange_class">
-                <span>Change the <span class="keyword">range of infection</span> of an infected (in pixels):</span> 
+                <span>Change the <span class="keyword">range of infection</span> of an infected</span> 
                 <br>
-                <input type="range" min="1" max="20" value="1" class="slider" id="SliderInfectionRange">
+                <input type="range" min="1" max="5" value="3" class="slider" id="SliderInfectionRange">
                 <span id="SliderInfectionRangeValue"></span>
             </div>
             <div class="SliderInfectionSpan_class">
-                <span>Change the <span class="keyword">social distancing</span> factor</span> 
+                <span>Change the <span class="keyword">duration</span> of the disease (in days)</span> 
                 <br>
-                <input type="range" min="1" max="40" value="1" class="slider" id="SliderInfectionSpan">
+                <input type="range" min="1" max="20" value="1" class="slider" id="SliderInfectionSpan">
                 <span id="SliderInfectionSpanValue"></span>
+            </div>
+            <div class="SliderDeathProb_class">
+                <span>Change the <span class="keyword">probability of death</span></span> 
+                <br>
+                <input type="range" min="0" max="100" value="20" class="slider" id="SliderDeathProb">
+                <span id="SliderDeathProbValue"></span>
             </div>
         </div>
         <div class="ButtonsDiv_class">
@@ -31,8 +29,12 @@
             <button id="StepButton">step</button>
         </div>
 
+        <canvas class="simulation" id = "simulationCanvas" width = 400 height = 400></canvas>
+        <canvas class="statisticGraph" id = "graph" width = 400 height = 200></canvas>
+
         <script src = "punto5.js"></script>
-        <script src = "../graph.js"></script>
-        <script src = "../dynamicSimulation.js"></script>
+        <script src = "../Graph.js"></script>
+        <script src = "../StaticSimulation.js"></script>
+        <p id = "debug"></p>
     </body>
 </html>
