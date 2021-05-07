@@ -155,7 +155,7 @@ class graph {
             ctx.strokeStyle = params.graph.colors.lineColor;
             ctx.font = textSize + "px " + params.graph.colors.textFont;
             var val = Math.min(1, (this.dataSize * 4 / bas) - 4 * up + 4);
-            if (val != 1)
+            if (val != 0)
             {
                 ctx.globalAlpha = val;
                 for (var i = stepXValue; i < this.dataSize; i += stepXValue) {
@@ -170,7 +170,7 @@ class graph {
             }
 
             stepXValue = lastUp * bas / 10;
-            if (val != 0)
+            if (val != 1)
             {
                 ctx.globalAlpha = 1 - val;
                 for (var i = stepXValue; stepXValue != 0 && i < this.dataSize; i += stepXValue) {
