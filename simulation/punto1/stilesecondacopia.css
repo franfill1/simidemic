@@ -1,0 +1,69 @@
+/*il body viene usato come un 'blocco fisso' sul quale vengono mossi gli altri oggetti, basterà dargli una position: absolute*/
+body
+{
+    background-color: rgb(236, 238, 241);
+    position: relative;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+.ButtonsDiv_class > * 
+{
+    font-size: 1rem;
+    background-color:rgb(238, 134, 49);
+    border: none;
+    padding: 0.5em 1em;
+    margin: 0.2em;
+}
+.ButtonsDiv_class > *:hover{
+background-color: orange;
+}
+/*aggiungendo la classe keyword a una span, essa diventa maiuscola*/
+span.keyword
+{
+    text-transform: uppercase;
+}
+.statisticGraph canvas{
+    width: min(90%, 30rem);
+    display: block;
+    position: relative;
+    margin:0 auto;
+    border: 1px solid rgb(0, 0, 0);
+}
+.sliders p{
+    text-align: center;
+    margin: 0.5em;
+  }
+.simulation
+{
+background-color: rgb(0, 0, 0);
+border: 1px solid rgb(0, 0, 0);
+display: block;
+position: relative;
+margin: 0 auto;
+width: min(90%, 30rem);
+}
+.columns{
+display: flex;
+flex-direction: column;
+}
+.columns>*{
+flex-basis: 100%;
+margin:1rem;
+}
+
+/*RESPONSIVE*/
+@media screen and (min-width:600px){
+    .columns{flex-direction: row;}
+}
+  /*size4 size*/
+@media screen and (min-width:992px){
+    .statisticGraph canvas{
+        margin-left: 0;
+        width: min(90%, 25rem);
+    }
+    .sliders p{
+        text-align: left;
+        margin-top: 0.5em;
+      }
+}
