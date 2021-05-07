@@ -701,7 +701,7 @@ class simulation
 
         const maxT = params.infection.maxTravelling;
         const tProb = params.infection.travelProbability;
-        var T = Math.min(this.peopleList.length, maxT) - this.collectedData.nTravelling;
+        var T = Math.max(Math.min(this.peopleList.length, maxT) - this.collectedData.nTravelling, 0);
         var pos = Array.from(this.peopleList.keys());
         while(T)
         {
