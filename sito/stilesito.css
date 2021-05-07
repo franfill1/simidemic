@@ -107,7 +107,6 @@ img {
   height: 60px;
 }
   /**/
-}
 .colorblock{
 background-color: var(--dark-orange);
 height: 2.5rem;
@@ -115,6 +114,7 @@ height: 2.5rem;
 .dividorarticolo{
 background-color: var(--brown);
 height: 5rem;
+margin:1em 0;
 }
 
   /*articoli area*/
@@ -198,6 +198,12 @@ height: 5rem;
   text-align: center;
   font-weight: 900;
   color: var(--light-orange);
+}
+.caption{
+color: var(--brown);
+text-align: center;;
+margin-top: 0.3em;
+font-size: 0.8rem
 }
 /*INPAGINAZIONE*/
 .areainpag{
