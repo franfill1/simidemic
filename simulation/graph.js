@@ -23,6 +23,8 @@ class graph {
         Il valore di (dataSourcei), dato in input, viene copiato nell'apposito attributo (this.dataSource)
         */
         this.canvas = document.getElementById(canvasId);
+        this.canvas.height = 200;
+        this.canvas.width = 400;
         this.canvas.style.backgroundColor = params.graph.colors.nSuscectible;
         this.data = { nInfected: [] };
         this.dataRev = { nRecovered: [], nDead: [] };
