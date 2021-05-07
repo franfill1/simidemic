@@ -15,9 +15,7 @@ body
     padding: 0.5em 1em;
     margin: 0.2em;
 }
-.ButtonsDiv_class > *:hover{
-background-color: orange;
-}
+.ButtonsDiv_class > *:hover{background-color: orange;}
 /*aggiungendo la classe keyword a una span, essa diventa maiuscola*/
 span.keyword
 {
