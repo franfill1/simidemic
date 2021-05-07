@@ -208,17 +208,11 @@ font-size: 0.8rem
 .johnsnow{display: flex;}
 .johnsnow>*{
   flex-basis: 100%;
-  margin: 1.5rem;
+  margin-left: 1.5rem;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.johnsnow>*>:first-child{
-flex-basis: 90%;
-}
-.johnsnow>*>:nth-child(2){
-  flex-basis: 10%;
-  }
 /*INPAGINAZIONE*/
 .areainpag{
   text-align: center;
