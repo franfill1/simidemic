@@ -2,25 +2,34 @@
 <link rel="stylesheet" href="../Simulation.css">
 <html>
     <body onload="main()">
-        <div class="sliders">
-            <div class="SliderInfectionProb_class">
-                <span>Change the <span class="keyword">probability of infection</span> with the value you prefer:</span> 
+        <div class="columns">
+            <div class="col1">
+                <canvas class="simulation" id = "simulationCanvas"></canvas>
+            </div>
+            <div class="col2">
+                <div class="ButtonsDiv_class">
+                    <button id="ResetButton">reset</button>
+                    <button id="PauseButton">pause</button>
+                    <button id="PlayButton">play</button>
+                    <button id="StepButton">step</button>
+                </div>
                 <br>
-                <input type="range" min="0" max="100" value="20" class="slider" id="SliderInfectionProb">
-                <span id="SliderInfectionProbValue"></span>
+                <div class="sliders">
+                    <div class="SliderInfectionProb_class">
+                        <p>Change the <span class="keyword">probability of infection</span> with the value you prefer:</p>
+                            <input type="range" min="0" max="100" value="20" class="slider" id="SliderInfectionProb">
+                            <span id="SliderInfectionProbValue"></span>
+                    </div>
+                </div>
+                <br>
+                <div class="statisticGraph">
+                    <canvas id = "graph"></canvas>
+                </div>
             </div>
         </div>
-        <div class="ButtonsDiv_class">
-            <button id="ResetButton">reset</button>
-            <button id="PauseButton">pause</button>
-            <button id="PlayButton">play</button>
-            <button id="StepButton">step</button>
-        </div>
 
-        <canvas class="simulation" id = "simulationCanvas" width = 400 height = 400></canvas>
-        <canvas class="statisticGraph" id = "graph" width = 400 height = 200></canvas>
 
-        <script src = "../punto1/punto1.js"></script>
+        <script src = "punto1.js"></script>
         <script src = "../Graph.js"></script>
         <script src = "../StaticSimulation.js"></script>
         <p id = "debug"></p>
