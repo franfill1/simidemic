@@ -189,7 +189,7 @@ margin:1em 0;
   max-width: 60ch;
   position: absolute;
   margin-left: 40%;
-  margin-top: 2em;
+  margin-top: 4em;
 }
 .title h1{font-size: 3.5vw;}
 .text-body h1{
@@ -204,6 +204,14 @@ color: var(--brown);
 text-align: center;;
 margin-top: 0.3em;
 font-size: 0.8rem
+}
+.johnsnow{display: flex;}
+.johnsnow>*{
+  flex-basis: 100%;
+  margin-left: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 /*INPAGINAZIONE*/
 .areainpag{
