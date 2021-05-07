@@ -79,7 +79,6 @@ function main()
 {
     sim = new simulation("simulationCanvas", params.infection.nRegions, params.infection.nPeople, false);
     gra = new graph("graph", params.infection.nPeople, sim.collectedData);
-    sim.epidemicInfo.socialDistancing = 5;
     sim.startEpidemic(1, 20);
     sim.draw();
     setUpSliders();
