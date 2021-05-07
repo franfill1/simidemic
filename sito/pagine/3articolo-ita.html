@@ -39,21 +39,56 @@
     <div class="text-body">
         <div class="articolocontainer">
         <h1>Lorem ipsum dolor sit amet consectetur.</h1>
-        <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi officiis hic debitis autem nemo obcaecati fugiat voluptatem in deserunt, culpa, eveniet et laborum dolor quia, odit iusto quibusdam exercitationem eum modi sint accusamus ea. Similique, aut, quibusdam omnis minus tenetur necessitatibus magni beatae autem pariatur expedita minima. Veritatis culpa quibusdam optio ex repudiandae voluptas nulla dolorem. Recusandae rem fuga laudantium asperiores adipisci ipsam repellendus aut distinctio deleniti ipsa nostrum aspernatur porro natus minima temporibus fugit harum nihil sit obcaecati, dolor voluptatum ullam sint quae minus. Natus provident unde ex quisquam hic expedita veniam nihil perferendis ea molestiae ipsam dolore consequuntur molestias beatae nulla vitae iure alias quod obcaecati velit, quos delectus maiores? Quia eaque quaerat asperiores, eum aliquam provident laboriosam repellat recusandae inventore accusamus nulla dolor officiis, ipsam eveniet cupiditate vero fugiat veniam eos ut, veritatis tenetur magnam. Laboriosam, deleniti debitis officiis voluptates in, adipisci ab, dolore magnam animi eius fuga repellendus nisi laudantium aperiam. Praesentium distinctio quas maxime consectetur impedit. Corrupti harum, in ex odit enim quam et eius? Dignissimos aperiam dolore vero perferendis nostrum a nemo. Quae itaque temporibus saepe optio distinctio officia vero asperiores iste, rerum doloremque. Sunt enim, harum quae dolorem delectus fugit accusantium aliquid, assumenda sapiente, illum porro in omnis quia voluptatum officiis voluptates quasi necessitatibus commodi aliquam iusto molestias veritatis placeat esse consectetur! Eligendi fugit possimus ducimus quisquam autem, consequuntur itaque molestias dolore. Eveniet tenetur quisquam commodi voluptatem omnis ipsa delectus modi facere enim quaerat officiis quia, distinctio magnam magni, soluta voluptas! Eveniet ad laudantium consectetur minima alias velit dolorem praesentium aspernatur natus eaque sunt voluptates molestias non accusantium cupiditate veritatis porro, suscipit labore tenetur ex eius optio! Ipsa, cupiditate distinctio. Eligendi illo molestias unde consequuntur error voluptate minus atque velit quo qui perferendis inventore veniam, sed itaque quibusdam in sapiente eos, amet accusantium?</p>
+        <p>Uno dei problemi più grandi, posto fin dall’inizio della pandemia di Covid-19, fu quello di considerare come il sistema sanitario 
+            avrebbe retto l’alto numero di pazienti. NOn è un azzardo dire che tutti i paesi del mondo vennero colti di sorpresa e presto, gli 
+            ospedali vennero travolti da casi di Covid-19. Con un numero di posti letto e lavoratori sanitari limitati, era inevitabile che questo 
+            avrebbe avuto un effetto sull’indice di mortalità della pandemia.<br/>
+            Analizzando i dati relativi ai pazienti di Covid-19 ospedalizzati in Israele da metà luglio 2020 a metà gennaio 2021, si può osservare come
+            un numero di pazienti in condizioni critiche moderatamente alto (500-800) rispetto alla capacità massima di 800 pazienti portò ad un elevato
+            aumento della mortalità ospedaliera rispetto a periodi con un numero di pazienti minore (250-500).<br/>
+            Quando si confronta il numero di morti in paesi diversi durante una pandemia, bisogna guardare non il numero totale dei morti, ma l’eccesso
+            dei decessi: la quantità di decessi in un dato periodo di tempo che supera il numero di morti “normale”.<br/>
+            Anche questo metodo non è perfetto, si trascura infatti come il virus non si trova in modo uniforme in tutto un paese, ma spesso è 
+            concentrato in uno o più focolai, ma esprimendo i decessi in più in rapporto con il numero di decessi regolare, si ha una misura per 
+            mettere a confronto vari paesi. <br/>
+            Ci sono molti legami tra la capacità ospedaliera e l’indice di mortalità in vari paesi. <br/>
+            Mentre è anche probabile che questo sia dato dalla tendenza dei paesi con più posti letto ad imporre prima lockdown e misure di sicurezza, 
+            quindi diminuendo il numero totale dei casi, un sistema sanitario sopraffatto avrà sicuramenti effetti sulla cura disponibile ai pazienti,
+            da cui logicamente consegue l’aumento della mortalità. <br/>
+            Esistono inoltre altri modi in cui la scarsa capacità ospedaliera potrebbe influire sui dati, ad esempio sottraendo risorse ad altri settori,
+            oppure se si considera l’effetto che la pandemia ebbe e avrà su pazienti con problemi sanitari gravi, comportando l'annullamento o la 
+            posticipazione di visite mediche e cure vitali. <br/>
+            Nella simulazione la mortalità aumenta in relazione alla quantità di casi attuali, per tanto nei momenti di massima diffusione dell’epidemia 
+            si può assistere al sovraccarico ospedaliero.
+            </p>
+            <img class="simulpic" src="../immagini/ezgif.com-gif-maker (1).gif" width="50%" height="auto"/>
         </div>
-        <div class="citazione dividor">
-            <p>Epidemics on the other side of the world are a threat to us all. No epidemic is just local</p>
+        <div class="dividorarticolo"></div>
+        <div class="articolocontainer">
+            <p>La simulazione fino a questo punto è rimasta abbastanza statica, con tutte le nostre persone disposte ordinatamente in una griglia.
+                 Questo modello non rappresenta una situazione  realistica. In genere, le persone si muovono in continuazione, incontrando varie
+                persone e spostandosi da luogo a luogo nel corso di una giornata. Introduciamo lo spostamento pseudo casuale delle persone. 
+            </p>
+            <img class="simulpic" src="../immagini/ezgif.com-gif-maker (1).gif" width="50%" height="auto"/>
+            <p>Lo spostamento delle persone varia il numero di incontri che una persona avrà durante la giornata, e aumenta la casualità dei risultati.
+                 Facendo andare più volte una simulazione con gli stessi dati di partenza potrebbe portare a esiti anche molto diversi.<br/>
+            E’ proprio questa casualità, i cui effetti secondari possono avere ripercussioni sempre maggiori che rende talmente difficile lo studio di un’epidemia. 
+            Un esempio di questo: i super-diffusori. <br/>
+            Nel gennaio 2020, una donna coreana contagiò più di 37 persone con cui andava in chiesa, causando un picco nei casi del paese.<br/>
+            Anche una persona sola, venendo a contatto con un numero sproporzionatamente alto di persone, può peggiorare drasticamente un’epidemia prima tenuta sotto controllo.<br/>
+            Alcuni casi di superdiffusione sono conformi al principio di Pareto (detto anche regola 80/20) che afferma che circa il 20% degli individui contagiosi sono responsabili per l'80% delle trasmissioni.
+            </p>
         </div>
+        <div class="dividorarticolo"></div>
         <div class="areainpag">
             <div class="pagination">
-            <a href="#">&laquo; Prev</a>
+            <a href="2articolo-ita.html">&laquo; Prev</a>
             <a href="1articolo-ita.html">1</a>
             <a href="2articolo-ita.html">2</a>
-            <a href="#" class="current">3</a>
-            <a href="#">4</a>
-            <a href="#">5</a>
-            <a href="#">6</a>
-            <a href="#">Next &raquo;</a>
+            <a class="current">3</a>
+            <a href="4articolo-ita.html">4</a>
+            <a href="5articolo-ita.html">5</a>
+            <a href="4articolo-ita.html">Next &raquo;</a>
             </div>
           </div>
           <div class="footer">
