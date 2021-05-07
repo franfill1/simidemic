@@ -1,3 +1,4 @@
+/*GENERAL STYLING*/
 * {
   font-family: Georgia, 'Times New Roman', Times, serif;
   margin:0;
@@ -11,7 +12,7 @@
   --light-orange: #ffb91bff;
   --brown: rgba(0, 0, 0, 0.89);
 }
-  /*navbar styling*/
+/*NAVBAR*/
 .navbar ul{
   display: flex;
   background-color: black;
@@ -37,7 +38,7 @@
   z-index: 1;
 }
 .lingue:hover .dropdown{display: block;}
-  /*IMMAGINE HEADER*/
+/*IMMAGINE HEADER*/
 .main-header{position: relative;}
 .main-header img{
   z-index: -1;
@@ -78,6 +79,8 @@
 .articolocontainer, .container{
   margin-inline:auto;
   width: min(90%, 50rem);
+  position: relative;
+  margin: 0 auto;
 }
 p, tr, th{
   padding: 1em;
@@ -104,11 +107,16 @@ img {
   height: 60px;
 }
   /**/
-.colorblock{
-  width: 100%;
-  height: 2.5rem;
-  background-color: var(--dark-orange);
 }
+.colorblock{
+background-color: var(--dark-orange);
+height: 2.5rem;
+}
+.dividorarticolo{
+background-color: var(--brown);
+height: 5rem;
+}
+
   /*articoli area*/
 .articolo h3{
   font-size: 1.3rem;
@@ -168,7 +176,7 @@ img {
 .header{
   display: none;
   overflow: hidden;
-  background-color: black;
+  background-color: var(--brown);
   position: relative;
 }
 .header img{
