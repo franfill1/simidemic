@@ -2,35 +2,45 @@
 <link rel="stylesheet" href="../Simulation.css">
 <html>
     <body onload="main()">
-        <canvas class="simulation" id = "simulationCanvas" width = 400 height = 400></canvas>
-        <canvas class="statisticGraph" id = "graph" width = 400 height = 200></canvas>
-        <div class="sliders">
-            <div class="SliderInfectionProb_class">
-                <span>Change the <span class="keyword">probability of infection</span> with the value you prefer:</span> 
-                <br>
-                <input type="range" min="0" max="100" value="20" class="slider" id="SliderInfectionProb">
-                <span id="SliderInfectionProbValue"></span>
+        <div class="columns">
+            <div class="col1">
+                <canvas class="simulation" id = "simulationCanvas"></canvas>
             </div>
-            <div class="SliderInfectionRange_class">
-                <span>Change the <span class="keyword">range of infection</span> of an infected (in pixels):</span> 
+            <div class="col2">
+                <div class="ButtonsDiv_class">
+                    <button id="ResetButton">reset</button>
+                    <button id="PauseButton">pause</button>
+                    <button id="PlayButton">play</button>
+                    <button id="StepButton">step</button>
+                </div>
                 <br>
-                <input type="range" min="5" max="20" value="1" class="slider" id="SliderInfectionRange">
-                <span id="SliderInfectionRangeValue"></span>
-            </div>
-            <div class="SliderTravelMax_class">
-                <span>Change the <span class="keyword">travelling factor</span> of the scociety</span> 
+                <div class="sliders">
+                    <div class="SliderInfectionProb_class">
+                        <span>Change the <span class="keyword">probability of infection</span> with the value you prefer:</span> 
+                        <br>
+                        <input type="range" min="0" max="100" value="20" class="slider" id="SliderInfectionProb">
+                        <span id="SliderInfectionProbValue"></span>
+                    </div>
+                    <div class="SliderInfectionRange_class">
+                        <span>Change the <span class="keyword">range of infection</span> of an infected (in pixels):</span> 
+                        <br>
+                        <input type="range" min="5" max="20" value="1" class="slider" id="SliderInfectionRange">
+                        <span id="SliderInfectionRangeValue"></span>
+                    </div>
+                    <div class="SliderTravelMax_class">
+                        <span>Change the <span class="keyword">travelling factor</span> of the scociety</span> 
+                        <br>
+                        <input type="range" min="0" max="30" value="1" class="slider" id="SliderTravelMax">
+                        <span id="SliderTravelMaxValue"></span>
+                    </div>
+                </div>
                 <br>
-                <input type="range" min="0" max="30" value="1" class="slider" id="SliderTravelMax">
-                <span id="SliderTravelMaxValue"></span>
+                <div class="statisticGraph">
+                    <canvas id = "graph"></canvas>
+                </div>
             </div>
         </div>
-        <div class="ButtonsDiv_class">
-            <button id="ResetButton">reset</button>
-            <button id="PauseButton">pause</button>
-            <button id="PlayButton">play</button>
-            <button id="StepButton">step</button>
-        </div>
-
+        
         <script src = "punto7.js"></script>
         <script src = "../graph.js"></script>
         <script src = "../dynamicSimulation.js"></script>
