@@ -82,6 +82,10 @@
   position: relative;
   margin: 0 auto;
 }
+p{
+  text-align: justify;
+  color: black;
+}
 p, tr, th{
   padding: 1em;
   line-height: 1.8;
@@ -294,11 +298,11 @@ th{
 
   /*size4 size*/
 @media screen and (min-width:992px){
-    .text-body{background-color:rgb(134, 212, 119);}
+    .text-body{background-color:rgb(245, 215, 84);}
     .articolocontainer{width: min(70%, 50rem);}
 }
   /*size 5*/
 @media screen and (min-width:1200px){
-    .text-body{background-color:rgb(255, 255, 255);}
+    .text-body{background-color:rgb(245, 215, 84);}
     .container{width: min(90%, 50rem);}
 }
