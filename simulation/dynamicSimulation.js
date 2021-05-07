@@ -540,6 +540,8 @@ class simulation
         };
 
         this.canvas = document.getElementById(canvasId);
+        this.canvas.width = 500;
+        this.canvas.height = 500;
 
         this.hasQuarantine = hasQ;
         const R = Math.ceil(Math.sqrt(NR));
