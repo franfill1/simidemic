@@ -86,6 +86,9 @@ p{
   text-align: justify;
   color: black;
 }
+h2, h3{
+  color: black;
+}
 p, tr, th{
   padding: 1em;
   line-height: 1.8;
