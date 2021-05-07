@@ -687,7 +687,7 @@ class simulation
             {
                 var v = Math.random() * asympRandomSpan + asympMin;
                 console.log(v);
-                if (this.peopleList[i].region != this.qRegion && this.peopleList[i].status == 2 && this.peopleList[i].timeSinceInfection > v)
+                if (!this.peopleList[i].travelling && this.peopleList[i].region != this.qRegion && this.peopleList[i].status == 2 && this.peopleList[i].timeSinceInfection > v)
                 {
                     var id = 0;
                     var r = this.peopleList[i].region;
