@@ -5,59 +5,52 @@
   box-sizing: border-box;
   overflow-x: hidden;
   cursor: default;
-  }
-  :root {
+}
+:root {
   --dark-orange: #fa8128ff;
   --light-orange: #ffb91bff;
   --brown: rgba(0, 0, 0, 0.89);
-  }
+}
   /*navbar styling*/
-  .navbar ul{
-      display: flex;
-      background-color: black;
-      list-style-type: none;
-      justify-content: space-between;
-    }
-  .navleft{
-    display: flex;}
-  .navleft a{display: inline-block;}
-  .lingue a{display: flex;}
-  .navbar a{
+.navbar ul{
+  display: flex;
+  background-color: black;
+  list-style-type: none;
+  justify-content: space-between;
+}
+.navleft{display: flex;}
+.navleft a{display: inline-block;}
+.lingue a{display: flex;}
+.navbar a{
   padding: 1em;
   text-decoration: none;
   color: var(--dark-orange);
   text-align: center;
   position: relative;
-  }
-  .navbar a:hover {
-  color: var(--light-orange);
-  } 
-  .navbar .dropdown
-  {position: absolute;
+}
+.navbar a:hover {color: var(--light-orange);} 
+.navbar .dropdown{
+  position: absolute;
   display: none;
   width: 100%;
   text-align: center;
   z-index: 1;
-  }
-  .lingue:hover .dropdown{
-   display: block;
-  }
+}
+.lingue:hover .dropdown{display: block;}
   /*IMMAGINE HEADER*/
-  .main-header{
+.main-header{position: relative;}
+.main-header img{
+  z-index: -1;
   position: relative;
-  }
-  .main-header img{
-    z-index: -1;
-    position: relative;
-    }
-  .headtitle{
-    position: relative;
-    top: 0;
-    width: 100%;
-    left:0;
-    text-align: center;
-    background-color: #0b0505;
-    }
+}
+.headtitle{
+  position: relative;
+  top: 0;
+  width: 100%;
+  left:0;
+  text-align: center;
+  background-color: #0b0505;
+}
 .headtitle h1{
   overflow: hidden;
   color:var(--dark-orange);
@@ -65,7 +58,7 @@
   line-height: 1;
   max-width: 100%;
   margin:0 1em;
-    }
+}
 .headtitle p{
   font-size: 1rem;
   max-width: 100%;
@@ -73,7 +66,7 @@
   line-height: 1.7;
   text-align: center;
   margin: auto;
-  }
+}
    /*CONTENUTO*/
   /* [class^="text-area"]{
     padding: 3rem 0;
@@ -81,125 +74,116 @@
   
 /*
   }*/
-  .simulpic{border: 3px solid black;}
-  .articolocontainer, .container{
-    margin-inline:auto;
-    width: min(90%, 50rem);
-  }
-  p, tr, th{
+.simulpic{border: 3px solid black;}
+.articolocontainer, .container{
+  margin-inline:auto;
+  width: min(90%, 50rem);
+}
+p, tr, th{
   padding: 1em;
   line-height: 1.8;
   font-size: 1.3rem;
-  }
-  img {
-    max-width: 100%;
-    display: block;
-    margin: auto;
-  }
-   /*area1*/
-  .text-section-1{
+}
+img {
+  max-width: 100%;
+  display: block;
+  margin: auto;
+}
+/*area1*/
+.text-section-1{
   display: flex;
   flex-direction: column;
-  }
-  .text-section-1>div{display: flex;
-  flex-flow: row;}
-  .text-section-1>div>p{flex-basis: 90%;}
-  
+}
+.text-section-1>div{
+  display: flex;
+  flex-flow: row;
+}
+.text-section-1>div>p{flex-basis: 90%;}
 .text-section-1 img{
   width: 60px;
   height: 60px;
-  }
+}
   /**/
-  .colorblock{
+.colorblock{
   width: 100%;
   height: 2.5rem;
   background-color: var(--dark-orange);
-  }
+}
   /*articoli area*/
-  .articolo h3{
-    font-size: 1.3rem;
-    font-weight: bold;
-  }
-  .articolo{
-  padding: 1em;
-  }
-  .articolo:hover{
-  background-color: rgb(211, 211, 211);
-  }
-  .articolo, .articolo p, .articolo img{cursor: pointer;}
+.articolo h3{
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.articolo{padding: 1em;}
+.articolo:hover{background-color: rgb(211, 211, 211);}
+.articolo, .articolo p, .articolo img{cursor: pointer;}
   /*citazionearea*/
-  .citazione {
+.citazione {
   background-color:var(--brown);
   text-align: center;
-  }
-  .citazione p{
+}
+.citazione p{
   color: var(--light-orange);
   font-size:1.2rem;
-  }
-  .citazione q{
-    display: inline-block;
-    color: var(--dark-orange);
-    padding: 1em;
-    font-size: 1.6rem;
-    font-weight: bold;
-    }
+}
+.citazione q{
+  display: inline-block;
+  color: var(--dark-orange);
+  padding: 1em;
+  font-size: 1.6rem;
+  font-weight: bold;
+}
   
   /*simulationarea*/
-  .imgarea{background-color: var(--brown);}
-  .imgarea h2, .areaarticoli h2{
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-    margin: 0.5em;
-    }
-  .imgarea h2{ color:var(--light-orange);}
-    .imgarea button {
-      display: block;
-      margin: 1em auto;
-      padding: 1em 2em;
-      background-color: var(--brown);
-      color: var(--light-orange);
-      font-size: 1.3rem;
-      font-weight: 300;
-      border: none;
-      }
-    .imgarea button:hover{
-    background-color:var(--light-orange);
-    color: var(--brown);
-    }
+.imgarea{background-color: var(--brown);}
+.imgarea h2, .areaarticoli h2{
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 0.5em;
+}
+.imgarea h2{ color:var(--light-orange);}
+.imgarea button {
+  display: block;
+  margin: 1em auto;
+  padding: 1em 2em;
+  background-color: var(--brown);
+  color: var(--light-orange);
+  font-size: 1.3rem;
+  font-weight: 300;
+  border: none;
+}
+.imgarea button:hover{
+  background-color:var(--light-orange);
+  color: var(--brown);
+}
   /*footer*/
-  .footer{
-  background-color: var(--dark-orange);
-  }
-  .footer p{
+.footer{background-color: var(--dark-orange);}
+.footer p{
   padding: 3rem;
   text-align: center;
   color: var(--brown);
-  }
-
+}
   /*header articolo*/
-  .header{
+.header{
   display: none;
   overflow: hidden;
   background-color: black;
   position: relative;
-  }
-  .header img{
+}
+.header img{
   max-width: 60%;
   position: relative;
   margin-left: 0;
-  }
-  .title{
+}
+.title{
   color: #fa8128ff;
   max-width: 60ch;
   position: absolute;
   margin-left: 40%;
   margin-top: 2em;
-  }
-  .title h1{
-  font-size: 3.5vw;
-  }
-
+}
+.title h1{font-size: 3.5vw;}
 .text-body h1{
   margin:0.5em;
   font-size: 2.8rem;
@@ -210,7 +194,7 @@
 /*INPAGINAZIONE*/
 .areainpag{
   text-align: center;
-margin: 2em;
+  margin: 2em;
 }
 .pagination {display: inline-block;}
 .pagination a {
@@ -231,31 +215,31 @@ margin: 2em;
 .pagination a:hover:not(.current) {background-color: #ddd;}
 /*TABELLE*/
 table{
-border-collapse: collapse;
-text-align: center;
-margin: 1rem;
+  border-collapse: collapse;
+  text-align: center;
+  margin: 1rem;
 }
 td, th{
-border: 1px solid black;
-padding: 0.5em;
+  border: 1px solid black;
+  padding: 0.5em;
 }
-th{color:var(--brown);
+th{
+  color:var(--brown);
   background-color: var(--light-orange);
 }
   /*RESPONSIVE*/
   /*size 2*/
-  @media screen and (min-width:600px){
-  .text-body{background-color:rgb(170, 163, 231);}
-  .text-section-1{flex-direction: row;}
-  .text-section-1>div{flex-direction: column;}
-  .text-section-1{margin: 1em 0;}
-  .citazione q{font-size: 2rem;}
-  .articolocontainer{
-    width: min(70%, 50rem);}
-  }
+@media screen and (min-width:600px){
+    .text-body{background-color:rgb(170, 163, 231);}
+
+    .text-section-1{flex-direction: row;}
+    .text-section-1>div{flex-direction: column;}
+    .text-section-1{margin: 1em 0;}
+    .citazione q{font-size: 2rem;}
+    .articolocontainer{width: min(70%, 50rem);}
+}
   /*size 3*/
-  @media screen and (min-width:768px)
-  {
+@media screen and (min-width:768px){
     .headtitle{
       background-color: transparent;
       position: absolute;
@@ -266,7 +250,8 @@ th{color:var(--brown);
     .imgarea h2 {font-size: 2.5rem;}
     .headtitle h1{
       color: var(--dark-orange);
-      font-size: 5.5vw;}
+      font-size: 5.5vw;
+    }
     .headtitle p{
       color: var(--light-orange);
       padding-top:1.5em;
@@ -277,15 +262,15 @@ th{color:var(--brown);
     .text-body{background-color:pink;}
     .header{display: block;}
     .text-body h1{display: none;}
+}
+
   /*size4 size*/
-  @media screen and (min-width:992px){
+@media screen and (min-width:992px){
     .text-body{background-color:rgb(134, 212, 119);}
-    .articolocontainer{
-      width: min(70%, 50rem);}
-  }
+    .articolocontainer{width: min(70%, 50rem);}
+}
   /*size 5*/
-    @media screen and (min-width:1200px){
-      .text-body{background-color:rgb(255, 255, 255);}
-      .container{
-        width: min(90%, 50rem);}
-    }
+@media screen and (min-width:1200px){
+    .text-body{background-color:rgb(255, 255, 255);}
+    .container{width: min(90%, 50rem);}
+}
