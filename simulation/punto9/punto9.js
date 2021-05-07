@@ -31,10 +31,10 @@ const params =
     {
         colors:
         {
-            edges : "black",
+            edges : "white",
             quarantineEdges : "red",
         },
-        border: 0,
+        border: 3,
     },
     graph :
     {
@@ -63,15 +63,15 @@ const params =
         defaultRadius : 10, //valore iniziale del raggio dell'epidemia
         defaultSpan : 15,
         defaultDeathIndex : 0.2,
-        defaultSocialDistancing : 0,
+        defaultSocialDistancing : 10,
         defaultRespectfullness : 0,
         defaultAsympMin : 1,
         defaultAsympMax : 2,
         defaultAsympProb : 0,
         maxTravelling : 10,
         travelProbability : 0.5,
-        nRegions : 1,
-        nPeople : 400,
+        nRegions : 9,
+        nPeople : 900,
     }
 }
 
@@ -89,20 +89,16 @@ function main()
 
 function setUpSliders()
 {
-    document.getElementById("SliderInfectionProb").value = params.infection.defaultIndex * 100;
-    document.getElementById("SliderInfectionProbValue").innerHTML = params.infection.defaultIndex;
     document.getElementById("SliderInfectionRange").value = params.infection.defaultRadius;
     document.getElementById("SliderInfectionRangeValue").innerHTML = params.infection.defaultRadius;
     document.getElementById("SliderTravelMax").value = params.infection.maxTravelling;
     document.getElementById("SliderTravelMaxValue").innerHTML = params.infection.maxTravelling;
+
+    document.getElementById("SliderRespect").value = params.infection.defaultRespectfullness;
+    document.getElementById("SliderRespectValue").innerHTML = params.infection.defaultRespectfullness;
     params.person.pulse.beginFade = params.infection.defaultRadius / 2;
     params.person.pulse.final = params.infection.defaultRadius;
 
-    document.getElementById("SliderInfectionProb").oninput = function()
-    {
-        sim.epidemicInfo.index = Number(this.value) / 100;
-        document.getElementById("SliderInfectionProbValue").innerHTML = Number(this.value) / 100;
-    }
     document.getElementById("SliderInfectionRange").oninput = function()
     {
         sim.epidemicInfo.radius = Number(this.value);
@@ -114,7 +110,12 @@ function setUpSliders()
     document.getElementById("SliderTravelMax").oninput = function()
     {
         params.infection.maxTravelling = this.value;
-        document.getElementById("SliderTravelMaxValue").innerHTML = params.infection.maxTravelling;
+        document.getElementById("SliderTravelMaxValue").innerHTML = this.value;
+    }
+    document.getElementById("SliderRespect").oninput = function()
+    {
+        sim.epidemicInfo.respectfullness = this.value / 100;
+        document.getElementById("SliderRespectValue").innerHTML = this.value / 100;
     }
     document.getElementById("ResetButton").onclick = function()
     {

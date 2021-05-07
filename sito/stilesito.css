@@ -193,7 +193,7 @@ margin:1em 0;
   max-width: 60ch;
   position: absolute;
   margin-left: 40%;
-  margin-top: 2em;
+  margin-top: 4em;
 }
 .title h1{font-size: 3.5vw;}
 .text-body h1{
@@ -212,17 +212,11 @@ font-size: 0.8rem
 .johnsnow{display: flex;}
 .johnsnow>*{
   flex-basis: 100%;
-  margin: 1.5rem;
+  margin-left: 1.5rem;
   display: flex;
   flex-direction: column;
   overflow: hidden;
 }
-.johnsnow>*>:first-child{
-flex-basis: 90%;
-}
-.johnsnow>*>:nth-child(2){
-  flex-basis: 10%;
-  }
 /*INPAGINAZIONE*/
 .areainpag{
   text-align: center;

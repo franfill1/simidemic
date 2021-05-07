@@ -538,6 +538,7 @@ class simulation
             asympMax: params.infection.defaultAsympMax,
             asympProb : params.infection.defaultAsympProb,
         };
+        console.log(this.epidemicInfo.socialDistancing);
 
         this.canvas = document.getElementById(canvasId);
         this.canvas.width = 500;
@@ -665,6 +666,10 @@ class simulation
         this.simulateDay() => void
         Simula un giorno della simulazione, chiamando la stessa funzione per tutte le regioni e scegliendo alcune persone casuali per viaggiare
         */
+       if (this.epidemicInfo.socialDistancing != 10)
+       {
+           console.log(this.epidemicInfo.socialDistancing);
+       }
         for (var i = 0; i < this.regionList.length; i++)
         {
             this.regionList[i].simulateDay();
