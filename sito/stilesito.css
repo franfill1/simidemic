@@ -294,11 +294,11 @@ font-size: 0.8rem
 
   /*size4 size*/
 @media screen and (min-width:992px){
-    .text-body{background-color:rgb(245, 215, 84);}
+    .text-body{background-color:rgb(236, 223, 161);}
     .articolocontainer{width: min(70%, 50rem);}
 }
   /*size 5*/
 @media screen and (min-width:1200px){
-    .text-body{background-color:rgb(245, 215, 84);}
+    .text-body{background-color:rgb(236, 223, 161);}
     .container{width: min(90%, 50rem);}
 }
