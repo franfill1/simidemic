@@ -69,19 +69,7 @@
   margin: auto;
 }
    /*CONTENUTO*/
-  /* [class^="text-area"]{
-    padding: 3rem 0;
-  }*/
-  
-/*
-  }*/
-.simulpic{border: 3px solid black;}
-.articolocontainer, .container{
-  margin-inline:auto;
-  width: min(90%, 50rem);
-  position: relative;
-  margin: 0 auto;
-}
+  /*general style*/
 p{
   text-align: justify;
   color: black;
@@ -92,14 +80,20 @@ h2, h3{
 p, tr, th{
   padding: 1em;
   line-height: 1.8;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 }
 img {
   max-width: 100%;
   display: block;
   margin: auto;
 }
-/*area1*/
+.articolocontainer, .container{
+  margin-inline:auto;
+  width: min(90%, 50rem);
+  position: relative;
+  margin: 0 auto;
+}
+/*area1 homepage*/
 .text-section-1{
   display: flex;
   flex-direction: column;
@@ -114,6 +108,7 @@ img {
   height: 60px;
 }
   /**/
+.simulpic{border: 3px solid black;}
 .colorblock{
 background-color: var(--dark-orange);
 height: 2.5rem;
@@ -123,16 +118,17 @@ background-color: var(--brown);
 height: 5rem;
 margin:1em 0;
 }
-
   /*articoli area*/
 .articolo h3{
   font-size: 1.3rem;
   font-weight: bold;
 }
-.articolo{padding: 1em;}
+.articolo{
+padding: 0.3em;
+}
 .articolo:hover{background-color: rgb(211, 211, 211);}
 .articolo, .articolo p, .articolo img{cursor: pointer;}
-  /*citazionearea*/
+/*citazione*/
 .citazione {
   background-color:var(--brown);
   text-align: center;
@@ -140,6 +136,7 @@ margin:1em 0;
 .citazione p{
   color: var(--light-orange);
   font-size:1.2rem;
+  text-align: center;
 }
 .citazione q{
   display: inline-block;
@@ -148,7 +145,6 @@ margin:1em 0;
   font-size: 1.6rem;
   font-weight: bold;
 }
-  
   /*simulationarea*/
 .imgarea{background-color: var(--brown);}
 .imgarea h2, .areaarticoli h2{
@@ -179,6 +175,7 @@ margin:1em 0;
   text-align: center;
   color: var(--brown);
 }
+/*ARICOLI*/
   /*header articolo*/
 .header{
   display: none;
@@ -206,6 +203,21 @@ margin:1em 0;
   font-weight: 900;
   color: var(--light-orange);
 }
+/*TABELLE*/
+table{
+  border-collapse: collapse;
+  text-align: center;
+  margin: 1rem;
+}
+td, th{
+  border: 1px solid black;
+  padding: 0.5em;
+}
+th{
+  color:var(--brown);
+  background-color: var(--light-orange);
+}
+/*Immagini e caption*/
 .caption{
 color: var(--brown);
 text-align: center;;
@@ -242,20 +254,7 @@ font-size: 0.8rem
   color: white;
 }
 .pagination a:hover:not(.current) {background-color: #ddd;}
-/*TABELLE*/
-table{
-  border-collapse: collapse;
-  text-align: center;
-  margin: 1rem;
-}
-td, th{
-  border: 1px solid black;
-  padding: 0.5em;
-}
-th{
-  color:var(--brown);
-  background-color: var(--light-orange);
-}
+
   /*RESPONSIVE*/
   /*size 2*/
 @media screen and (min-width:600px){
