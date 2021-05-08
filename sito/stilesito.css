@@ -132,6 +132,9 @@ margin:1em 0;
   font-size: 1.3rem;
   font-weight: bold;
 }
+td{
+  color: black;
+}
 .articolo{
 padding: 0.3em;
 }
@@ -252,14 +255,14 @@ font-size: 0.8rem
   font-size: 1.3rem;
   float: left;
   padding: 0.5em 1em;
-  border: 1px solid #ddd;
+  border: 1px solid rgb(0, 0, 0);
   margin: 0.3em;
   text-decoration: none;
   transition: background-color .2s;
 }
 
 .pagination a.current {
-  background-color:var(--light-orange);
+  background-color: black;
   color: white;
 }
 .pagination a:hover:not(.current) {background-color: #ddd;}
@@ -319,6 +322,6 @@ border: none;
 }
   /*size 5*/
 @media screen and (min-width:1200px){
-    .text-body{background-color:white;}
+    .text-body{background-color:rgb(236, 223, 161);}
     .container{width: min(90%, 50rem);}
 }
