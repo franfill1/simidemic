@@ -1,7 +1,7 @@
 /*il body viene usato come un 'blocco fisso' sul quale vengono mossi gli altri oggetti, basterà dargli una position: absolute*/
 body
 {
-    background-color: rgb(245, 215, 84);
+    background-color: rgb(236, 223, 161);
     position: relative;
     margin: 0;
     padding: 0;
@@ -36,7 +36,7 @@ body
 
 #StepButton
 {
-    background-color: rgb(172, 97, 11);
+    background-color: orange;
 }
 
 .ButtonsDiv_class > *:hover

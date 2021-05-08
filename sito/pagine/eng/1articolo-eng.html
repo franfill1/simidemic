@@ -1,0 +1,145 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homepage Eng</title>
+    <link rel="stylesheet" href="../../stilesito.css">
+</head>
+<body>
+    <div class="heading">
+        <nav>
+            <div class="navbar">
+                <ul>
+                    <div class="navleft">
+                        <li><a href="homepage-ita.html">Home</a></li>
+                        <li><a href="1articolo-ita.html">Articoli</a></li>
+                        <li><a href="simul-ita.html">Simulazioni</a></li>
+                    </div>
+                    <li class="lingue"><a href="#">Lingue</a>
+                        <ul class="dropdown">
+                            <li><a href="Homepage-ita.html">Ita</a></li>
+                            <li><a href="Homepage-eng.html">Eng</a></li>
+                        </ul>
+                    </li>
+                </ul>
+              </div>
+        </nav>
+        <!--header-->
+        <section>
+                <div class="header">
+                    <div class="title">
+                        <h1>Lorem ipsum dolor sit amet consectetur.</h1>
+                    </div>
+                    <img src="../../immagini/articoloheader.png" alt="Immagine di header"/>
+                </div>
+        </section>
+    </div>
+
+    <div class="text-body">
+        <div class="articolocontainer">
+        <h1>Lorem ipsum dolor sit amet consectetur.</h1>
+        <p>Abbiamo spesso sentito il termine “pandemia” usato in riferimento al Covid-19, ma cosa significa effettivamente questo termine?<br/>
+            Una pandemia è definita come una malattia epidemica caratterizzata da una diffusione eccezionalmente rapida e vasta. E’ difficile
+            generalizzare l’espansione di una pandemia, date le moltissime variabili che cambiano a seconda del contesto sociale, politico e 
+            storico, oltre alle caratteristiche del patogeno stesso. E’ per questo che esiste un’intera disciplina dedicata allo studio della
+             diffusione delle malattie, l’epidemiologia.<br/>
+            Bisogna quindi specificare che la simulazione e l’articolo che seguiranno tentano di spiegare la diffusione di un’epidemia in linee 
+            molto generali, che non saranno mai in grado di simulare la complessità di un’epidemia reale. </p>
+        </div>
+        <div class="dividorarticolo"></div>
+        <div class="articolocontainer">
+            <p>Possiamo partire da una situazione semplice. In una popolazione (rappresentata nel nostro caso da dei pallini statici) comincia a 
+                diffondersi una malattia. </p>
+            <img src="../../immagini/grafo1.gif" class="grafo" width="200px"/>
+            <p>Anche se la malattia parte da una sola persona, può diffondersi in maniera molto rapida. Nello schema riportato, si può osservare
+                 come ogni persona infetta contagia sempre e solo altre due persone. In questo caso, il numero medio di persone contagiate da ogni 
+                 persona infetta è fissato, ma esso può variare a seconda della popolazione studiata e dalla malattia. Questo indice è detto numero di 
+                 riproduzione di base (R0), e risulta molto importante nello studio delle epidemie.
+                 R0 sta alla base della definizione stessa di epidemia. In epidemiologia, per essere classificata come un’epidemia, l’indice R0 della 
+                 malattia deve essere maggiore di 1. Se è uguale a 1, si tratta invece di una endemia. Quando si trova in uno stato endemico, la malattia
+                 non si diffonde in maniera esponenziale, ma allo stesso tempo non scompare completamente, rimanendo presente nella popolazione locale. 
+                 Per esempio, la varicella è endemica nel Regno Unito.
+                 <table>
+                    <tr>
+                        <th></th>
+                        <th>Definizione</th>
+                        <th>R0</th>
+                        <th>Etimologia</th>
+                    </tr>
+                    <tr>
+                        <td>Endemia</td>
+                        <td>Malattia costantemente presente o molto frequente in una popolazione o territorio per cause varie.</td>
+                        <td>1</td>
+                        <td>in<br/>
+                            demos=popolo<br/><br/>
+                            “che è nel popolo”
+                            </td>
+                    </tr>
+                    <tr>
+                        <td>Epidemia</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td>Pandemia</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                  </table>
+            Riportiamo i valori R0 di alcune epidemie <br/>
+                  <table>
+                      <tr>
+                        <th>Malattia</th>
+                        <td>Covid-19</td>
+                        <td>Varicella</td>
+                        <td>AIDS</td>
+                        <td>Vaiolo</td>
+                        <td>Influenza</td>
+                      </tr>
+                      <tr>
+                        <th>R0</th>
+                        <td>2.4-3.4</td>
+                        <td>10-12</td>
+                        <td>2-5</td>
+                        <td>3.5-6</td>
+                        <td>0.9-2.1</td>
+                      </tr>
+                  </table>
+            Esattamente quanto crescono in fretta?<br/>
+            I casi nuovi nascono dai casi attuali, quindi più sono quest’ultimi, più crescono i contagi. Quello che si verrebbe a osservare è una crescita di tipo esponenziale. <br/>
+            Manca comunque un dato: le epidemie non possono crescere all’infinito: prima o poi, tutta la popolazione sarà contagiata, e non ci 
+            saranno più nuovi casi. Sembrerebbe quindi che i contagi crescano in continuazione per poi cadere improvvisamente a 0 quando tutta la 
+            popolazione è ormai contagiata, una crescita molto insolita. Non è infatti questo il caso.<br/>
+            Non bisogna aspettare fino alla fine di un’epidemia un cambiamento nella curva del contagio. <br/>
+            Man mano che più gente viene contagiata sarà impossibile per un contagiato trovare lo stesso numero di persone sane che 
+            incontrerebbe in una popolazione completamente suscettibile. La curva che viene a formarsi non è quindi una curva esponenziale ma una
+             curva logistica. <br/>
+            </p>
+            <img class="simulpic" src="../../immagini/ezgif.com-gif-maker (1).gif" width="50%" height="auto"/>
+            <p>Variando la probabilità che le persone vicine a un infetto vengano contagiate, osserva il grafico logistico che viene a formarsi. 
+                I contagi crescono rapidamente per un periodo di tempo, per poi raggiungere un flesso, e da lì in poi i casi crescono, ma sempre più lentamente.<br/>
+                Possiamo quindi ridefinire il nostro numero di riproduzione di base (R0): il numero medio di persone contagiate da una persona infetta in una popolazione completamente suscettibile.
+                Si può inoltre definire un secondo numero: il numero di riproduzione effettivo (R), che indica l’effettivo numero medio di persone sane contagiate da ogni infetto e che varia nel corso di una epidemia.
+                </p>
+        </div>
+        <div class="dividorarticolo"></div>
+<!--IMPAGINAZIONE-->
+        <div class="areainpag">
+            <div class="pagination">
+            <a>&laquo; Prec</a>
+            <a class="current">1</a>
+            <a href="2articolo-ita.html">2</a>
+            <a href="3articolo-ita.html">3</a>
+            <a href="4articolo-ita.html">4</a>
+            <a href="5articolo-ita.html">5</a>
+            <a href="2articolo-ita.html">Succ &raquo;</a>
+            </div>
+          </div>
+          <div class="footer">
+            <p>Lugli Francesco  |  Maietti Luca  |   Mainetti Ada  |  Nani Alessandro<br/>Classe 3U<br/>Liceo Scientifico Antonio Roiti<br/>Anno 2020-2021</p>
+        </div>
+</body>
+</html>
