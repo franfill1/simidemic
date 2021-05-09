@@ -118,10 +118,6 @@ cursor: pointer;
 }
 /*RESPONSIVE*/
   /*size4 size*/
-@media screen and (min-width:800px)
-{
-    
-}
 @media screen and (min-width:992px)
 {
     .statisticGraph canvas
