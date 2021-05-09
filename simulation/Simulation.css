@@ -15,7 +15,9 @@ body
     color:rgb(255, 255, 255);
     border: none;
     background-color: #fa8128ff;
-    box-shadow: 3px 2px 8px #888888
+    box-shadow: 3px 2px 8px #888888;
+    margin-top: 0.5em;
+    margin-right: 0.5em;
 }
 .ButtonsDiv_class > *:hover{background-color: #ffb91bff;;}
 
@@ -23,34 +25,6 @@ button:hover
 {
     cursor: pointer;
 }
-/*
-#ResetButton
-{
-    background-color: rgb(58, 1, 80);
-}
-
-#PauseButton
-{
-    
-    background-color: rgb(202, 15, 15);
-}
-
-#PlayButton
-{
-    background-color: rgb(60, 185, 10);
-}
-
-#StepButton
-{
-    background-color: orange;
-}
-
-.ButtonsDiv_class > *:hover
-{
-    background-color: orange;
-}
-*/
-/*aggiungendo la classe keyword a una span, essa diventa maiuscola*/
 span.keyword
 {
     text-transform: uppercase;
@@ -94,7 +68,6 @@ width: min(90%, 30rem);
 .columns
 {
 display: flex;
-flex-direction: column;
 }
 
 .columns>*
@@ -143,10 +116,6 @@ background: #fa8128ff;
 cursor: pointer;
 }
 /*RESPONSIVE*/
-@media screen and (min-width:600px)
-{
-    .columns{flex-direction: row;}
-}
   /*size4 size*/
 @media screen and (min-width:992px)
 {
