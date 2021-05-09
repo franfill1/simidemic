@@ -63,7 +63,7 @@ border: 1px solid rgb(0, 0, 0);
 display: block;
 position: relative;
 margin: 0 auto;
-width: min(90%, 30rem);
+max-width: 100%;
 }
 
 .columns
@@ -118,6 +118,10 @@ cursor: pointer;
 }
 /*RESPONSIVE*/
   /*size4 size*/
+@media screen and (min-width:800px)
+{
+    
+}
 @media screen and (min-width:992px)
 {
     .statisticGraph canvas
