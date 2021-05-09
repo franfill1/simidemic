@@ -219,6 +219,10 @@ padding: 0.3em;
 .title h1{
 font-size: 3.5vw;
 }
+.text-body
+{
+  background-color:rgb(236, 223, 161);
+}
 .text-body h1{
   margin:0.5em;
   font-size: 2.8rem;
