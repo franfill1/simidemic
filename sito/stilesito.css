@@ -270,18 +270,27 @@ font-size: 0.8rem
 .pagination a:hover:not(.current) {background-color:rgb(201, 181, 85);}
 /*IFRAME*/
 .actualsim{
-width:80%;
-display: inline-block;
-position: relative;
-margin: auto;
-height: 38em;
-width: 100%;
-border: none;
+  width:100%;
+  display: inline-block;
+  position: relative;
+  margin: auto;
+  height: 33em;
+  width: 100%;
+  border: none;
+}
+.actualsim-art{
+  width:100%;
+  display: inline-block;
+  position: relative;
+  margin: auto;
+  height: 25em;
+  width: 100%;
+  border: none;
 }
 iframe{
-width:100%;
-height:100%;
-border: none;
+  width:100%;
+  height:100%;
+  border: none;
 }
   /*RESPONSIVE*/
   /*size 2*/
