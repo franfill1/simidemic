@@ -15,22 +15,22 @@
                 </div>
                 <br>
                 <div class="sliders">
-                    <div class="SliderInfectionProb_class">
-                        <span>Change the <span class="keyword">probability of infection</span> with the value you prefer:</span> 
-                        <br>
-                        <input type="range" min="0" max="100" value="20" class="slider" id="SliderInfectionProb">
-                        <span id="SliderInfectionProbValue"></span>
-                    </div>
                     <div class="SliderInfectionRange_class">
-                        <span>Change the <span class="keyword">range of infection</span> of an infected (in pixels):</span> 
+                        <span>Cambia il <span class="keyword">raggio di infezione</span> di un infetto</span> 
                         <br>
-                        <input type="range" min="5" max="20" value="1" class="slider" id="SliderInfectionRange">
+                        <input type="range" min="1" max="5" value="3" class="slider" id="SliderInfectionRange">
                         <span id="SliderInfectionRangeValue"></span>
+                    </div>
+                    <div class="SliderDeathProb_class">
+                        <span>Cambia la <span class="keyword">probabilità di morte</span></span> 
+                        <br>
+                        <input type="range" min="0" max="100" value="20" class="slider" id="SliderDeathProb">
+                        <span id="SliderDeathProbValue"></span>
                     </div>
                 </div>
                 <br>
                 <div>
-                    <span class="black">Actual death index:</span>
+                    <span class="black">Attuale probabilità di morte:</span>
                     <span id="actualDeatProbValue" class="black"></span>
                 </div>
                 <br>
@@ -40,8 +40,9 @@
             </div>
         </div>
 
-        <script src = "punto6.js"></script>
-        <script src = "../graph.js"></script>
-        <script src = "../dynamicSimulation.js"></script>
+        <script src = "punto5.js"></script>
+        <script src = "../Graph.js"></script>
+        <script src = "../StaticSimulation.js"></script>
+        <p id = "debug"></p>
     </body>
 </html>
