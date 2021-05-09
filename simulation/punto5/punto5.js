@@ -118,6 +118,7 @@ function update()
     sim.draw();
     if (!paused)
     {  
+        document.getElementById("actualDeatProbValue").innerHTML = sim.epidemicInfo.getDeathIndex().toFixed(2);
         sim.simulateDay();
         gra.updateData();
     }

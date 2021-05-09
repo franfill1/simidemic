@@ -56,7 +56,8 @@ class person {
             this.timeSinceInfection++;
             if (this.timeSinceInfection >= this.epidemicInfo.infectionSpan) {
                 this.dataCollector.nInfected--;
-                if (Math.random() < this.epidemicInfo.deathIndex) {
+
+                if (Math.random() < this.epidemicInfo.getDeathIndex()) {
                     this.dataCollector.nDead++;
                     this.status = 4;
                 }
@@ -168,8 +169,25 @@ class simulation {
             index: params.infection.defaultIndex,
             radius: params.infection.defaultRadius,
             infectionSpan: params.infection.defaultSpan,
-            deathIndex: params.infection.defaultDeathIndex, //probabilità di morte alla fine dell'arco dell'infezione
+            deathIndex : params.infection.defaultDeathIndex,
+            getDeathIndex: function(){return this.deathIndex}, //probabilità di morte alla fine dell'arco dell'infezione
         };
+        if (params.infection.deathIndexChange)
+        {
+            this.epidemicInfo.collectedData = this.collectedData;
+            this.epidemicInfo.N = this.R * this.C;
+            this.epidemicInfo.getDeathIndex = function()
+            {
+                //La mortalità viene cambiata simulando un sovraccarico ospedaliero 
+                var act = this.collectedData.nInfected / this.N;
+                var act2 = act * act;
+                var num = this.deathIndex + (act2);
+                var den = 1.0 + (act2);
+                var d = num / den;
+                return d;
+
+            };
+        }
 
         this.canvas = document.getElementById(canvasId);
         this.canvas.width = 500;
@@ -214,16 +232,6 @@ class simulation {
         }
     };
 
-    deathIndexChanger = function () {
-        //La mortalità viene cambiata simulando un sovraccarico ospedaliero 
-        var act = this.collectedData.nInfected / gra.dataMax;
-        var act2 = act * act;
-        var num = this.epidemicInfo.deathIndex + (act2 * act2);
-        var den = 1.0 + (act2 * act2);
-        this.epidemicInfo.deathIndex = num / den;
-        document.getElementById("actualDeatProbValue").innerHTML = this.epidemicInfo.deathIndex.toPrecision(2);
-    };
-
     simulateDay() {
         /*
         this.simulateDay() => void
@@ -231,8 +239,6 @@ class simulation {
         Viene aggioranata la mortalità nel caso sia richiesto
         Chiama la funzione this.infection(), this.DeathIndexChanger() e la funzione person.liveDay() per ogni persona della simulazione
         */
-        if (params.infection.deathIndexChange)
-            this.deathIndexChanger();
 
         this.infection();
         for (var i = 0; i < this.R; i++) {
