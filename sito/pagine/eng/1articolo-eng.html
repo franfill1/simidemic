@@ -3,7 +3,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage Eng</title>
+    <title>Introduzione</title>
     <link rel="stylesheet" href="../../stilesito.css">
 </head>
 <body>
@@ -13,23 +13,22 @@
                 <ul>
                     <div class="navleft">
                         <li><a href="homepage-ita.html">Home</a></li>
-                        <li><a href="1articolo-ita.html">Articoli</a></li>
-                        <li><a href="simul-ita.html">Simulazioni</a></li>
+                        <li><a href="sim1-ita.html">Simulazioni</a></li>
                     </div>
                     <li class="lingue"><a href="#">Lingue</a>
                         <ul class="dropdown">
-                            <li><a href="Homepage-ita.html">Ita</a></li>
-                            <li><a href="Homepage-eng.html">Eng</a></li>
+                            <li><a href="homepage-ita.html">Ita</a></li>
+                            <li><a href="../eng/homepage-eng.html">Eng</a></li>
                         </ul>
                     </li>
                 </ul>
-              </div>
+            </div>
         </nav>
         <!--header-->
         <section>
                 <div class="header">
                     <div class="title">
-                        <h1>Lorem ipsum dolor sit amet consectetur.</h1>
+                        <h1>Che cos'è un'epidemia? E perché ci interessa?</h1>
                     </div>
                     <img src="../../immagini/articoloheader.png" alt="Immagine di header"/>
                 </div>
@@ -39,64 +38,73 @@
     <div class="text-body">
         <div class="articolocontainer">
         <h1>Lorem ipsum dolor sit amet consectetur.</h1>
-        <p>Abbiamo spesso sentito il termine “pandemia” usato in riferimento al Covid-19, ma cosa significa effettivamente questo termine?<br/>
-            Una pandemia è definita come una malattia epidemica caratterizzata da una diffusione eccezionalmente rapida e vasta. E’ difficile
-            generalizzare l’espansione di una pandemia, date le moltissime variabili che cambiano a seconda del contesto sociale, politico e 
-            storico, oltre alle caratteristiche del patogeno stesso. E’ per questo che esiste un’intera disciplina dedicata allo studio della
-             diffusione delle malattie, l’epidemiologia.<br/>
-            Bisogna quindi specificare che la simulazione e l’articolo che seguiranno tentano di spiegare la diffusione di un’epidemia in linee 
-            molto generali, che non saranno mai in grado di simulare la complessità di un’epidemia reale. </p>
+        <p>We have often heard the term “pandemic” used to refer to Covid-19, but what does this word effectively mean?<br/>
+            A pandemic is defined as an epidemic occurring worldwide, or over a very wide area, crossing international boundaries and usually 
+            affecting a large number of people.<br/>
+            It is difficult to generalize the expansion of a pandemic, given the vast multitude of factors that vary in relation to the social,
+             political and historical context, without counting characteristics of the pathogen itself.<br/>
+            So many are the variables that there is a whole field of study, epidemiology, that studies the patterns and determinants of health
+             and disease conditions.<br/>
+            That being said, this article and the simulations presented attempt to explain a pandemic in very general terms, occasionally drawing conclusions from mathematical models, that will never be able to simulate the complexity of a real epidemic.            
         </div>
-        <div class="dividorarticolo"></div>
         <div class="articolocontainer">
-            <p>Possiamo partire da una situazione semplice. In una popolazione (rappresentata nel nostro caso da dei pallini statici) comincia a 
-                diffondersi una malattia. </p>
+            <p>Let’s start with a simple simulation. In a population(in our case, (represented by a set of colored dots), a disease starts to spread.
+            </p>
             <img src="../../immagini/grafo1.gif" class="grafo" width="200px"/>
-            <p>Anche se la malattia parte da una sola persona, può diffondersi in maniera molto rapida. Nello schema riportato, si può osservare
-                 come ogni persona infetta contagia sempre e solo altre due persone. In questo caso, il numero medio di persone contagiate da ogni 
-                 persona infetta è fissato, ma esso può variare a seconda della popolazione studiata e dalla malattia. Questo indice è detto numero di 
-                 riproduzione di base (R0), e risulta molto importante nello studio delle epidemie.
-                 R0 sta alla base della definizione stessa di epidemia. In epidemiologia, per essere classificata come un’epidemia, l’indice R0 della 
-                 malattia deve essere maggiore di 1. Se è uguale a 1, si tratta invece di una endemia. Quando si trova in uno stato endemico, la malattia
-                 non si diffonde in maniera esponenziale, ma allo stesso tempo non scompare completamente, rimanendo presente nella popolazione locale. 
-                 Per esempio, la varicella è endemica nel Regno Unito.
+            <>Even if a single person is initially infected, it can rapidly spread to the rest of the population. In the diagram above, 
+                each infected person spreads the disease to a few other people. <br/>
+                In this case, the average number of people infected has been fixed to two, but this number will vary based on the disease and on 
+                the population studied.<br/>
+                This index is known as the basic reproductive number (R0), and is very important in the study of epidemics. In fact, R0 is at the 
+                base of the very definition of epidemic. In epidemiology, to be classified as an epidemic, R0 must be higher than 1. If it’s equal
+                 to 1, it is considered an endemic.<br/>
+                When in an endemic state, the disease won’t spread exponentially, however it won’t die out either, remaining present in the 
+                local population.<br/>
+                For example, chicken pox is endemic in the United Kingdom.
                  <table>
                     <tr>
                         <th></th>
-                        <th>Definizione</th>
+                        <th>Definition</th>
                         <th>R0</th>
-                        <th>Etimologia</th>
+                        <th>Etymology</th>
                     </tr>
                     <tr>
-                        <td>Endemia</td>
-                        <td>Malattia costantemente presente o molto frequente in una popolazione o territorio per cause varie.</td>
+                        <td>Endemic</td>
+                        <td>An infection that is constantly maintained at a baseline level in a geographic area without external inputs</td>
                         <td>1</td>
                         <td>in<br/>
-                            demos=popolo<br/><br/>
-                            “che è nel popolo”
+                            demos=people<br/>
+                            “Present in the people”
                             </td>
                     </tr>
                     <tr>
-                        <td>Epidemia</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Epidemic</td>
+                        <td>a widespread occurrence of an infectious disease in a community at a particular time</td>
+                        <td>>1</td>
+                        <td>epì=upon<br/>
+                            demos=people<br/>
+                            “Upon the people”
+                            </td>
                     </tr>
                     <tr>
-                        <td>Pandemia</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>Pandemic</td>
+                        <td>An outbreak of a disease that occurs over a wide geographic area (such as multiple countries or continents) and typically affects a significant proportion of the population 
+                        </td>
+                        <td>>1</td>
+                        <td>pan=all<br/>
+                            demos=people<br/>
+                            “Of all the people”
+                            </td>
                     </tr>
                   </table>
-            Riportiamo i valori R0 di alcune epidemie <br/>
+            <p>The R0 values of some well known diseases <br/></p>
                   <table>
                       <tr>
-                        <th>Malattia</th>
+                        <th>Disease</th>
                         <td>Covid-19</td>
-                        <td>Varicella</td>
+                        <td>Chicken pox</td>
                         <td>AIDS</td>
-                        <td>Vaiolo</td>
+                        <td>Smallpox</td>
                         <td>Influenza</td>
                       </tr>
                       <tr>
@@ -108,28 +116,31 @@
                         <td>0.9-2.1</td>
                       </tr>
                   </table>
-            Esattamente quanto crescono in fretta?<br/>
-            I casi nuovi nascono dai casi attuali, quindi più sono quest’ultimi, più crescono i contagi. Quello che si verrebbe a osservare è una crescita di tipo esponenziale. <br/>
-            Manca comunque un dato: le epidemie non possono crescere all’infinito: prima o poi, tutta la popolazione sarà contagiata, e non ci 
-            saranno più nuovi casi. Sembrerebbe quindi che i contagi crescano in continuazione per poi cadere improvvisamente a 0 quando tutta la 
-            popolazione è ormai contagiata, una crescita molto insolita. Non è infatti questo il caso.<br/>
-            Non bisogna aspettare fino alla fine di un’epidemia un cambiamento nella curva del contagio. <br/>
-            Man mano che più gente viene contagiata sarà impossibile per un contagiato trovare lo stesso numero di persone sane che 
-            incontrerebbe in una popolazione completamente suscettibile. La curva che viene a formarsi non è quindi una curva esponenziale ma una
-             curva logistica. <br/>
+            <p>Exactly how fast do epidemics grow?<br/>
+                New cases stem from the current ones, so the more current cases there are, the more the infection will spread. If graphed, the 
+                total number of cases would take the form of an exponential curve.<br/>
+                Our graph isn’t correct however, at least not yet. We have yet to account for one important factor, and that is, the fact that 
+                epidemics can’t grow indefinitely. Sooner or later, all the population will be infected, and there will be no new cases.<br/>
+                It might seem strange to have the cases gradually grow, only to have them abruptly drop to 0, and in fact, that isn’t quite the case.
+                You mustn't wait till the end of an epidemic to notice a change in the growth of the disease. <br/>
+                As more people get infected, it will become impossible for an infected person to run into the same number of healthy people they
+                 would encounter in a completely susceptible population.<br/><br/>
+                Therefore, the resulting graph isn’t an exponential one, but a logistic one. Varying the probability of infection, observe the resulting logistic curve.                
             </p>
-            <img class="simulpic" src="../../immagini/ezgif.com-gif-maker (1).gif" width="50%" height="auto"/>
-            <p>Variando la probabilità che le persone vicine a un infetto vengano contagiate, osserva il grafico logistico che viene a formarsi. 
-                I contagi crescono rapidamente per un periodo di tempo, per poi raggiungere un flesso, e da lì in poi i casi crescono, ma sempre più lentamente.<br/>
-                Possiamo quindi ridefinire il nostro numero di riproduzione di base (R0): il numero medio di persone contagiate da una persona infetta in una popolazione completamente suscettibile.
-                Si può inoltre definire un secondo numero: il numero di riproduzione effettivo (R), che indica l’effettivo numero medio di persone sane contagiate da ogni infetto e che varia nel corso di una epidemia.
+            <div class="actualsim">
+                <iframe src="../../../simulation/punto1/punto1.html"></iframe>
+            </div>
+            <p>The cases grow rapidly for a period of time, to then reach an inflection point, and from then on the cases still grow, but not as quickly.<br/>
+                We can redefine our basic reproduction number R0 with the following definition: the average number of people infected by a contagious person 
+                in a completely susceptible population.<br/>
+                Furthermore, we can introduce a second number, the effective reproductive number (R) , that indicates the actual average number of healthy
+                 people infected by each contagious person. This second value will vary in the course of an epidemic.<br/>
                 </p>
         </div>
         <div class="dividorarticolo"></div>
 <!--IMPAGINAZIONE-->
         <div class="areainpag">
             <div class="pagination">
-            <a>&laquo; Prec</a>
             <a class="current">1</a>
             <a href="2articolo-ita.html">2</a>
             <a href="3articolo-ita.html">3</a>

@@ -1,0 +1,96 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modello SIR e raggio d'infezione</title>
+    <link rel="stylesheet" href="../../stilesito.css">
+</head>
+<body>
+    <div class="heading">
+        <nav>
+            <div class="navbar">
+                <ul>
+                    <div class="navleft">
+                        <li><a href="homepage-ita.html">Home</a></li>
+                        <li><a href="sim1-ita.html">Simulazioni</a></li>
+                    </div>
+                    <li class="lingue"><a href="#">Lingue</a>
+                        <ul class="dropdown">
+                            <li><a href="homepage-ita.html">Ita</a></li>
+                            <li><a href="../eng/homepage-eng.html">Eng</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <!--header-->
+        <section>
+                <div class="header">
+                    <div class="title">
+                        <h1>Modello SIR e raggio di infezione</h1>
+                    </div>
+                    <img src="../../immagini/articoloheader.png" alt="Immagine di header"/>
+                </div>
+        </section>
+    </div>
+
+    <div class="text-body">
+        <div class="articolocontainer">
+        <h1>Lorem ipsum dolor sit amet consectetur.</h1>
+        <p>Clearly, no one remains infected for life. After a certain period of time, the person will either recover, or pass away. Right now, 
+            it doesn’t matter which of these two fates strikes the person. In either case, they are no longer important in studying the epidemic, 
+            and can be categorized as “removed”.<br/>
+            (We will assume that once recovered, the individual will not be able to fall ill a second time.)<br/>
+            <br/>
+            Let’s see what happens when after a while, a sick person recovers, and is “removed”.<br/>
+            While in our previous simulations the whole population would eventually be infected, this is no longer a guaranteed end result. 
+            Shortening the interval in which a certain person is infectious will lower the amount of people they will be able to meet and infect,
+             reducing cases.<br/>
+            Varying the period of recovery in our simulation, you can observe how a certain percentage of people often remains unscathed. <br/>
+            Since this “period of recovery” only indicates the span of time in which a person is infectious, which could end in recovery or in 
+            death, it is important to note that diseases with a lower mortality rate are not necessarily the most dangerous. If a disease kills 
+            its host very quickly, it could end up being less dangerous than a milder disease whose longer “recovery time” would permit it to
+             spread more.
+            <br/>
+            </p>
+            <img class="simulpic" src="../../immagini/ezgif.com-gif-maker (1).gif" width="50%" height="auto"/>
+            <p class="caption">Removed people are shown in gray</p>
+            <p>This epidemic model, with a population of healthy, infected and removed people is known as the SIR model.</p>
+            <img src="../../immagini/sireng.png" width="250px" class="sir"/>
+        </div>
+        <div class="articolocontainer">
+            <p>We can now consider a second factor: the range of infection.</p>
+            <p>The infection radius represents how close someone needs to be to an infectious person to risk catching the disease. The infection radius and the period of recovery both influence the growth of the epidemic, but in different ways. <br/></p>
+            <img class="simulpic" src="../../immagini/ezgif.com-gif-maker (1).gif" width="50%" height="auto"/>
+                <p>It is important to remember that not all factors are equally important, and understanding which factors hold the most weight will 
+                    result vital in containing and preventing epidemics.<br/>
+                    In statistics, the number measuring the strength of the relationship between two variables in a population is known as the effect size.                    
+                </p>
+        </div>
+        <div class="articolocontainer">
+            <p>Earlier, we glossed over the difference between deceased and recovered. This difference is somewhat irrelevant in studying the spread of an epidemic.
+                 However, it becomes vital in a real situation, where the mortality rate noticeably influences the gravity of the situation and the
+                  public reaction to the disease.<br/>
+                What is the point in studying and trying to stop epidemics, after all, if not to save human lives? To add some realism to the simulation, 
+                we will add a mortality rate.
+                </p>
+            <img class="simulpic" src="../../immagini/ezgif.com-gif-maker (1).gif" width="50%" height="auto"/>
+        </div>
+        <div class="dividorarticolo"></div>
+        <div class="areainpag">
+            <div class="pagination">
+            <a href="1articolo-ita.html">&laquo; Prec</a>
+            <a href="1articolo-ita.html">1</a>
+            <a class="current">2</a>
+            <a href="3articolo-ita.html">3</a>
+            <a href="4articolo-ita.html">4</a>
+            <a href="#">5</a>
+            <a href="3articolo-ita.html">pros &raquo;</a>
+            </div>
+          </div>
+          <div class="footer">
+            <p>Lugli Francesco  |  Maietti Luca  |   Mainetti Ada  |  Nani Alessandro<br/>Classe 3U<br/>Liceo Scientifico Antonio Roiti<br/>Anno 2020-2021</p>
+        </div>
+</body>
+</html>

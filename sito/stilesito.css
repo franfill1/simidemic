@@ -205,7 +205,7 @@ padding: 0.3em;
   max-width: 60ch;
   position: absolute;
   margin-left: 40%;
-  margin-top: 4em;
+  margin-top: em;
 }
 .title h1{font-size: 3.5vw;}
 .text-body h1{
@@ -265,7 +265,7 @@ font-size: 0.8rem
   background-color: black;
   color: white;
 }
-.pagination a:hover:not(.current) {background-color: :rgb(236, 223, 161);}
+.pagination a:hover:not(.current) {background-color:rgb(201, 181, 85);}
 /*IFRAME*/
 .actualsim{
 width:80%;

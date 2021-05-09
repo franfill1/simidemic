@@ -10,14 +10,15 @@ body
 
 .ButtonsDiv_class > * 
 {
-    padding: 4px 8px 4px 8px;
-    font-size: 1em;
-    border-radius: 15%;
-    border-style: solid;
-    border-color: rgb(0, 0, 0);
+    padding: 0.7em 1.2em;
+    font-size: 1rem;
     color:rgb(255, 255, 255);
+    border: none;
+    background-color: #fa8128ff;
+    box-shadow: 3px 2px 8px #888888
 }
-
+.ButtonsDiv_class > *:hover{background-color: #ffb91bff;;}
+/*
 #ResetButton
 {
     background-color: rgb(58, 1, 80);
@@ -43,7 +44,7 @@ body
 {
     background-color: orange;
 }
-
+*/
 /*aggiungendo la classe keyword a una span, essa diventa maiuscola*/
 span.keyword
 {
@@ -63,12 +64,10 @@ span.keyword
 {
     text-align: center;
     margin: 0.5em;
-    color: black;
 }
 
 .sliders span
 {
-    color: black;
     padding: 0.5em;
 }
 
@@ -104,6 +103,40 @@ margin:1rem;
     color: black;
 }
 
+/*slider*/
+.slider {
+-webkit-appearance: none;
+width: 50%;
+opacity: 0.8;
+height: 13px;
+border-radius: 5px;
+background: #e9e9e9;
+-webkit-transition: .2s;
+transition: opacity .2s;
+border: none;
+}
+
+.slider:hover {
+opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 25px;
+height: 25px;
+border-radius: 50%;
+background:#fa8128ff;
+cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+width: 25px;
+height: 25px;
+border-radius: 50%;
+background: #fa8128ff;
+cursor: pointer;
+}
 /*RESPONSIVE*/
 @media screen and (min-width:600px)
 {
