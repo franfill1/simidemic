@@ -12,6 +12,15 @@
   --light-orange: #ffb91bff;
   --brown: rgba(0, 0, 0, 0.89);
 }
+
+a:hover
+{
+  cursor: pointer;
+}
+button:hover
+{
+  cursor: pointer;
+}
 /*NAVBAR*/
 .navbar ul{
   display: flex;
