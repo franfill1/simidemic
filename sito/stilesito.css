@@ -211,10 +211,12 @@ padding: 0.3em;
 }
 .title{
   color: #fa8128ff;
-  max-width: 60ch;
+  max-width: 65ch;
   position: absolute;
   margin-left: 40%;
-  margin-top: 1.5em;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
 }
 .title h1{
 font-size: 3.5vw;
