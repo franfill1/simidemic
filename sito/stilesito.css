@@ -227,10 +227,10 @@ font-size: 3.5vw;
 }
 .text-body h1{
   margin:0.5em;
-  font-size: 2.8rem;
+  font-size: 2.6rem;
   text-align: center;
   font-weight: 900;
-  color: var(--light-orange);
+  color: var(--dark-orange);
 }
 /*TABELLE*/
 table{
@@ -245,6 +245,34 @@ td, th{
 th{
   color:var(--brown);
   background-color: var(--light-orange);
+}
+@media screen and (max-width:700px){
+  table, th, td
+  {
+    display: block;
+  }
+  .thead{display: hidden;}
+  tr{border: 1px solid var(--brown);}
+  td{
+    border: none;
+    border-bottom: 1px solid var(--brown);
+    position: relative;
+    padding-left: 50%;
+  }
+  td:before{
+    position: absolute;
+    top:6px;
+    left:6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+  td:nth-of-type(1):before{content: "test";}
+  td:nth-of-type(1):before{content: "test";}
+  td:nth-of-type(1):before{content: "test";}
+  td:nth-of-type(1):before{content: "test";}
+  td:nth-of-type(1):before{content: "test";}
+  td:nth-of-type(1):before{content: "test";}
 }
 /*Immagini e caption*/
 .caption{
