@@ -274,11 +274,9 @@ width:80%;
 display: inline-block;
 position: relative;
 margin: auto;
-}
-.actualsim{
-  height: 38em;
-  width: 100%;
-  border: none;
+height: 38em;
+width: 100%;
+border: none;
 }
 iframe{
 width:100%;
