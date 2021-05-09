@@ -287,7 +287,7 @@ font-size: 0.8rem
   display: inline-block;
   position: relative;
   margin: auto;
-  height: 33.5em;
+  height: 34em;
   width: 100%;
   border: none;
 }
@@ -299,6 +299,7 @@ font-size: 0.8rem
   height: 25em;
   width: 100%;
   border: none;
+  overflow: hidden;
 }
 iframe{
   width:100%;
