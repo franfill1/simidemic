@@ -86,6 +86,9 @@ button:hover
 .grey{
   color: rgb(110, 119, 113);
 }
+.hr-header{
+  border-color: #fa8128ff;
+}
    /*CONTENUTO*/
   /*general style*/
 p{
