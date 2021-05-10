@@ -287,6 +287,8 @@ iframe{
 }
 /*TABELLE*/
 .tab1, .tab2{padding: 0.5rem;}
+/**/
+.articletitolo{max-width: 100%;}
   /*RESPONSIVE*/
   /*size 2*/
 @media screen and (min-width:600px){
