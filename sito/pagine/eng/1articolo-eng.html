@@ -46,9 +46,7 @@
             So many are the variables that there is a whole field of study, epidemiology, that studies the patterns and determinants of health
              and disease conditions.<br/>
             That being said, this article and the simulations presented attempt to explain a pandemic in very general terms, occasionally drawing conclusions from mathematical models, that will never be able to simulate the complexity of a real epidemic.            
-        </div>
-        <div class="articolocontainer">
-            <p>Let’s start with a simple simulation. In a population(in our case represented by a set of colored dots), a disease starts to spread.
+            Let’s start with a simple simulation. In a population(in our case represented by a set of colored dots), a disease starts to spread.
             </p>
             <img src="../../immagini/grafo1.gif" class="grafo" width="200px"/>
             <p>Even if a single person is initially infected, it can rapidly spread to the rest of the population. In the diagram above, 
@@ -61,62 +59,10 @@
                 When in an endemic state, the disease won’t spread exponentially, however it won’t die out either, remaining present in the 
                 local population.<br/>
                 For example, chicken pox is endemic in the United Kingdom.
-                 <table>
-                    <tr>
-                        <th></th>
-                        <th>Definition</th>
-                        <th>R0</th>
-                        <th>Etymology</th>
-                    </tr>
-                    <tr>
-                        <td>Endemic</td>
-                        <td>An infection that is constantly maintained at a baseline level in a geographic area without external inputs</td>
-                        <td>1</td>
-                        <td>in<br/>
-                            demos=people<br/>
-                            “Present in the people”
-                            </td>
-                    </tr>
-                    <tr>
-                        <td>Epidemic</td>
-                        <td>a widespread occurrence of an infectious disease in a community at a particular time</td>
-                        <td>>1</td>
-                        <td>epì=upon<br/>
-                            demos=people<br/>
-                            “Upon the people”
-                            </td>
-                    </tr>
-                    <tr>
-                        <td>Pandemic</td>
-                        <td>An outbreak of a disease that occurs over a wide geographic area (such as multiple countries or continents) and typically affects a significant proportion of the population 
-                        </td>
-                        <td>>1</td>
-                        <td>pan=all<br/>
-                            demos=people<br/>
-                            “Of all the people”
-                            </td>
-                    </tr>
-                  </table>
-            <p>The R0 values of some well known diseases <br/></p>
-                  <table>
-                      <tr>
-                        <th>Disease</th>
-                        <td>Covid-19</td>
-                        <td>Chicken pox</td>
-                        <td>AIDS</td>
-                        <td>Smallpox</td>
-                        <td>Influenza</td>
-                      </tr>
-                      <tr>
-                        <th>R0</th>
-                        <td>2.4-3.4</td>
-                        <td>10-12</td>
-                        <td>2-5</td>
-                        <td>3.5-6</td>
-                        <td>0.9-2.1</td>
-                      </tr>
-                  </table>
-            <p>Exactly how fast do epidemics grow?<br/>
+                <img class="tab1"src="../../immagini/tab3.PNG"/>
+                The R0 values of some well known diseases <br/>
+            <img class="tab2"src="../../immagini/tab4.PNG"/>
+                Exactly how fast do epidemics grow?<br/>
                 New cases stem from the current ones, so the more current cases there are, the more the infection will spread. If graphed, the 
                 total number of cases would take the form of an exponential curve.<br/>
                 Our graph isn’t correct however, at least not yet. We have yet to account for one important factor, and that is, the fact that 
@@ -127,8 +73,8 @@
                  would encounter in a completely susceptible population.<br/><br/>
                 Therefore, the resulting graph isn’t an exponential one, but a logistic one. Varying the probability of infection, observe the resulting logistic curve.                
             </p>
-            <div class="actualsim-art">
-                <iframe src="../../../simulation/punto1/punto1-eng.html"></iframe>
+            <div class="actualsim">
+                <iframe src="../../../simulation/punto1/punto1.html"></iframe>
             </div>
             <p>The cases grow rapidly for a period of time, to then reach an inflection point, and from then on the cases still grow, but not as quickly.<br/>
                 We can redefine our basic reproduction number R0 with the following definition: the average number of people infected by a contagious person 
@@ -146,7 +92,7 @@
             <a href="3articolo-eng.html">3</a>
             <a href="4articolo-eng.html">4</a>
             <a href="5articolo-eng.html">5</a>
-            <a href="2articolo-eng.html">Succ &raquo;</a>
+            <a href="2articolo-eng.html">Next &raquo;</a>
             </div>
           </div>
           <div class="footer">
