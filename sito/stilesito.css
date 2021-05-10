@@ -77,6 +77,15 @@ button:hover
   text-align: center;
   margin: auto;
 }
+.green{
+  color: green;
+}
+.red{
+  color: red;
+}
+.grey{
+  color: rgb(110, 119, 113);
+}
    /*CONTENUTO*/
   /*general style*/
 p{
