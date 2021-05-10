@@ -241,14 +241,6 @@ text-align: center;;
 margin-top: 0.3em;
 font-size: 0.8rem
 }
-.johnsnow{display: flex;}
-.johnsnow>*{
-  flex-basis: 100%;
-  margin-left: 1.5rem;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
 /*INPAGINAZIONE*/
 .areainpag{
   text-align: center;
@@ -274,7 +266,7 @@ font-size: 0.8rem
 /*IFRAME*/
 .actualsim{
   width:100%;
-  display: inline-block;
+  display: block;
   position: relative;
   margin: auto;
   height: 34em;
@@ -283,13 +275,10 @@ font-size: 0.8rem
 }
 .actualsim-art{
   width:100%;
-  display: inline-block;
+  display: block;
   position: relative;
   margin: auto;
-  height: 25em;
-  width: 100%;
   border: none;
-  overflow: hidden;
 }
 iframe{
   width:100%;
