@@ -290,6 +290,7 @@ font-size: 0.8rem
   display: block;
   position: relative;
   margin: auto;
+  height: 350px;
   border: none;
 }
 iframe{
@@ -304,7 +305,6 @@ iframe{
   /*RESPONSIVE*/
   /*size 2*/
 @media screen and (min-width:600px){
-    .text-body{background-color:rgb(236, 223, 161);}
 
     .text-section-1{flex-direction: row;}
     .text-section-1>div{flex-direction: column;}
@@ -336,13 +336,17 @@ iframe{
     .header{display: block;}
     .text-body h1{display: none;}
     .tab2{max-width: 80%;}
+    .actualsim-art{height: 380px;}
 }
 
   /*size4 size*/
+
 @media screen and (min-width:992px){
     .articolocontainer{width: min(70%, 50rem);}
+    .actualsim-art{height: 390px;}
 }
   /*size 5*/
 @media screen and (min-width:1200px){
     .container{width: min(90%, 50rem);}
+    .actualsim-art{height: 400px;}
 }
