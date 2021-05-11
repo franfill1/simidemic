@@ -83,7 +83,7 @@ function main()
     sim.draw();
     setUpSliders();
     frame = 0;
-    paused = false;
+    paused = true;
     setInterval(update, 20);
 }
 
