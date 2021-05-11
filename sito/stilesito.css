@@ -92,7 +92,6 @@ button:hover
    /*CONTENUTO*/
   /*general style*/
 p{
-  text-align: justify;
   color: black;
 }
 h2, h3{
@@ -311,6 +310,7 @@ iframe{
     .text-section-1{margin: 1em 0;}
     .citazione q{font-size: 2rem;}
     .articolocontainer{width: min(70%, 50rem);}
+    p{text-align: justify;}
 }
   /*size 3*/
 @media screen and (min-width:768px){
