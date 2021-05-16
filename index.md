@@ -1,7 +1,0 @@
-<!DOCTYPE html>
-<html>
-   <head>
-      <title></title>
-      <meta http-equiv = "refresh" content = "0; url =/sito/pagine/ita/homepage-ita.html" />
-   </head>
-</html>
